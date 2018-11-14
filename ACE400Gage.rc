@@ -1,0 +1,309 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Korean resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 18, 1\r\n"
+    "#pragma code_page(949)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\ACE400Gage.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.kor\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\ACE400Gage.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "ACE400Gage"
+FONT 9, "굴림"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "ACE400Gage Version 1.0",IDC_STATIC,40,10,119,8,
+                    SS_NOPREFIX
+    LTEXT           "Copyright (c) 2018",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_MAIN_DIALOG DIALOGEX 0, 0, 723, 459
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "ACE400Gage"
+FONT 10, "Calibri"
+BEGIN
+    PUSHBUTTON      "Exit",IDOK,125,7,53,23
+    CONTROL         "Gage Study",IDC_CHECK_GAGE,"Button",BS_AUTOCHECKBOX | 
+                    BS_PUSHLIKE | WS_TABSTOP,7,7,53,23
+    CONTROL         "Config",IDC_CHECK_CONFIG,"Button",BS_AUTOCHECKBOX | 
+                    BS_PUSHLIKE | WS_TABSTOP,66,7,53,23
+END
+
+IDD_GAGE_DIALOG DIALOG DISCARDABLE  5, 45, 699, 398
+STYLE WS_CHILD | WS_BORDER
+FONT 10, "Calibri"
+BEGIN
+    LTEXT           "File:",IDC_STATIC,14,59,17,8
+    CONTROL         "Gage Grid",IDC_GRID,"MFCGridCtrl",WS_TABSTOP,143,21,549,
+                    101
+    EDITTEXT        IDC_EDIT_4W_FILE_PATH,37,58,80,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    PUSHBUTTON      "Load File",IDC_BUTTON_LOAD_FILE,15,28,100,18,
+                    BS_MULTILINE
+    COMBOBOX        IDC_COMBO_MEAS_TYPE,64,158,52,30,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Measurement\nData",IDC_STATIC,14,157,45,19
+    LTEXT           "Reference",IDC_STATIC,14,183,45,13
+    EDITTEXT        IDC_EDIT_REF_INPUT,65,179,40,14,ES_AUTOHSCROLL
+    LTEXT           "Tolerance\n(Upper spec- Lower Spec)",IDC_STATIC,15,199,
+                    45,26
+    EDITTEXT        IDC_EDIT_TOL_INPUT,65,202,40,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    CONTROL         "",IDC_STATIC,"Static",SS_BITMAP,147,159,13,11
+    LTEXT           "Type1 Gage Study - Run Chart",IDC_STATIC,146,143,110,12
+    GROUPBOX        "Basic Statistics",IDC_STATIC,149,296,121,94
+    LTEXT           "Type1 Gage Study - Observation",IDC_STATIC,149,283,110,
+                    12
+    LTEXT           "Reference",IDC_STATIC,158,313,45,13
+    EDITTEXT        IDC_EDIT_REF,217,312,40,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Mean",IDC_STATIC,158,333,45,13
+    EDITTEXT        IDC_EDIT_MEAN,217,332,40,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "6 x StDev (SV)",IDC_STATIC,158,353,45,13
+    EDITTEXT        IDC_EDIT_STDEV,217,352,40,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Tolerance (TOL)",IDC_STATIC,158,373,53,13
+    EDITTEXT        IDC_EDIT_TOL,217,372,40,14,ES_AUTOHSCROLL | ES_READONLY
+    GROUPBOX        "Bias",IDC_STATIC,282,296,121,94
+    LTEXT           "Bias",IDC_STATIC,291,312,45,13
+    EDITTEXT        IDC_EDIT_BIAS,350,311,40,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "T",IDC_STATIC,291,332,45,13
+    EDITTEXT        IDC_EDIT_T,350,331,40,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "PValue",IDC_STATIC,291,352,45,13
+    EDITTEXT        IDC_EDIT_PVALUE,350,351,40,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    GROUPBOX        "Capability",IDC_STATIC,417,296,165,94
+    LTEXT           "Cg",IDC_STATIC,426,312,45,13
+    EDITTEXT        IDC_EDIT_CG,526,310,40,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Cgk",IDC_STATIC,426,332,45,13
+    EDITTEXT        IDC_EDIT_CGK,526,331,40,14,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "%Var (Repeatablility)",IDC_STATIC,426,352,77,13
+    EDITTEXT        IDC_EDIT_VAR_REPT,526,350,40,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "%Var (Repeatability and Bias)",IDC_STATIC,426,372,94,13
+    EDITTEXT        IDC_EDIT_VAR_REPT_BIAS,526,371,40,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Measurment Data Sheet",IDC_STATIC,143,7,110,12
+    GROUPBOX        "Type1 Gage Study - Input",IDC_STATIC,7,143,118,119
+    GROUPBOX        "Load 4W Measurement File",IDC_STATIC,7,14,119,68
+    PUSHBUTTON      "OK",IDC_BUTTON2,17,236,96,18,BS_MULTILINE
+END
+
+IDD_CONFIG_DIALOG DIALOGEX 5, 65, 425, 186
+STYLE WS_CHILD
+FONT 10, "Calibri", 0, 0, 0x1
+BEGIN
+    CONTROL         "Basic",IDC_CHECK_PRT_BASIC,"Button",BS_AUTOCHECKBOX | 
+                    BS_PUSHLIKE | WS_TABSTOP,17,34,40,18
+    GROUPBOX        "Log Print Option",IDC_STATIC,7,12,394,87
+    CONTROL         "Level 1",IDC_CHECK_PRT_LEVEL1,"Button",BS_AUTOCHECKBOX | 
+                    BS_PUSHLIKE | WS_TABSTOP,66,34,40,18
+    CONTROL         "Level 2",IDC_CHECK_PRT_Level2,"Button",BS_AUTOCHECKBOX | 
+                    BS_PUSHLIKE | WS_TABSTOP,120,34,40,18
+    CONTROL         "Level 3",IDC_CHECK_PRT_LEVEL3,"Button",BS_AUTOCHECKBOX | 
+                    BS_PUSHLIKE | WS_TABSTOP,175,34,40,18
+    CONTROL         "Device (D96)",IDC_CHECK_PRT_DEVICE,"Button",
+                    BS_AUTOCHECKBOX | BS_PUSHLIKE | WS_TABSTOP,224,34,44,18
+    LTEXT           "printState",IDC_STATIC,19,70,32,14
+    CTEXT           "0",IDC_STATIC_PRINT_STATE,67,66,63,16,SS_CENTERIMAGE,
+                    WS_EX_CLIENTEDGE
+    CONTROL         "Device D64",IDC_CHECK_PRT_DEV_D64,"Button",
+                    BS_AUTOCHECKBOX | BS_PUSHLIKE | WS_TABSTOP,275,34,40,18
+    LTEXT           "used Memory",IDC_STATIC,21,117,32,22
+    CTEXT           "0",IDC_STATIC_USED_MEM,69,117,63,16,SS_CENTERIMAGE,
+                    WS_EX_CLIENTEDGE
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041204B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "ACE400Gage MFC 응용 프로그램\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "ACE400Gage\0"
+            VALUE "LegalCopyright", "Copyright (C) 2018\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "ACE400Gage.EXE\0"
+            VALUE "ProductName", "ACE400Gage 응용 프로그램\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x412, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_MAIN_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 716
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 452
+    END
+
+    IDD_GAGE_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 692
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 391
+    END
+
+    IDD_CONFIG_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 418
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 179
+        HORZGUIDE, 12
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "ACE400Gage 정보(&A)..."
+END
+
+#endif    // Korean resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE 18, 1
+#pragma code_page(949)
+#endif //_WIN32
+#include "res\ACE400Gage.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.kor\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
