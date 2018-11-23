@@ -112,6 +112,10 @@ SOURCE=.\Error.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\FileSysInfo.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\GageDialog.cpp
 # End Source File
 # Begin Source File
@@ -178,6 +182,10 @@ SOURCE=.\ConfigDialog.h
 # Begin Source File
 
 SOURCE=.\Error.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\FileSysInfo.h
 # End Source File
 # Begin Source File
 

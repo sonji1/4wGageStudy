@@ -428,6 +428,8 @@ public:
 // Implementation
 public:
     virtual ~CGridCtrl();
+	BOOL SetScrollPos32(int nBar, int nPos, BOOL bRedraw = TRUE);
+	
 
 protected:
     BOOL RegisterWindowClass();
@@ -459,8 +461,9 @@ protected:
     void ResetSelectedRange();
     void ResetScrollBars();
     int  GetScrollPos32(int nBar, BOOL bGetTrackPos = FALSE);
-    BOOL SetScrollPos32(int nBar, int nPos, BOOL bRedraw = TRUE);
 
+
+    
     BOOL SortTextItems(int nCol, BOOL bAscending, int low, int high);
     BOOL SortItems(PFNLVCOMPARE pfnCompare, int nCol, BOOL bAscending, LPARAM data, 
                    int low, int high);

@@ -74,7 +74,8 @@ typedef struct sFILE_DATA
 		DataDir			= SystemDir + "\\" + "Data";
 
 		//if( (_access(ParameterDir, 0 )) == -1 )	_mkdir(ParameterDir);
-		if( (_access(DataDir, 0 )) == -1 )		_mkdir(DataDir);
+		if( (_access(DataDir, 0 )) == -1 )		
+			_mkdir(DataDir);
 
 		SystemFile		= ParameterDir	+ "\\" + SystemFileName;
 	}
