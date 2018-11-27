@@ -99,13 +99,25 @@ public:
 // Dialog Data
 	//{{AFX_DATA(CGageDialog)
 	enum { IDD = IDD_GAGE_DIALOG };
-	CComboBox	m_comboMeasType;
-	CGridCtrl	m_gridCtrl;
-	CString		m_editMeasDataPath;
-	int			m_edit_nRefInput;
-	int			m_edit_nTolInput;
-	int			m_edit_nRef;
-	int			m_edit_nTol;
+	CComboBox		m_comboMeasType;		// for mohm type combo box, Input
+	CGridCtrl		m_gridCtrl;				// for Grid  (Input data list per type)
+	CString			m_editMeasDataPath;		// for 4w Data file path
+	CChartViewer	m_ChartViewer;			// for Chart,	 선택된 Lot, Date의 그래프 출력
+	int				m_edit_nRefInput;		// Input
+	int				m_edit_nTolInput;		// Input
+	int				m_edit_nRef;			// Output
+	int				m_edit_nTol;			// Output
+
+	CString			m_editStrAvg;			// Output
+	CString			m_editStrStDev;			// Output
+	CString			m_editStr6StDev;		// Output
+	CString			m_editStrBias;			// Output
+	CString			m_editStrT;				// Output
+	CString			m_editStrPValue;		// Output
+	CString			m_editStrCg;			// Output
+	CString			m_editStrCgk;			// Output
+	CString			m_editStrVarRept;		// Output
+	CString			m_editStrVarReptBias;	// Output
 	//}}AFX_DATA
 	
 
@@ -128,6 +140,7 @@ protected:
 	afx_msg void OnSelchangeComboMeasType();
 	afx_msg void OnChangeEditTolInput();
 	afx_msg void OnButtonDoStudy();
+
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
@@ -135,13 +148,23 @@ protected:
 public:
 
 	// member for 4w Measure Data
-	int		m_nTypeCount;
-	int		m_nMeasCount;
-	double	m_daMeasData[MAX_MEAS_TYPE][MAX_MEAS_COUNT];
+	int			m_nTypeCount;
+	int			m_nMeasCount;
+	double		m_daMeasData[MAX_MEAS_TYPE][MAX_MEAS_COUNT];
 	//vector	<double>	m_vdaMeasData[MAX_MEAS_TYPE];
 	
-	int		m_nCombo_CurrType;	// 현재 combo에서 선택된 type#. enum값으로 access 가능함 (ex: mohm_1, mohm_2..)
+	int			m_nCombo_CurrType;	// 현재 combo에서 선택된 type#. enum값으로 access 가능함 (ex: mohm_1, mohm_2..)
 
+	double		m_dAvg;				// Output
+	double		m_d6StDev;			// Output
+	double		m_dStDev;			// Output
+	double		m_dBias;			// Output
+	double		m_dT;				// Output
+	double		m_dPValue;			// Output
+	double		m_dCg;				// Output
+	double		m_dCgk;				// Output
+	double		m_dVarRept;			// Output
+	double		m_dVarReptBias;		// Output
 
 	// member for grid control
 	int		m_nFixCols;
@@ -166,7 +189,7 @@ public:
 	BOOL 	InitView();
 	void 	Display_mohmGridHeader();
 	void 	Display_mohmGridData();
-	void 	SetGridBule(int type);
+	void 	SetGridBkBule(int type);
 	void 	ClearGrid_BackGround();
 	void 	ClearGrid_Data();
 
@@ -174,6 +197,9 @@ public:
 	int 	getMeasDataLoc(char *pStr, int strMax, int &rLoc);
 	int 	getMeasData(char *pStr, int strMax, double &rdMeasData);
 
+	void 	DisplayGageStudyChart(int type); 
+	void 	CalcGageStudyOutput(int type); 
+	void 	DisplayGageStudyOutput(int type); 
 };
 
 //{{AFX_INSERT_LOCATION}}

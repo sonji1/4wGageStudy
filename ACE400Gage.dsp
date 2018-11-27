@@ -43,7 +43,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Yu"stdafx.h" /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I ".\ChartDirector" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Yu"stdafx.h" /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x412 /d "NDEBUG" /d "_AFXDLL"
@@ -69,7 +69,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /Yu"stdafx.h" /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "./gridctrl_src/" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Yu"stdafx.h" /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "./gridctrl_src/" /I ".\ChartDirector" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Yu"stdafx.h" /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x412 /d "_DEBUG" /d "_AFXDLL"
@@ -149,6 +149,10 @@ SOURCE=.\StdAfx.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\TDist.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\gridctrl_src\TitleTip.cpp
 # End Source File
 # End Group
@@ -161,7 +165,7 @@ SOURCE=.\ACE400Gage.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\bchartdir.h
+SOURCE=.\ChartDirector\bchartdir.h
 # End Source File
 # Begin Source File
 
@@ -169,7 +173,7 @@ SOURCE=.\gridctrl_src\CellRange.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\chartdir.h
+SOURCE=.\ChartDirector\chartdir.h
 # End Source File
 # Begin Source File
 
@@ -189,7 +193,7 @@ SOURCE=.\FileSysInfo.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\FinanceChart.h
+SOURCE=.\ChartDirector\FinanceChart.h
 # End Source File
 # Begin Source File
 

@@ -6,6 +6,7 @@
 #include "GageDialog.h"
 #include "chartdir.h"
 #include "FileSysInfo.h"
+#include "math.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -26,8 +27,29 @@ CGageDialog::CGageDialog(CWnd* pParent /*=NULL*/)
 	m_edit_nTolInput = 1;
 	m_edit_nRef = m_edit_nRefInput;
 	m_edit_nTol = m_edit_nTolInput;
+
+	m_editStrAvg = _T("");
+	m_editStrStDev = _T("");
+	m_editStr6StDev = _T("");
+	m_editStrBias = _T("");
+	m_editStrT = _T("");
+	m_editStrPValue = _T("");
+	m_editStrCg = _T("");
+	m_editStrCgk = _T("");
+	m_editStrVarRept = _T("");
+	m_editStrVarReptBias = _T("");
 	//}}AFX_DATA_INIT
 	
+	m_dAvg = 0.0;
+	m_d6StDev = 0.0;
+	m_dStDev = 0.0;
+	m_dBias = 0.0;
+	m_dT = 0.0;
+	m_dPValue = 0.0;
+	m_dCg = 0.0;
+	m_dCgk = 0.0;
+	m_dVarRept = 0.0;
+	m_dVarReptBias = 0.0;
 }
 
 
@@ -38,11 +60,23 @@ void CGageDialog::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_MEAS_TYPE, 	m_comboMeasType);
 	DDX_Control(pDX, IDC_GRID, 				m_gridCtrl);
 	DDX_Text   (pDX, IDC_EDIT_4W_FILE_PATH, m_editMeasDataPath);
+	DDX_Control(pDX, IDC_CHART, 			m_ChartViewer);
 	DDX_Text   (pDX, IDC_EDIT_REF_INPUT, 	m_edit_nRefInput);
 	DDX_Text   (pDX, IDC_EDIT_TOL_INPUT, 	m_edit_nTolInput);
 	DDV_MinMaxInt(pDX, m_edit_nTolInput, 1, 3);
-	DDX_Text(	pDX, IDC_EDIT_REF, 			m_edit_nRef);
-	DDX_Text(pDX, IDC_EDIT_TOL, m_edit_nTol);
+
+	DDX_Text   (pDX, IDC_EDIT_REF, 			m_edit_nRef);
+	DDX_Text   (pDX, IDC_EDIT_TOL, 			m_edit_nTol);
+	DDX_Text   (pDX, IDC_EDIT_MEAN, 		m_editStrAvg);
+	DDX_Text   (pDX, IDC_EDIT_STDEV, 		m_editStrStDev);
+	DDX_Text   (pDX, IDC_EDIT_6X_STDEV, 	m_editStr6StDev);
+	DDX_Text   (pDX, IDC_EDIT_BIAS, 		m_editStrBias);
+	DDX_Text   (pDX, IDC_EDIT_T, 			m_editStrT);
+	DDX_Text   (pDX, IDC_EDIT_PVALUE, 		m_editStrPValue);
+	DDX_Text   (pDX, IDC_EDIT_CG, 			m_editStrCg);
+	DDX_Text   (pDX, IDC_EDIT_CGK, 			m_editStrCgk);
+	DDX_Text   (pDX, IDC_EDIT_VAR_REPT, 	m_editStrVarRept);
+	DDX_Text   (pDX, IDC_EDIT_VAR_REPT_BIAS, m_editStrVarReptBias);
 	//}}AFX_DATA_MAP
 }
 
@@ -110,8 +144,18 @@ BOOL CGageDialog::InitMember()
 	m_bSingleSelMode = FALSE;
 */
 
-	// 측정 raw data 파일을 read한다.
+	m_dAvg = 0.0;
+	m_d6StDev = 0.0;
+	m_dStDev = 0.0;
+	m_dBias = 0.0;
+	m_dT = 0.0;
+	m_dPValue = 0.0;
+	m_dCg = 0.0;
+	m_dCgk = 0.0;
+	m_dVarRept = 0.0;
+	m_dVarReptBias = 0.0;
 
+	
 	return TRUE;
 }
 
@@ -123,14 +167,17 @@ BOOL CGageDialog::InitView()
 
 	//-------------------------
 	// 4W Meas data 로드
+	
 	// ACE400의 4W_Setup_A.txt 파일 위치를 찾는다.   ex) "C:\ACE400\QC-JIG-S100-BHFlex\4W\"
 	FileSysInfo01.LoadSaveView01(DATA_LOAD);		// Load	SysInfoView01.m_pStrFilePathBDL
 
-	// 4W_Setup_A.txt 파일을 로드한다.
+	// 4W_Setup_A.txt 파일을 로드한다.  : 4W Meas data
 	Load_4W_MeasData();
+
 
 	//----------------------------
 	// mohm grid 초기화 
+	//  : SetGridBkBlue()를 combo초기화할 때 해야하므로 Grid를 Combo보다 먼저 초기화한다.
 
 	m_gridCtrl.SetEditable(m_bEditable);
 	//m_gridCtrl.SetListMode(m_bListMode);
@@ -156,6 +203,7 @@ BOOL CGageDialog::InitView()
 	Display_mohmGridData();			// Grid Data  출력
 
 
+
 	//--------------------------
 	// combo box init
 
@@ -167,7 +215,7 @@ BOOL CGageDialog::InitView()
 	m_nCombo_CurrType = mohm_1;			// 0
 	m_comboMeasType.SetCurSel(mohm_1);	// 0 = mohm_1
 
-	SetGridBule(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
+	SetGridBkBule(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
 
 	m_edit_nRefInput = g_MeasInfoTable[m_nCombo_CurrType].nMeasRef;
 	m_edit_nRef = m_edit_nRefInput;
@@ -457,7 +505,7 @@ void CGageDialog::OnSelchangeComboMeasType()
 	// => 여기 말고  'OK' 버튼을 눌렀을 때 수행하기로 한다.  추후 여기서 하게 될 수도 있음.
 	
 
-	SetGridBule(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
+	SetGridBkBule(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
 
 	
 	// 대화상자의 Edit컨트롤에 m_edit_nRefInput 를 출력.
@@ -470,7 +518,7 @@ void CGageDialog::OnSelchangeComboMeasType()
 
 
 // 현재 선택된 type의 배경을 푸른색으로 설정.
-void CGageDialog::SetGridBule(int type)
+void CGageDialog::SetGridBkBule(int type)
 {
 	// 먼저 배경을 모두 노랑색으로 원상복구
 	ClearGrid_BackGround();			
@@ -541,4 +589,271 @@ void CGageDialog::OnButtonDoStudy()
 {
 	// TODO: Add your control notification handler code here
 	
+	DisplayGageStudyChart(m_nCombo_CurrType);
+	CalcGageStudyOutput(m_nCombo_CurrType);
+	DisplayGageStudyOutput(m_nCombo_CurrType);
+	
+}
+
+void CGageDialog::DisplayGageStudyChart(int type) 
+{
+
+	//----------------------------------------------------------------------
+	// Ref - 0.1 *Tol, Ref, Ref + 0.1*Tol, measData(type) 로 그래프 그리기 
+	//
+	// Draw Chart and set to CChartViewer
+	
+
+    // The data for the bar chart
+    //double proportion[] = {0.08, 0.02, 0.06, 0.02, 0.04, 0.12, 0.06, 0.04, 0.06, 0, 0.25, 0.16666667, 0.14893617, 0.127659574, 0.130434783 };
+    //double center[] = { 0.087, 0.087, 0.087, 0.087,0.087, 0.087,0.087, 0.087,0.087, 0.087,0.087, 0.087,0.087, 0.087, 0.087 };
+    //double UCL[] = { 0.207, 0.207, 0.207, 0.207,0.207, 0.207,0.207, 0.207,0.207, 0.207,0.209, 0.209,0.210, 0.210, 0.210 };
+	// The labels for the bar chart
+    //const char *labels[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"};
+
+   	double ref[MAX_MEAS_COUNT];			// ref값이 array가 아니므로 출력을 위한 array를 만든다.
+   	double ref_minus[MAX_MEAS_COUNT];	// ref - (0.1 * Tol)
+   	double ref_plus[MAX_MEAS_COUNT];	// ref + (0.1 * Tol)
+    double dataX0[MAX_MEAS_COUNT];		// X 축 label로 사용할 array 
+
+    int nRef = g_MeasInfoTable[type].nMeasRef;
+	for (int meas =0; meas < m_nMeasCount; meas++)
+	{
+		ref[meas] = nRef;
+		ref_minus[meas] = nRef - (0.1 *m_edit_nTol);
+		ref_plus[meas]  = nRef + (0.1 *m_edit_nTol);
+		dataX0[meas] = meas;
+	}
+
+
+	// 차트 생성 ------
+    // Create an XYChart object of size 670 x 260 pixels, with a light blue (EEEEFF) background,
+    // black border, 1 pxiel 3D border effect and rounded corners
+    XYChart *c = new XYChart(670, 260, 0xeeeeff, 0x000000, 1);
+    //c->setRoundedFrame();
+
+    // Set the plotarea at (55:x, 58:y) and of size 590 x 155 pixels, with white background. Turn on
+    // both horizontal and vertical grid lines with light grey color (0xcccccc)
+    c->setPlotArea(55, 58, 590, 155, 0xffffff, -1, -1, 0xcccccc, 0xcccccc);
+
+
+	// 범례형식 지정  ------- 
+    // Add a legend box at (250:x, 30:y) (top of the chart) with horizontal layout. Use 9pt Arial Bold
+    // font. Set the background and border color to Transparent.
+    c->addLegend(250, 30, false, "arialbd.ttf", 9)->setBackground(Chart::Transparent);
+
+
+
+	// X축, Y 축 타이틀 지정 ----------------
+	
+    // Add a title box to the chart using 12pt Arial Bold Italic font, on a light blue (CCCCFF)
+    // background with glass effect. white (0xffffff) on a dark red (0x800000) background, with a 1
+    // pixel 3D border.
+    CString strTemp;
+    strTemp.Format("Run Chart of %s", g_MeasInfoTable[type].strMeas);
+	c->addTitle(strTemp, "arialbi.ttf", 12)->setBackground(0xccccff, 0x000000, Chart::glassEffect());
+
+
+    // data가 실제 있는 범위만 출력되도록 Scale 조정하기. 
+    //   meas[0]에 0값이 있는 의미없는 data가 있었음. meas[0]을 제외하고 출력하자 아래 코드 불필요.
+    //c->yAxis()->setAutoScale(0.1, 0.1);			
+    //c->yAxis()->setLinearScale(m_dMinYR, m_dMaxYR);
+    //c->yAxis()->setMargin(10, 10);
+    
+    // Add a title to the y axis
+ 
+    TextBox *textbox_Y = c->yAxis()->setTitle("mohm");
+    textbox_Y->setFontAngle(0);					// Set the y axis title upright (font angle = 0)
+    textbox_Y->setAlignment(Chart::TopLeft2);	// Put the y axis title on top of the axis
+
+
+    // Add a title to the x axis
+    TextBox *textbox_X = c->xAxis()->setTitle("Measure Count");
+    textbox_X->setAlignment(Chart::BottomRight);
+
+	// layer.setXData()를 사용하고 아래코드는 코멘트처리
+    // Set the labels on the x axis.
+    //c->xAxis()->setLabels(StringArray(labels, sizeof(labels)/sizeof(labels[0])));
+    //c->xAxis()->setLabels(StringArray((const char * const *)&labels[1], g_sLotNetDate_Info.naLotNetCnt[nLot])); 
+  	//c->xAxis()->setLabelStep(g_sLotNetDate_Info.naLotNetCnt[nLot] / 10);
+
+
+	// XY LineChart 생성 & 옵션 설정 ----------------------
+
+
+    // Add a line layer to the chart
+    LineLayer *layer = c->addLineLayer();
+
+    // Set the default line width to 2 pixels
+    layer->setLineWidth(2);
+
+
+    // Add the three data sets to the line layer. 
+    									
+    layer->addDataSet( DoubleArray(ref, m_nMeasCount), 
+	   				0x008800, "Ref")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);		// 초록색
+
+    layer->addDataSet( DoubleArray(&m_daMeasData[type][0], m_nMeasCount), 
+	   				0x3333ff, "Data")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);		// 남색
+
+    layer->addDataSet( DoubleArray(ref_minus, m_nMeasCount), 
+	   				0xff0000, "Ref - 0.10 x Tol")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);	// 빨간색
+
+    layer->addDataSet( DoubleArray(ref_plus, m_nMeasCount), 
+	   				0xff0000, "Ref + 0.10 x Tol")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);	// 빨간색
+
+
+ /*   layer->addDataSet( DoubleArray(&m_daLCL[1], g_sLotNetDate_Info.naLotNetCnt[nLot]), 
+    				//0xff0000, "LCL");				// 빨간색 
+    				0xff00ff, "LCL")->setDataSymbol(Chart::DiamondSymbol, 4, -1, 0xff00ff);		// 자주색
+
+    // For demo purpose, we use a dash line color for the last line
+    //layer->addDataSet(DoubleArray(m_daLCL, (int)(sizeof(m_daLCL) / sizeof(m_daLCL[0]))), 
+    //				c->dashLineColor(0x3333ff, Chart::DashLine), "LCL");	// 남색 점선
+  */  
+    // The x-coordinates for the line layer	 : X 축 data label 설정.
+	layer->setXData(DoubleArray(dataX0, m_nMeasCount ));
+
+/*
+	// Track Net이 설정된 경우, Track line도 그려준다.
+    if (nTrackNet != -1)
+	{
+    	//trackLineLegend(c, c->getPlotArea()->getRightX());
+    	
+    	// Include track line for the latest data values
+	    trackLineLabel(c, nTrackNet);
+	}
+ */   
+
+    // XY LineChart  출력 ----------------
+
+
+    // Output the chart
+    m_ChartViewer.setChart(c);
+	
+    // Include tool tip for the chart
+    m_ChartViewer.setImageMap( c->getHTMLImageMap("", "", "title='{xLabel}: US${value}K'"));
+
+	// In this sample project, we do not need to chart object any more, so we 
+	// delete it now.
+    delete c;
+
+}
+
+void CGageDialog::CalcGageStudyOutput(int type) 
+{
+
+	//---------------------
+	// Calc Avg (Mean) 
+	m_dAvg = 0.0;
+
+	int meas;
+	double dSum = 0;
+	for (meas=0; meas < m_nMeasCount; meas++)
+		dSum += m_daMeasData[type][meas]; 
+
+	if (m_nMeasCount)		// check devide by zero : Average
+		m_dAvg = dSum / (double) m_nMeasCount;
+
+
+
+	//-----------------------------
+	// Calc StDev & 6x Stdev 	
+	
+	m_dStDev = 0.0;
+	m_d6StDev = 0.0;
+	double dDiff = 0, dDiffPowerSum = 0, dVar = 0; 
+	if (m_nMeasCount -1)	// check devide by zero : Variance
+	{
+		// Calc Variance
+		for (meas=0; meas < m_nMeasCount; meas++)
+		{
+			dDiff = m_daMeasData[type][meas] - m_dAvg;
+			dDiffPowerSum += (dDiff * dDiff);
+		}
+
+		// 분산     : (val-avg)의 제곱의 총합을 (n - 1)으로 나눈다.
+		dVar = dDiffPowerSum / (double) (m_nMeasCount -1);
+
+		// 표준편차 : 분산의 제곱근
+		m_dStDev = sqrt(dVar);
+		m_d6StDev = 6 * m_dStDev;
+
+	}
+	
+	//-------------
+	// Calc Bias 
+	m_dBias = 0.0;
+	m_dBias = m_dAvg - g_MeasInfoTable[type].nMeasRef;
+	
+	//-------------
+	// Calc T 
+	m_dT = 0.0;
+	if (m_nMeasCount)	// check devide by zero : for stdErr 
+	{
+		double stdErr = m_dStDev / sqrt(m_nMeasCount);
+		m_dT = m_dBias / stdErr;
+		if (m_dT < 0)
+			m_dT = -m_dT;		// 절대값
+	}
+	
+	//-------------
+	// Calc PValue 
+	m_dPValue = 0.0;
+	int degFree = m_nMeasCount -1;		// degree of freedom (자유도) : n - 1 
+	m_dPValue = p_tdist(m_dT, degFree);
+
+
+	//-------------
+	// Calc Cg	
+	m_dCg = 0.0;
+	if (m_d6StDev)	// check devide by zero
+		m_dCg = (20/(double)100 * m_edit_nTol) / (double)m_d6StDev;
+
+
+	//--------------
+	// Calc Cgk  
+	m_dCgk = 0.0;
+	if (m_dStDev)	// check devide by zero
+	{
+		double absBias = (m_dBias < 0) ? (-m_dBias) : m_dBias;		// 절대값
+		m_dCgk = (20/(double)200 * m_edit_nTol - absBias) / (double)(3 * m_dStDev);
+	}
+
+	
+	//---------------------------
+	// Calc %Var(Repeatability)  
+	m_dVarRept = 0.0;
+	if (m_dCg)		// check devide by zero
+		m_dVarRept = 20 / m_dCg;
+
+	
+	//------------------------------------
+	// Calc %Var(Repeatability and Bias) 
+	m_dVarReptBias = 0.0;
+	if (m_dCgk)
+		m_dVarReptBias = 20 / m_dCgk;
+
+	UpdateData(FALSE);
+}
+
+void CGageDialog::DisplayGageStudyOutput(int type) 
+{
+	UpdateData(TRUE);
+	CString strTemp;
+
+	strTemp.Format("%.2f", m_dAvg); 			m_editStrAvg = strTemp;
+	strTemp.Format("%.3f", m_dStDev); 			m_editStrStDev = strTemp;
+	strTemp.Format("%.3f", m_d6StDev); 			m_editStr6StDev = strTemp;
+
+	strTemp.Format("%.2f", m_dBias); 			m_editStrBias = strTemp;
+	strTemp.Format("%.3f", m_dT); 				m_editStrT = strTemp;
+	strTemp.Format("%.3f", m_dPValue); 			m_editStrPValue = strTemp;
+
+	strTemp.Format("%.2f", m_dCg);				m_editStrCg = strTemp;
+	strTemp.Format("%.2f", m_dCgk);				m_editStrCgk = strTemp;
+	strTemp.Format("%.2f %%", m_dVarRept);		m_editStrVarRept = strTemp;
+	strTemp.Format("%.2f %%", m_dVarReptBias);	m_editStrVarReptBias = strTemp;
+
+	UpdateData(FALSE);
 }

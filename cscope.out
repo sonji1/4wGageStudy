@@ -1,4 +1,4 @@
-cscope 16 C:\sonji\Bioptro\ACE400Gage\ACE400Gage"               0000362420
+cscope 16 C:\sonji\Bioptro\ACE400Gage\ACE400Gage"               0000363111
 	@ACE400Gage.h
 
 4 #ià!
@@ -75,2703 +75,7 @@ In™In¡ªû
 DECLARE_MESSAGE_MAP
 ()
 
-	@ChartViewer.h
-
-9 #´agm¨
-Úû
-
-
-11 
-	~"ch¬tdœ.h
-"
-
-12 
-	~<afxmt.h
->
-
-17 #ifdeà
-CD_NAMESPACE
-
-
-18 
-Çme¥aû
- 
-	gCD_NAMESPACE
-
-
-22 
-Çme¥aû
- 
-	gCh¬t
-
-
-29 
-	gMou£U§geDeçuÉ
- = 0,
-
-30 
-	gMou£U§geSüÞl
- = 1,
-
-31 
-	gMou£U§geZoomIn
- = 3,
-
-32 
-	gMou£U§geZoomOut
- = 4,
-
-36 #ifdeà
-CD_NAMESPACE
-
-
-43 
-þass
- 
-	gCV›wPÜtCÚŒÞ
-;
-
-48 þas 
-	cUTF8toTCHAR
-
-
-50 
-	mpublic
- :
-
-51 
-	$UTF8toTCHAR
-(cÚ¡ *
-utf8_¡ršg
-è: 
-	`t_¡ršg
-(0), 
-	$ÃedF»e
-(
-çl£
-)
-
-53 ià(0 =ð
-utf8_¡ršg
-)
-
-54 
-t_¡ršg
- = 0;
-
-55 ià(0 =ð*
-utf8_¡ršg
-)
-
-56 
-t_¡ršg
- = 
-	`_T
-("");
-
-57 ià(((
-TCHAR
-è=ð()è&& 
-	`isPu»Ascii
-(
-utf8_¡ršg
-))
-
-59 
-t_¡ršg
- = (
-TCHAR
- *)
-utf8_¡ršg
-;
-
-64 
-ÃedF»e
- = 
-Œue
-;
-
-67 
-¡ršg_Ën
- = ()
-	`¡¾’
-(
-utf8_¡ršg
-);
-
-68 
-wch¬_t
- *
-bufãr
- = 
-Ãw
- wch¬_t[
-¡ršg_Ën
- + 1];
-
-69 
-	`MuÉiBy‹ToWideCh¬
-(
-CP_UTF8
-, 0, 
-utf8_¡ršg
-, -1, 
-bufãr
-, 
-¡ršg_Ën
- + 1);
-
-70 
-bufãr
-[
-¡ršg_Ën
-] = 0;
-
-72 #ifdeà
-_UNICODE
-
-
-73 
-t_¡ršg
- = 
-bufãr
-;
-
-76 
-t_¡ršg
- = 
-Ãw
- [
-¡ršg_Ën
- * 2 + 2];
-
-77 
-	`WideCh¬ToMuÉiBy‹
-(
-CP_ACP
-, 0, 
-bufãr
-, -1, 
-t_¡ršg
-, 
-¡ršg_Ën
- * 2 + 1, 0, 0);
-
-78 
-t_¡ršg
-[
-¡ršg_Ën
- * 2 + 1] = 0;
-
-79 
-d–‘e
-[] 
-bufãr
-;
-
-85 
-Ý”©Ü
- cÚ¡ 
-TCHAR
-*()
-
-87  
-t_¡ršg
-;
-
-88 
-	}
-}
-
-90 ~
-	$UTF8toTCHAR
-()
-
-92 ià(
-ÃedF»e
-)
-
-93 
-d–‘e
-[] 
-t_¡ršg
-;
-
-94 
-	}
-}
-
-96 
-	g´iv©e
- :
-
-97 
-TCHAR
- *
-t_¡ršg
-;
-
-98 
-boÞ
- 
-	gÃedF»e
-;
-
-103 
-boÞ
- 
-	$isPu»Ascii
-(cÚ¡ *
-s
-)
-
-105 *
-s
- !ð0è{ ià(*(s++è& 0x80è 
-çl£
-; }
-
-106  
-Œue
-;
-
-107 
-	}
-}
-
-110 
-UTF8toTCHAR
-(cÚ¡ UTF8toTCHAR &
-rhs
-);
-
-111 
-	gUTF8toTCHAR
- &
-	gÝ”©Ü
-=(cÚ¡ 
-UTF8toTCHAR
- &
-rhs
-);
-
-117 þas 
-	cTCHARtoUTF8
-
-
-119 
-	mpublic
- :
-
-120 
-	$TCHARtoUTF8
-(cÚ¡ 
-TCHAR
- *
-t_¡ršg
-è: 
-	`utf8_¡ršg
-(0), 
-	$ÃedF»e
-(
-çl£
-)
-
-122 ià(0 =ð
-t_¡ršg
-)
-
-123 
-utf8_¡ršg
- = 0;
-
-124 ià(0 =ð*
-t_¡ršg
-)
-
-125 
-utf8_¡ršg
- = "";
-
-126 ià(((
-TCHAR
-è=ð()è&& 
-	`isPu»Ascii
-((*)
-t_¡ršg
-))
-
-128 
-utf8_¡ršg
- = (*)
-t_¡ršg
-;
-
-133 
-ÃedF»e
- = 
-Œue
-;
-
-134 
-¡ršg_Ën
- = ()
-	`_tc¦’
-(
-t_¡ršg
-);
-
-136 #iâdeà
-_UNICODE
-
-
-138 
-wch¬_t
- *
-w_¡ršg
- = 
-Ãw
- wch¬_t[
-¡ršg_Ën
- + 1];
-
-139 
-	`MuÉiBy‹ToWideCh¬
-(
-CP_ACP
-, 0, 
-t_¡ršg
-, -1, 
-w_¡ršg
-, 
-¡ršg_Ën
- + 1);
-
-140 
-w_¡ršg
-[
-¡ršg_Ën
-] = 0;
-
-142 
-wch¬_t
- *
-w_¡ršg
- = (wch¬_t*)
-t_¡ršg
-;
-
-146 
-utf8_¡ršg
- = 
-Ãw
- [
-¡ršg_Ën
- * 3 + 1];
-
-147 
-	`WideCh¬ToMuÉiBy‹
-(
-CP_UTF8
-, 0, 
-w_¡ršg
-, -1, 
-utf8_¡ršg
-, 
-¡ršg_Ën
- * 3 + 1, 0, 0);
-
-148 
-utf8_¡ršg
-[
-¡ršg_Ën
- * 3] = 0;
-
-150 ià(
-w_¡ršg
- !ð(
-wch¬_t
- *)
-t_¡ršg
-)
-
-151 
-d–‘e
-[] 
-w_¡ršg
-;
-
-156 
-Ý”©Ü
- const *()
-
-158  
-utf8_¡ršg
-;
-
-159 
-	}
-}
-
-161 ~
-	$TCHARtoUTF8
-()
-
-163 ià(
-ÃedF»e
-)
-
-164 
-d–‘e
-[] 
-utf8_¡ršg
-;
-
-165 
-	}
-}
-
-167 
-	g´iv©e
- :
-
-168 *
-utf8_¡ršg
-;
-
-169 
-boÞ
- 
-	gÃedF»e
-;
-
-174 
-boÞ
- 
-	$isPu»Ascii
-(cÚ¡ *
-s
-)
-
-176 *
-s
- !ð0è{ ià(*(s++è& 0x80è 
-çl£
-; }
-
-177  
-Œue
-;
-
-178 
-	}
-}
-
-181 
-TCHARtoUTF8
-(cÚ¡ TCHARtoUTF8 &
-rhs
-);
-
-182 
-	gTCHARtoUTF8
- &
-	gÝ”©Ü
-=(cÚ¡ 
-TCHARtoUTF8
- &
-rhs
-);
-
-193 þas 
-	cCReùCŒl
- : 
-public
- 
-CStic
-
-
-195 
-public
-:
-
-197 
-BOOL
- 
-C»©e
-(
-CWnd
-* 
-pP¬’tWnd
-, 
-COLORREF
- 
-c
-);
-
-198 
-S‘CÞÜ
-(
-COLORREF
- 
-c
-);
-
-204 
-	m´Ùeùed
-:
-
-207 
-afx_msg
- 
-HBRUSH
- 
-CŽCÞÜ
-(
-CDC
-* 
-pDC
-, 
-UINT
- 
-nCŽCÞÜ
-);
-
-210 
-	$DECLARE_MESSAGE_MAP
-()
-
-212 
-´iv©e
- :
-
-213 
-CBrush
- 
-m_CÞÜ
-;
-
-220 þas 
-	cCSticH–³r
-
-
-222 
-´iv©e
-:
-
-223 
-HBITMAP
- 
-m_cu¼’tHBITMAP
-;
-
-224 
-m_WCCisV6
-;
-
-225 
-boÞ
- 
-m_‹¡Mode
-;
-
-227 
-	`£tHBITMAP
-(
-CStic
- *
-£lf
-, 
-HBITMAP
- 
-ÃwB™M­
-);
-
-228 
-HBITMAP
- 
-	`bmpToHBITMAP
-(
-CStic
- *
-£lf
-, cÚ¡ *
-d©a
-);
-
-230 
-public
-:
-
-231 
-	`CSticH–³r
-();
-
-233 
-	`ÚPašt
-(
-CStic
- *
-£lf
-);
-
-234 
-	`di¥ÏyCh¬t
-(
-CStic
- *
-£lf
-, 
-Ba£Ch¬t
- *
-c
-);
-
-244 
-	#CVN_V›wPÜtChªged
- 1000
-
-245 
-	#CVN_Mou£MoveCh¬t
- 1001
-
-246 
-	#CVN_Mou£L—veCh¬t
- 1002
-
-247 
-	#CVN_Mou£MovePlÙA»a
- 1003
-
-248 
-	#CVN_Mou£L—vePlÙA»a
- 1004
-
-249 
-
-	)
-
-251 
-þass
- 
-CCh¬tV›w”
- : 
-public
- 
-CStic
-,…ubliø
-V›wPÜtMªag”
-, 
-´iv©e
- 
-CSticH–³r
-
-
-253 
-public
-:
-
-254 
-	`CCh¬tV›w”
-();
-
-260 
-vœtu®
- 
-	`£tCh¬t
-(
-Ba£Ch¬t
- *
-c
-);
-
-261 
-vœtu®
- 
-Ba£Ch¬t
- *
-	`g‘Ch¬t
-();
-
-263 
-vœtu®
- 
-	`£tV›wPÜtCÚŒÞ
-(
-CV›wPÜtCÚŒÞ
- *
-vpc
-);
-
-264 
-vœtu®
- 
-CV›wPÜtCÚŒÞ
- *
-	`g‘V›wPÜtCÚŒÞ
-();
-
-266 
-vœtu®
- 
-	`£tImageM­
-(cÚ¡ *
-imageM­
-);
-
-267 
-vœtu®
- 
-ImageM­HªdËr
- *
-	`g‘ImageM­HªdËr
-();
-
-269 
-vœtu®
- 
-	`£tDeçuÉToÞT
-(
-LPCTSTR
- 
-‹xt
-);
-
-270 
-vœtu®
- 
-CToÞTCŒl
- *
-	`g‘ToÞTCŒl
-();
-
-272 
-vœtu®
- 
-	`£tS–eùiÚBÜd”Width
-(
-width
-);
-
-273 
-vœtu®
- 
-	`g‘S–eùiÚBÜd”Width
-();
-
-275 
-vœtu®
- 
-	`£tS–eùiÚBÜd”CÞÜ
-(
-COLORREF
- 
-c
-);
-
-276 
-vœtu®
- 
-COLORREF
- 
-	`g‘S–eùiÚBÜd”CÞÜ
-();
-
-278 
-vœtu®
- 
-	`£tMou£U§ge
-(
-mou£U§ge
-);
-
-279 
-vœtu®
- 
-	`g‘Mou£U§ge
-();
-
-281 
-vœtu®
- 
-	`£tZoomDœeùiÚ
-(
-dœeùiÚ
-);
-
-282 
-vœtu®
- 
-	`g‘ZoomDœeùiÚ
-();
-
-284 
-vœtu®
- 
-	`£tSüÞlDœeùiÚ
-(
-dœeùiÚ
-);
-
-285 
-vœtu®
- 
-	`g‘SüÞlDœeùiÚ
-();
-
-287 
-vœtu®
- 
-	`£tZoomInR©io
-(
-¿tio
-);
-
-288 
-vœtu®
- 
-	`g‘ZoomInR©io
-();
-
-290 
-vœtu®
- 
-	`£tZoomOutR©io
-(
-¿tio
-);
-
-291 
-vœtu®
- 
-	`g‘ZoomOutR©io
-();
-
-293 
-vœtu®
- 
-	`£tMou£Wh“lZoomR©io
-(
-¿tio
-);
-
-294 
-vœtu®
- 
-	`g‘Mou£Wh“lZoomR©io
-();
-
-296 
-vœtu®
- 
-	`£tMšimumD¿g
-(
-off£t
-);
-
-297 
-vœtu®
- 
-	`g‘MšimumD¿g
-();
-
-299 
-vœtu®
- 
-	`£tUpd©eIÁ”v®
-(
-š‹rv®
-);
-
-300 
-vœtu®
- 
-	`g‘Upd©eIÁ”v®
-();
-
-302 
-vœtu®
- 
-boÞ
- 
-	`ÃedUpd©eCh¬t
-();
-
-303 
-vœtu®
- 
-boÞ
- 
-	`ÃedUpd©eImageM­
-();
-
-305 
-vœtu®
- 
-boÞ
- 
-	`isMou£OnPlÙA»a
-();
-
-306 
-vœtu®
- 
-boÞ
- 
-	`isInMou£MoveEv’t
-();
-
-307 
-vœtu®
- 
-boÞ
- 
-	`isMou£D¿ggšg
-();
-
-314 
-vœtu®
- 
-	`upd©eV›wPÜt
-(
-boÞ
- 
-ÃedUpd©eCh¬t
-, boÞ 
-ÃedUpd©eImageM­
-);
-
-317 
-vœtu®
- 
-	`upd©eDi¥Ïy
-();
-
-320 
-vœtu®
- 
-BOOL
- 
-	`ÚMou£Wh“lZoom
-(
-x
-, 
-y
-, 
-zD–
-);
-
-323 
-vœtu®
- 
-	`»moveDyÇmicLay”
-(
-msg
-);
-
-326 
-vœtu®
- 
-	`g‘Ch¬tMou£X
-();
-
-327 
-vœtu®
- 
-	`g‘Ch¬tMou£Y
-();
-
-330 
-vœtu®
- 
-	`g‘PlÙA»aMou£X
-();
-
-331 
-vœtu®
- 
-	`g‘PlÙA»aMou£Y
-();
-
-335 
-public
-:
-
-336 
-vœtu®
- 
-BOOL
- 
-	`P»T¿n¦©eMes§ge
-(
-MSG
-* 
-pMsg
-);
-
-339 
-´Ùeùed
-:
-
-342 
-afx_msg
- 
-	`OnPašt
-();
-
-343 
-afx_msg
- 
-	`OnMou£Move
-(
-UINT
- 
-nFÏgs
-, 
-CPošt
- 
-pošt
-);
-
-344 
-afx_msg
- 
-	`OnD–ayedMou£Move
-();
-
-345 
-afx_msg
- 
-LRESULT
- 
-	`OnMou£L—ve
-(
-WPARAM
- 
-wP¬am
-, 
-LPARAM
- 
-lP¬am
-);
-
-346 
-afx_msg
- 
-BOOL
- 
-	`OnS‘CursÜ
-(
-CWnd
-* 
-pWnd
-, 
-UINT
- 
-nH™Te¡
-, UINT 
-mes§ge
-);
-
-347 
-afx_msg
- 
-	`OnDe¡roy
-();
-
-348 
-afx_msg
- 
-	`OnLBu‰ÚDown
-(
-UINT
- 
-nFÏgs
-, 
-CPošt
- 
-pošt
-);
-
-349 
-afx_msg
- 
-	`OnLBu‰ÚUp
-(
-UINT
- 
-nFÏgs
-, 
-CPošt
- 
-pošt
-);
-
-350 
-afx_msg
- 
-BOOL
- 
-	`OnMou£Wh“l
-(
-UINT
- 
-nFÏgs
-, 
-zD–
-, 
-CPošt
- 
-±
-);
-
-351 
-afx_msg
- 
-	`OnTim”
-(
-UINT_PTR
- 
-nIDEv’t
-);
-
-352 
-	`DECLARE_MESSAGE_MAP
-()
-
-354 
-´iv©e
-:
-
-360 
-Ba£Ch¬t
- *
-m_cu¼’tCh¬t
-;
-
-361 
-ImageM­HªdËr
- *
-m_hÙSpÙTe¡”
-;
-
-362 
-CSŒšg
- 
-m_deçuÉToÞT
-;
-
-363 
-CToÞTCŒl
- 
-m_ToÞT
-;
-
-364 
-boÞ
- 
-m_toÞTHasA‰ached
-;
-
-365 
-COLORREF
- 
-m_£ËùBoxLšeCÞÜ
-;
-
-366 
-m_£ËùBoxLšeWidth
-;
-
-367 
-m_mou£U§ge
-;
-
-368 
-m_zoomDœeùiÚ
-;
-
-369 
-m_süÞlDœeùiÚ
-;
-
-370 
-m_zoomInR©io
-;
-
-371 
-m_zoomOutR©io
-;
-
-372 
-m_mou£Wh“lZoomR©io
-;
-
-373 
-m_mšD¿gAmouÁ
-;
-
-374 
-m_upd©eIÁ”v®
-;
-
-375 
-boÞ
- 
-m_ÃedUpd©eCh¬t
-;
-
-376 
-boÞ
- 
-m_ÃedUpd©eImageM­
-;
-
-382 
-m_cu¼’tHÙSpÙ
-;
-
-383 
-boÞ
- 
-m_isClickabË
-;
-
-384 
-boÞ
- 
-m_isOnPlÙA»a
-;
-
-385 
-boÞ
- 
-m_isPlÙA»aMou£Down
-;
-
-386 
-boÞ
- 
-m_isD¿gSüÞlšg
-;
-
-387 
-boÞ
- 
-m_isMou£T¿ckšg
-;
-
-388 
-boÞ
- 
-m_isInMou£Move
-;
-
-394 
-m_¶ÙA»aMou£DownXPos
-;
-
-395 
-m_¶ÙA»aMou£DownYPos
-;
-
-396 
-boÞ
- 
-	`isD¿g
-(
-dœeùiÚ
-, 
-CPošt
- 
-pošt
-);
-
-397 
-	`OnPlÙA»aMou£D¿g
-(
-UINT
- 
-nFÏgs
-, 
-CPošt
- 
-pošt
-);
-
-403 
-CReùCŒl
- 
-m_LeáLše
-;
-
-404 
-CReùCŒl
- 
-m_RightLše
-;
-
-405 
-CReùCŒl
- 
-m_TÝLše
-;
-
-406 
-CReùCŒl
- 
-m_BÙtomLše
-;
-
-408 
-	`š™Reù
-();
-
-409 
-	`d¿wReù
-(
-x
-, 
-y
-, 
-width
-, 
-height
-);
-
-410 
-	`£tReùVisibË
-(
-boÞ
- 
-b
-);
-
-416 
-boÞ
- 
-m_hÞdTim”Aùive
-;
-
-418 
-m_d–ayUpd©eCh¬t
-;
-
-419 
-Ba£Ch¬t
- *
-m_d–ayedCh¬t
-;
-
-420 
-	`comm™Upd©eCh¬t
-();
-
-422 
-m_Ï¡Mou£Move
-;
-
-423 
-boÞ
- 
-m_hasD–ayedMou£Move
-;
-
-424 
-UINT
- 
-m_d–ayedMou£MoveFÏg
-;
-
-425 
-CPošt
- 
-m_d–ayedMou£MovePošt
-;
-
-426 
-	`comm™Mou£Move
-(
-UINT
- 
-nFÏgs
-, 
-CPošt
- 
-pošt
-);
-
-428 
-boÞ
- 
-m_d–ayImageM­Upd©e
-;
-
-434 
-m_cu¼’tMou£X
-;
-
-435 
-m_cu¼’tMou£Y
-;
-
-436 
-m_isInMou£MovePlÙA»a
-;
-
-442 
-m_autoHideMsg
-;
-
-443 
-	`­¶yAutoHide
-(
-msg
-);
-
-449 
-CV›wPÜtCÚŒÞ
- *
-m_vpCÚŒÞ
-;
-
-450 
-boÞ
- 
-m_R“Á¿ÁGu¬d
-;
-
-451 
-	}
-};
-
-456 
-þass
- 
-	gCV›wPÜtCÚŒÞ
- : 
-public
- 
-CStic
-,…ubliø
-	gV›wPÜtCÚŒÞBa£
-, 
-´iv©e
- 
-	gCSticH–³r
-
-
-458 
-	gpublic
-:
-
-459 
-CV›wPÜtCÚŒÞ
-();
-
-462 
-vœtu®
- 
-£tCh¬t
-(
-Ba£Ch¬t
- *
-c
-);
-
-463 
-vœtu®
- 
-Ba£Ch¬t
- *
-g‘Ch¬t
-();
-
-466 
-vœtu®
- 
-£tV›w”
-(
-CCh¬tV›w”
- *
-v›w”
-);
-
-467 
-vœtu®
- 
-CCh¬tV›w”
- *
-g‘V›w”
-();
-
-470 
-vœtu®
- 
-upd©eDi¥Ïy
-();
-
-472 
-	g´Ùeùed
-:
-
-475 
-afx_msg
- 
-OnDe¡roy
-();
-
-476 
-afx_msg
- 
-OnPašt
-();
-
-477 
-afx_msg
- 
-OnMou£Move
-(
-UINT
- 
-nFÏgs
-, 
-CPošt
- 
-pošt
-);
-
-478 
-afx_msg
- 
-BOOL
- 
-OnMou£Wh“l
-(
-UINT
- 
-nFÏgs
-, 
-zD–
-, 
-CPošt
- 
-±
-);
-
-479 
-afx_msg
- 
-OnLBu‰ÚDown
-(
-UINT
- 
-nFÏgs
-, 
-CPošt
- 
-pošt
-);
-
-480 
-afx_msg
- 
-OnLBu‰ÚUp
-(
-UINT
- 
-nFÏgs
-, 
-CPošt
- 
-pošt
-);
-
-481 
-afx_msg
- 
-BOOL
- 
-OnS‘CursÜ
-(
-CWnd
-* 
-pWnd
-, 
-UINT
- 
-nH™Te¡
-, UINT 
-mes§ge
-);
-
-482 
-DECLARE_MESSAGE_MAP
-()
-
-484 
-	g´iv©e
-:
-
-486 
-CCh¬tV›w”
- *
-m_Ch¬tV›w”
-;
-
-487 
-Ba£Ch¬t
- *
-	gm_Ch¬t
-;
-
-488 
-boÞ
- 
-	gm_R“Á¿ÁGu¬d
-;
-
-490 
-	gm_mou£DownX
-;
-
-491 
-	gm_mou£DownY
-;
-
-492 
-boÞ
- 
-isD¿g
-(
-CPošt
- 
-pošt
-);
-
-494 
-HCURSOR
- 
-g‘HCursÜ
-(
-pos™iÚ
-);
-
-495 
-·štDi¥Ïy
-();
-
-496 
-syncS‹
-();
-
-497 
-upd©eCh¬tV›w”IfNeûs§ry
-();
-
-499 
-toImageX
-(
-x
-);
-
-500 
-toImageY
-(
-y
-);
-
-	@ConfigDialog.h
-
-1 #ià!
-defšed
-(
-AFX_CONFIGDIALOG_H__5E887A2B_8CCA_4DDD_B20A_14333A1EA84C__INCLUDED_
-)
-
-2 
-	#AFX_CONFIGDIALOG_H__5E887A2B_8CCA_4DDD_B20A_14333A1EA84C__INCLUDED_
-
-
-	)
-
-4 #ià
-_MSC_VER
- > 1000
-
-5 #´agm¨
-Úû
-
-
-13 þas 
-	cCCÚfigDŸlog
- : 
-public
- 
-CDŸlog
-
-
-16 
-public
-:
-
-17 
-CCÚfigDŸlog
-(
-CWnd
-* 
-pP¬’t
- = 
-NULL
-);
-
-21 ’um { 
-	mIDD
- = 
-IDD_CONFIG_DIALOG
- };
-
-29 
-	g´Ùeùed
-:
-
-30 
-vœtu®
- 
-DoD©aExchªge
-(
-CD©aExchªge
-* 
-pDX
-);
-
-34 
-	g´Ùeùed
-:
-
-40 
-DECLARE_MESSAGE_MAP
-()
-
-	@Error.h
-
-5 #ià!
-defšed
-(
-AFX_ERROR_H__8D3D34FA_3024_4D5F_81B6_D01841D85268__INCLUDED_
-)
-
-6 
-	#AFX_ERROR_H__8D3D34FA_3024_4D5F_81B6_D01841D85268__INCLUDED_
-
-
-	)
-
-8 #ià
-_MSC_VER
- > 1000
-
-9 #´agm¨
-Úû
-
-
-14 
-	eE¼ID
- {
-
-16 
-	mNO_ERR
-=0,
-
-17 
-	mTEST_ERR
-=1,
-
-18 
-	mTEST_TRACE
-=2,
-
-21 
-	mESTOP
-=10,
-
-25 
-	mSENSOR
-=100,
-
-26 
-	mSS_DT5V_LOW
-,
-
-27 
-	mSS_DT12V_LOW
-,
-
-28 
-	mSS_DT24V_LOW
-,
-
-29 
-	mSS_DTHV_LOW
-,
-
-30 
-	mSS_DT5VB_A_LOW
-,
-
-31 
-	mSS_DT5VC_A_LOW
-,
-
-32 
-	mSS_DT5VB_B_LOW
-,
-
-33 
-	mSS_DT5VC_B_LOW
-,
-
-34 
-	mSS_DT5VB_C_LOW
-,
-
-35 
-	mSS_DT5VC_C_LOW
-,
-
-36 
-	mSS_DT5VB_D_LOW
-,
-
-37 
-	mSS_DT5VC_D_LOW
-,
-
-38 
-	mSS_DT5VB_E_LOW
-,
-
-39 
-	mSS_DT5VC_E_LOW
-,
-
-40 
-	mSS_DT5VB_F_LOW
-,
-
-41 
-	mSS_DT5VC_F_LOW
-,
-
-42 
-	mSS_DT5VB_G_LOW
-,
-
-43 
-	mSS_DT5VC_G_LOW
-,
-
-44 
-	mSS_DT5VB_H_LOW
-,
-
-45 
-	mSS_DT5VC_H_LOW
-,
-
-48 
-	mSGNI
-=400,
-
-51 
-	mFLAG
-=500,
-
-52 
-	mFLAG_SOURCE_OR_SINK_CANNOT_ON
-,
-
-53 
-	mFLAG_SOURCE_CANNOT_OFF
-,
-
-54 
-	mFLAG_SINK_CANNOT_OFF
-,
-
-55 
-	mFLAG_SOURCE_LEAK
-,
-
-56 
-	mFLAG_SINK_LEAK
-,
-
-57 
-	mFLAG_ODD_SOURCE_LEAK
-,
-
-58 
-	mFLAG_EVEN_SOURCE_LEAK
-,
-
-60 
-	mFLAG_FILE_NOT_FOUND
-,
-
-61 
-	mFLAG_FILE_CANNOT_OPEN
-,
-
-62 
-	mFLAG_FILE_UNPROPER_PARAMETER
-,
-
-63 
-	mFLAG_FILE_CHECK_SUM
-,
-
-68 
-	mINVALID_RETURN
-=600,
-
-71 
-	mINVALID_INPUT
-=601,
-
-74 
-	mUSER_ERR
-=650,
-
-77 
-	mRANGE_OVER
-=700,
-
-78 
-	mOL_REF_CURRENT_IS_OVER_INPUT_VOLT_N_RGST
-,
-
-79 
-	mOL_I_RANGE_OVER
-,
-
-80 
-	mOL_I_RANGE_UNDER
-,
-
-81 
-	mCAL_CHECK_TEST_CONDITION
-,
-
-82 
-	mCAL_CHECK_HW
-,
-
-84 
-	mSW_LOGIC_ERR
- = 750,
-
-85 
-	mSW_NO_INIT_VAR
-,
-
-86 
-	mMAN_ERR_TEST_CONDEITION
-,
-
-89 
-	mOVERTIME
-=800,
-
-90 
-	mOT_SETNCHK
-,
-
-91 
-	mOT_VB_OUTCHECK_ERR
-,
-
-94 
-	mDEVICE
-=1000,
-
-96 
-	mMOTION
-=
-DEVICE
-+100,
-
-97 
-	mDIO_INIT_ERR
-,
-
-98 
-	mDIO_EXIT_ERR
-,
-
-99 
-	mINVALID_RETURN_DIOINPBIT
-,
-
-100 
-	mINVALID_RETURN_DIOOUTBIT
-,
-
-101 
-	mINVALID_RETURN_DIOINPBYTE
-,
-
-102 
-	mINVALID_RETURN_DIOOUTBYTE
-,
-
-103 
-	mINVALID_RETURN_DIOINP_MBIT
-,
-
-104 
-	mINVALID_RETURN_DIOOUT_MBIT
-,
-
-109 
-	m”rÜ_no
-;
-
-110 cÚ¡ * 
-	mt™Ë
-;
-
-111 cÚ¡ * 
-	m¡©e
-;
-
-112 cÚ¡ * 
-	msÞ
-;
-
-113 } 
-	tsE¼Msg
-;
-
-115 
-sE¼Msg
- 
-	gE¼MsgTabË
-[] =
-
-117 { 
-NO_ERR
-, "Normal", "", "" },
-
-118 { 
-TEST_ERR
-, "Test", "", "" },
-
-119 { 
-TEST_TRACE
-, "Test Trace", "", "" },
-
-121 { 
-ESTOP
-, "E-Stop", "", "" },
-
-123 { 
-SENSOR
-, "Sensor", "", "" },
-
-124 { 
-SS_DT5V_LOW
- , "5V Àü¿ø ÀÌ»ó", "", "" },
-
-125 { 
-SS_DT12V_LOW
-, "12V Àü¿ø ÀÌ»ó", "", "" },
-
-126 { 
-SS_DT24V_LOW
-, "24V Àü¿ø ÀÌ»ó", "", "" },
-
-127 { 
-SS_DTHV_LOW
- , "HV Àü¿ø ÀÌ»ó", "", "" },
-
-129 { 
-SS_DT5VB_A_LOW
-, "BOX A 5VB Àü¿ø ÀÌ»ó", "" , "" },
-
-130 { 
-SS_DT5VC_A_LOW
-, "BOX A 5VC Àü¿ø ÀÌ»ó", "" , "" },
-
-131 { 
-SS_DT5VB_B_LOW
-, "BOX B 5VB Àü¿ø ÀÌ»ó", "" , "" },
-
-132 { 
-SS_DT5VC_B_LOW
-, "BOX B 5VC Àü¿ø ÀÌ»ó", "" , "" },
-
-133 { 
-SS_DT5VB_C_LOW
-, "BOX C 5VB Àü¿ø ÀÌ»ó", "" , "" },
-
-134 { 
-SS_DT5VC_C_LOW
-, "BOX C 5VC Àü¿ø ÀÌ»ó", "" , "" },
-
-135 { 
-SS_DT5VB_D_LOW
-, "BOX D 5VB Àü¿ø ÀÌ»ó", "" , "" },
-
-136 { 
-SS_DT5VC_D_LOW
-, "BOX D 5VC Àü¿ø ÀÌ»ó", "" , "" },
-
-137 { 
-SS_DT5VB_E_LOW
-, "BOX E 5VB Àü¿ø ÀÌ»ó", "" , "" },
-
-138 { 
-SS_DT5VC_E_LOW
-, "BOX E 5VC Àü¿ø ÀÌ»ó", "" , "" },
-
-139 { 
-SS_DT5VB_F_LOW
-, "BOX F 5VB Àü¿ø ÀÌ»ó", "" , "" },
-
-140 { 
-SS_DT5VC_F_LOW
-, "BOX F 5VC Àü¿ø ÀÌ»ó", "" , "" },
-
-141 { 
-SS_DT5VB_G_LOW
-, "BOX G 5VB Àü¿ø ÀÌ»ó", "" , "" },
-
-142 { 
-SS_DT5VC_G_LOW
-, "BOX G 5VC Àü¿ø ÀÌ»ó", "" , "" },
-
-143 { 
-SS_DT5VB_H_LOW
-, "BOX H 5VB Àü¿ø ÀÌ»ó", "" , "" },
-
-144 { 
-SS_DT5VC_H_LOW
-, "BOX H 5VC Àü¿ø ÀÌ»ó", "" , "" },
-
-146 { 
-SGNI
-, "Signal", "", "" },
-
-148 { 
-FLAG
-, "Flag", "", "" },
-
-150 { 
-FLAG_SOURCE_OR_SINK_CANNOT_ON
-, "Source/Sink ON ÀÌ»ó", "", "" },
-
-151 { 
-FLAG_SOURCE_CANNOT_OFF
-, "Source OFF ÀÌ»ó", "", "" },
-
-152 { 
-FLAG_SINK_CANNOT_OFF
-, "Sink OFF ÀÌ»ó", "", "" },
-
-153 { 
-FLAG_SOURCE_LEAK
-, "Source Leak ÀÌ»ó", "", "" },
-
-154 { 
-FLAG_SINK_LEAK
-, "Sink Leak ÀÌ»ó", "", "" },
-
-155 { 
-FLAG_ODD_SOURCE_LEAK
-, "Odd Source Leak ÀÌ»ó", "", "" },
-
-156 { 
-FLAG_EVEN_SOURCE_LEAK
-, "Even Source Leak ÀÌ»ó", "", "" },
-
-158 { 
-FLAG_FILE_NOT_FOUND
-, "ÆÄÀÏ Ã£À» ¼ö ¾øÀ½", "", "" },
-
-159 { 
-FLAG_FILE_CANNOT_OPEN
-, "ÆÄÀÏ ¿­±â ÀÌ»ó", "", "" },
-
-160 { 
-FLAG_FILE_UNPROPER_PARAMETER
-, "ÆÄÀÏ ³»¿ë ÀÌ»ó", "", "" },
-
-161 { 
-FLAG_FILE_CHECK_SUM
-, "ÆÄÀÏ CheckSum ÀÌ»ó", "", "" },
-
-165 { 
-INVALID_RETURN
-, "Invalid„eturn", "", "" },
-
-166 { 
-INVALID_INPUT
-, "Invalid Input Parameter", "", "" },
-
-168 { 
-USER_ERR
-, "»ç¿ëÀÚ À¯¹ß ¿¡·¯", "", "" },
-
-170 { 
-RANGE_OVER
-, "Range Over", "", "" },
-
-171 { 
-OL_REF_CURRENT_IS_OVER_INPUT_VOLT_N_RGST
-, "¼³Á¤ Àü·ù °ª ÀÌ»ó", "", "" },
-
-172 { 
-OL_I_RANGE_OVER
-, "ÃÖ´ë Àü·ù ¼³Á¤ ¹üÀ§ ÃÊ°ú", "", "" },
-
-173 { 
-OL_I_RANGE_UNDER
-, "ÃÖ¼Ò Àü·ù ¼³Á¤ ¹üÀ§ ÃÊ°ú", "", "" },
-
-174 { 
-CAL_CHECK_TEST_CONDITION
-, "Calibration Test Condtion ÆÄÀÏ ¼³Á¤ Ã¼Å© ÇÊ¿ä", "", "" },
-
-175 { 
-CAL_CHECK_HW
-, "Calibration Hw Read °ª ÀÌ»ó. H/W Ã¼Å© ÇÊ¿ä", "", "" },
-
-177 { 
-SW_LOGIC_ERR
-, "SW ³í¸® ¿À·ù ÀÖÀ½. S/WÃ¼Å© ÇÊ¿ä", "", "" },
-
-178 { 
-SW_NO_INIT_VAR
-, "ÃÊ±âÈ­µÇÁö ¾ÊÀº º¯¼ö »ç¿ë. S/W Ã¼Å© ÇÊ¿ä", "", "" },
-
-179 { 
-MAN_ERR_TEST_CONDEITION
-, "ManulTest ¼³Á¤ Á¶°Ç ÀÌ»ó", "", "" },
-
-181 { 
-OVERTIME
-, "Overime", "", "" },
-
-182 { 
-OT_SETNCHK
-, "Souce Àü¾Ð¼³Á¤ ÀÌ»ó", "", "" },
-
-183 { 
-OT_VB_OUTCHECK_ERR
-, "VB OUT CHECK ERROR. OverTime", "", "" },
-
-186 { 
-DEVICE
-, "Device", "", "" },
-
-187 { 
-MOTION
-, "Motion", "", "" },
-
-188 { 
-DIO_INIT_ERR
-, "DIO_INIT_ERR", "", "" },
-
-189 { 
-DIO_EXIT_ERR
-, "DIO_EXIT_ERR", "", "" },
-
-190 { 
-INVALID_RETURN_DIOINPBIT
-, "Invalid„eturn from DioInpBit()", "", "" },
-
-191 { 
-INVALID_RETURN_DIOOUTBIT
-, "Invalid„eturn from DioOutBit()", "", "" },
-
-192 { 
-INVALID_RETURN_DIOINPBYTE
-, "Invalid„eturn from DioInpByte()", "", "" },
-
-193 { 
-INVALID_RETURN_DIOOUTBYTE
-, "Invalid„eturn from DioOutByte()", "", "" },
-
-194 { 
-INVALID_RETURN_DIOINP_MBIT
-, "Invalid„eturn from DioInpMultiBit()", "", "" },
-
-195 { 
-INVALID_RETURN_DIOOUT_MBIT
-, "Invalid„eturn from DioOutMultiBit()", "", "" },
-
-199 
-	#ERRMSG_TABLE_LEN
- (
-E¼MsgTabË
-)/(E¼MsgTabË[0])
-
-	)
-
-202 þas 
-	cCE¼Ü
-
-
-204 
-	m´iv©e
-:
-
-205 
-m_”rÜ_no
-;
-
-207 
-	mpublic
-:
-
-208 
-CSŒšg
- 
-m_¡rS‹
-;
-
-210 
-S‘
-(
-”rcode
-, 
-CSŒšg
- 
-¡rS‹
-="");
-
-211 
-	$G‘
-()
-
-214  
-m_”rÜ_no
-;
-
-216 
-	`Re£t
-();
-
-217 
-BOOL
- 
-	`G‘Msg
-(
-”rÜ_no
-, 
-CSŒšg
- &
-t™Ë
-, CSŒšg &
-¡©e
-, CSŒšg &
-sÞ
-);
-
-219 
-public
-:
-
-220 
-	`CE¼Ü
-();
-
-221 
-vœtu®
- ~
-	`CE¼Ü
-();
-
-222 
-	}
-};
-
-225 
-CE¼Ü
- 
-ERR
-;
-
-227 
-E¼Msg
-(
-nMboxTy³
-=
-MB_OK
-, 
-BOOL
- 
-bT¿ûOn
-=
-TRUE
-);
-
-	@FileSysInfo.h
-
-6 #ià!
-defšed
-(
-AFX_FILESYSINFO_H__B85E18EA_5A5B_4129_A54C_D02D75AE6A24__INCLUDED_
-)
-
-7 
-	#AFX_FILESYSINFO_H__B85E18EA_5A5B_4129_A54C_D02D75AE6A24__INCLUDED_
-
-
-	)
-
-9 #ià
-_MSC_VER
- > 1000
-
-10 #´agm¨
-Úû
-
-
-13 
-	~"¡dafx.h
-"
-
-14 
-	~<¡d¬g.h
->
-
-17 
-	#Def_MaxBlock1
- 501
-
-	)
-
-18 
-	#Def_MaxP›û1
- 301
-
-	)
-
-21 
-	eDATA_LOAD_SAVE_TYPE
- { 
-	mDATA_NO_SAVE_LOAD
-,
-
-22 
-	mDATA_SAVE
-,
-
-23 
-	mDATA_LOAD
-
-
-28 þas 
-	cCFžeSysInfo
-
-
-31 
-	mpublic
-:
-
-33 
-	$CFžeSysInfo
-()
-
-37 
-CFžeSysInfo
-::
-	`LßdSaveV›w01
-(
-ty³
-);
-
-38 
-	`LßdSaveSub13
-(
-ty³
-);
-
-39 
-	`LßdSaveSub25
-(
-ty³
-);
-
-40 
-	`LßdSaveSub19
-(
-ty³
-, 
-nFžeTy³
-);
-
-44 
-	}
-};
-
-48 
-	sCSysInfoV›w01
-
-
-51 
-	mm_pSŒFžeDri1
-[200];
-
-52 
-	mm_pSŒFžeP©h1
-[200];
-
-53 
-	mm_pSŒFžeP©hJig1
-[200];
-
-54 
-	mm_pSŒFžeP©hJig2
-[200];
-
-55 
-	mm_pSŒFžeP©hBDL
-[200];
-
-56 
-	mm_pSŒFžeBDLName
-[200];
-
-61 
-	sCSysInfo03
-
-
-63 
-	mm_nBlock
-;
-
-64 
-	mm_nRow
-;
-
-65 
-	mm_nCÞ
-;
-
-66 
-	mm_nD©a
-[
-Def_MaxBlock1
-][Def_MaxBlock1];
-
-69 
-	mm_nTy³
-;
-
-80 
-	sCSysInfo25
-
-
-82 
-	mm_nBlock
-;
-
-83 
-	mm_nRow
-;
-
-84 
-	mm_nCÞ
-;
-
-85 
-	mm_nD©a
-[
-Def_MaxP›û1
-][Def_MaxPiece1];
-
-88 
-	mm_nTy³
-;
-
-96 
-	mm_nRowD–
-;
-
-97 
-	mm_nCÞD–
-;
-
-101 
-	sCSysInfo19
-
-
-103 
-	mm_nBlockTÙ
-;
-
-104 
-	mm_nP›ûTÙ
-;
-
-105 
-	mm_nC–lTÙ®
-;
-
-106 
-	mm_nTy³
-;
-
-107 
-	mm_nU£
-;
-
-109 
-	mm_nD©a
-[
-Def_MaxBlock1
-][
-Def_MaxP›û1
-];
-
-112 
-	mm_nCheck
-;
-
-119 
-CFžeSysInfo
- 
-FžeSysInfo01
-;
-
-120 
-CSysInfoV›w01
- 
-SysInfoV›w01
-;
-
-121 
-CSysInfo03
- 
-SysInfo03
-;
-
-122 
-CSysInfo25
- 
-SysInfo25
-;
-
-123 
-CSysInfo19
- 
-SysInfo19
-;
-
-	@FinanceChart.h
+	@ChartDirector/FinanceChart.h
 
 1 #iâdeà
 FINANCECHART_HDR
@@ -12925,1283 +10229,7 @@ w¬nšg
 pÝ
 )
 
-	@GageDialog.h
-
-1 #ià!
-defšed
-(
-AFX_GAGEDIALOG_H__2ECC17B6_A785_4CA6_B46A_85C1648A9469__INCLUDED_
-)
-
-2 
-	#AFX_GAGEDIALOG_H__2ECC17B6_A785_4CA6_B46A_85C1648A9469__INCLUDED_
-
-
-	)
-
-4 #ià
-_MSC_VER
- > 1000
-
-5 #´agm¨
-Úû
-
-
-13 
-	~"GridCŒl.h
-"
-
-14 
-	~"Glob®s.h
-"
-
-15 
-	~"E¼Ü.h
-"
-
-16 
-	~"Ch¬tV›w”.h
-"
-
-19 
-	#MAX_MEAS_COUNT
- 90
-
-	)
-
-21 
-	eMEAS_TYPE
- { 
-	mmohm_1
- = 0,
-
-22 
-	mmohm_2
- = 1,
-
-23 
-	mmohm_3
- = 2,
-
-24 
-	mmohm_4
- = 3,
-
-25 
-	mmohm_5
- = 4,
-
-27 
-	mmohm_10
- = 5,
-
-28 
-	mmohm_20
- = 6,
-
-29 
-	mmohm_30
- = 7,
-
-30 
-	mmohm_40
- = 8,
-
-31 
-	mmohm_50
- = 9,
-
-33 
-	mmohm_100
- = 10,
-
-34 
-	mmohm_200
- = 11,
-
-35 
-	mmohm_500
- = 12,
-
-36 
-	mmohm_750
- = 13,
-
-37 
-	mmohm_1000
- = 14,
-
-39 
-	mmohm_2000
- = 15,
-
-40 
-	mmohm_3000
- = 16,
-
-41 
-	mmohm_5000
- = 17,
-
-42 
-	mmohm_7500
- = 18,
-
-43 
-	mmohm_10000
- = 19,
-
-45 
-	mmohm_20000
- = 20,
-
-46 
-	mmohm_30000
- = 21,
-
-47 
-	mmohm_50000
- = 22,
-
-48 
-	mmohm_75000
- = 23,
-
-49 
-	mmohm_999999
- = 24,
-
-51 
-	mMAX_MEAS_TYPE
- = 25
-
-55 
-	mnM—sYy³
-;
-
-56 cÚ¡ * 
-	m¡rM—s
-;
-
-57 
-	mnM—sRef
-;
-
-58 } 
-	tsM—sInfo
-;
-
-60 
-sM—sInfo
- 
-	gg_M—sInfoTabË
-[] = {
-
-61 { 
-mohm_1
- , "1mohm " , 1 },
-
-62 { 
-mohm_2
- , "2mohm " , 2 },
-
-63 { 
-mohm_3
- , "3mohm " , 3 },
-
-64 { 
-mohm_4
- , "4mohm " , 4 },
-
-65 { 
-mohm_5
- , "5mohm " , 5 },
-
-67 { 
-mohm_10
- , "10mohm " , 10 },
-
-68 { 
-mohm_20
- , "20mohm " , 20 },
-
-69 { 
-mohm_30
- , "30mohm " , 30 },
-
-70 { 
-mohm_40
- , "40mohm " , 40 },
-
-71 { 
-mohm_50
- , "50mohm" , 50 },
-
-73 { 
-mohm_100
- , "100mohm" , 100 },
-
-74 { 
-mohm_200
- , "200mohm" , 200 },
-
-75 { 
-mohm_500
- , "500mohm" , 500 },
-
-76 { 
-mohm_750
- , "750mohm" , 750 },
-
-77 { 
-mohm_1000
- , "1000mohm" , 1000 },
-
-79 { 
-mohm_2000
- , "2000mohm" , 2000 },
-
-80 { 
-mohm_3000
- , "3000mohm" , 3000 },
-
-81 { 
-mohm_5000
- , "5000mohm" , 5000 },
-
-82 { 
-mohm_7500
- , "7500mohm" , 7500 },
-
-83 { 
-mohm_10000
- , "10000mohm" , 10000 },
-
-85 { 
-mohm_20000
- , "20000mohm" , 20000 },
-
-86 { 
-mohm_30000
- , "30000mohm" , 30000 },
-
-87 { 
-mohm_50000
- , "50000mohm" , 50000 },
-
-88 { 
-mohm_75000
- , "75000mohm" , 75000 },
-
-89 { 
-MAX_MEAS_TYPE
- , "999999mohm", 999999 }
-
-93 þas 
-	cCGageDŸlog
- : 
-public
- 
-CDŸlog
-
-
-96 
-public
-:
-
-97 
-CGageDŸlog
-(
-CWnd
-* 
-pP¬’t
- = 
-NULL
-);
-
-101 ’um { 
-	mIDD
- = 
-IDD_GAGE_DIALOG
- };
-
-102 
-CComboBox
- 
-	gm_comboM—sTy³
-;
-
-103 
-CGridCŒl
- 
-	gm_gridCŒl
-;
-
-104 
-CSŒšg
- 
-	gm_ed™M—sD©aP©h
-;
-
-105 
-	gm_ed™_nRefIÅut
-;
-
-106 
-	gm_ed™_nTÞIÅut
-;
-
-107 
-	gm_ed™_nRef
-;
-
-108 
-	gm_ed™_nTÞ
-;
-
-115 
-	gpublic
-:
-
-116 
-vœtu®
- 
-BOOL
- 
-De¡royWšdow
-();
-
-117 
-	g´Ùeùed
-:
-
-118 
-vœtu®
- 
-DoD©aExchªge
-(
-CD©aExchªge
-* 
-pDX
-);
-
-122 
-	g´Ùeùed
-:
-
-126 
-vœtu®
- 
-BOOL
- 
-OnIn™DŸlog
-();
-
-127 
-afx_msg
- 
-OnShowWšdow
-(
-BOOL
- 
-bShow
-, 
-UINT
- 
-nStus
-);
-
-128 
-afx_msg
- 
-OnS–chªgeComboM—sTy³
-();
-
-129 
-afx_msg
- 
-OnChªgeEd™TÞIÅut
-();
-
-130 
-afx_msg
- 
-OnBu‰ÚDoStudy
-();
-
-132 
-	$DECLARE_MESSAGE_MAP
-()
-
-135 
-public
-:
-
-138 
-m_nTy³CouÁ
-;
-
-139 
-m_nM—sCouÁ
-;
-
-140 
-m_daM—sD©a
-[
-MAX_MEAS_TYPE
-][
-MAX_MEAS_COUNT
-];
-
-143 
-m_nCombo_Cu¼Ty³
-;
-
-147 
-m_nFixCÞs
-;
-
-148 
-m_nFixRows
-;
-
-149 
-m_nCÞs
-;
-
-150 
-m_nRows
-;
-
-151 
-BOOL
- 
-m_bEd™abË
-;
-
-165 
-BOOL
- 
-	`In™Memb”
-();
-
-166 
-BOOL
- 
-	`In™V›w
-();
-
-167 
-	`Di¥Ïy_mohmGridH—d”
-();
-
-168 
-	`Di¥Ïy_mohmGridD©a
-();
-
-169 
-	`S‘GridBuË
-(
-ty³
-);
-
-170 
-	`CË¬Grid_BackGround
-();
-
-171 
-	`CË¬Grid_D©a
-();
-
-173 
-	`Lßd_4W_M—sD©a
-();
-
-174 
-	`g‘M—sD©aLoc
-(*
-pSŒ
-, 
-¡rMax
-, &
-rLoc
-);
-
-175 
-	`g‘M—sD©a
-(*
-pSŒ
-, 
-¡rMax
-, &
-rdM—sD©a
-);
-
-177 
-	}
-};
-
-	@Globals.h
-
-5 #ià!
-defšed
-(
-AFX_GLOBALS_H__FDA16379_4221_4970_8471_B8FBD39D2C1E__INCLUDED_
-)
-
-6 
-	#AFX_GLOBALS_H__FDA16379_4221_4970_8471_B8FBD39D2C1E__INCLUDED_
-
-
-	)
-
-8 #ià
-_MSC_VER
- > 1000
-
-9 #´agm¨
-Úû
-
-
-12 
-	~<dœeù.h
->
-
-13 
-	~<io.h
->
-
-14 
-	~"¡dafx.h
-"
-
-15 
-	~<¡d¬g.h
->
-
-23 
-	#FUNC
-(
-â
-è#â
-
-	)
-
-28 þas 
-	cCGlob®s
-
-
-30 
-	mpublic
-:
-
-31 
-CGlob®s
-();
-
-32 
-	mvœtu®
- ~
-CGlob®s
-();
-
-43 
-	ssFILE_DATA
-
-
-45 
-CSŒšg
- 
-	mSy¡emDœ
-;
-
-46 
-CSŒšg
- 
-	mP¬am‘”Dœ
-;
-
-47 
-CSŒšg
- 
-	mD©aDœ
-;
-
-50 
-CSŒšg
- 
-	mACE400_4WD©aDœ
-;
-
-52 
-CSŒšg
- 
-	mSy¡emFžeName
-;
-
-53 
-CSŒšg
- 
-	mSy¡emFže
-;
-
-55 
-sFILE_DATA
-()
-
-57 
-	mSy¡emFžeName
- = "System.";
-
-59 
-	mACE400_4WD©aDœ
- = "D:\\log4w";
-
-62 
-In™
-()
-
-65 
-	mbufãr
-[
-_MAX_PATH
-];
-
-66 if(
-_g‘cwd
-Ð
-bufãr
-, 
-_MAX_PATH
- ) =ð
-NULL
-)
-
-68 
-AfxMes§geBox
-("Root directory‚ot found.");
-
-72 
-	mSy¡emDœ
-.
-FÜm©
-("%s", 
-bufãr
-);
-
-74 
-	mD©aDœ
- = 
-Sy¡emDœ
- + "\\" + "Data";
-
-77 ifÐ(
-_acûss
-(
-D©aDœ
-, 0 )) == -1 )
-
-78 
-_mkdœ
-(
-D©aDœ
-);
-
-80 
-	mSy¡emFže
- = 
-P¬am‘”Dœ
- + "\\" + 
-Sy¡emFžeName
-;
-
-83 } 
-	tsFILE_DATA
-;
-
-91 
-	eUNIT
- { 
-	m£c
-=0, 
-	mm£c
-=1, 
-	mu£c
-=2, 
-	mmA
-, 
-	muA
-, 
-	mMohm
-, 
-	mKohm
-, 
-	mohm
-, 
-	mmohm
-, 
-	muohm
- };
-
-92 
-	eUNIT_CONVERT_TYPE
- {
-
-93 
-	mMM_TO_UM
-, 
-	mUM_TO_MM
-, 
-	mSEC_TO_MSEC
-, 
-	mMSEC_TO_SEC
-
-
-96 
-	ePRT_TYPE
- { 
-	mPRT_BASIC
-, 
-	mPRT_LEVEL1
-, 
-	mPRT_LEVEL2
-, 
-	mPRT_LEVEL3
-, 
-	mPRT_DEVICE
-, 
-	mPRT_DEV_D64
- };
-
-98 
-WORD
- 
-g_wPrštS‹
-;
-
-99 
-sFILE_DATA
- 
-g_sFže
-;
-
-108 
-DoEv’ts
-(
-DWORD
- 
-dwMžli£cÚds
-=0);
-
-109 
-D–ay
-(
-UINT
- 
-d–aytime
-=0, UINT 
-un™
-=
-u£c
-);
-
-110 
-__št64
- 
-G‘MiüoSecÚd
-();
-
-111 
-BOOL
- 
-FžeExi¡s
-(
-CSŒšg
- 
-¡rFžeP©h
-);
-
-112 
-G‘D©eAndTime
-(*
-d©‘ime
-);
-
-113 
-SIZE_T
- 
-G‘ProûssWÜkšgS‘Size
-();
-
-114 
-__PrštMemSize
-(* 
-¡rFunc
-, 
-lše
-);
-
-116 
-AFX_CDECL
- 
-MyT¿û
-(
-PRT_TYPE
- 
-´tTy³
-, 
-LPCTSTR
- 
-ÍszFÜm©
-, ...);
-
-	@MainDialog.h
-
-4 #ià!
-defšed
-(
-AFX_ACE400GageDLG_H__A60D6315_99C4_46C0_A323_42C7B357B0A2__INCLUDED_
-)
-
-5 
-	#AFX_ACE400GageDLG_H__A60D6315_99C4_46C0_A323_42C7B357B0A2__INCLUDED_
-
-
-	)
-
-7 
-	~"GageDŸlog.h
-"
-
-8 
-	~"CÚfigDŸlog.h
-"
-
-10 #ià
-_MSC_VER
- > 1000
-
-11 #´agm¨
-Úû
-
-
-17 þas 
-	cCMašDŸlog
- : 
-public
- 
-CDŸlog
-
-
-20 
-public
-:
-
-21 
-CGageDŸlog
- 
-m_GageDlg
-;
-
-22 
-CCÚfigDŸlog
- 
-	mm_CÚfigDlg
-;
-
-24 
-CMašDŸlog
-(
-CWnd
-* 
-pP¬’t
- = 
-NULL
-);
-
-28 ’um { 
-	mIDD
- = 
-IDD_MAIN_DIALOG
- };
-
-34 
-	gpublic
-:
-
-35 
-vœtu®
- 
-BOOL
- 
-De¡royWšdow
-();
-
-36 
-	g´Ùeùed
-:
-
-37 
-vœtu®
- 
-DoD©aExchªge
-(
-CD©aExchªge
-* 
-pDX
-);
-
-41 
-	g´Ùeùed
-:
-
-42 
-HICON
- 
-m_hIcÚ
-;
-
-46 
-vœtu®
- 
-BOOL
- 
-OnIn™DŸlog
-();
-
-47 
-afx_msg
- 
-OnSysCommªd
-(
-UINT
- 
-nID
-, 
-LPARAM
- 
-lP¬am
-);
-
-48 
-afx_msg
- 
-OnPašt
-();
-
-49 
-afx_msg
- 
-HCURSOR
- 
-OnQu”yD¿gIcÚ
-();
-
-50 
-afx_msg
- 
-OnCheckGage
-();
-
-51 
-afx_msg
- 
-OnCheckCÚfig
-();
-
-53 
-DECLARE_MESSAGE_MAP
-()
-
-	@StdAfx.h
-
-6 #ià!
-defšed
-(
-AFX_STDAFX_H__162EFA7F_2283_401E_A2DD_16AA1B7EE8C3__INCLUDED_
-)
-
-7 
-	#AFX_STDAFX_H__162EFA7F_2283_401E_A2DD_16AA1B7EE8C3__INCLUDED_
-
-
-	)
-
-9 #ià
-_MSC_VER
- > 1000
-
-10 #´agm¨
-Úû
-
-
-13 
-	#VC_EXTRALEAN
-
-
-14 
-
-	)
-
-15 
-	~<afxwš.h
->
-
-16 
-	~<afxext.h
->
-
-17 
-	~<afxdi¥.h
->
-
-18 
-	~<afxdtùl.h
->
-
-19 #iâdeà
-_AFX_NO_AFXCMN_SUPPORT
-
-
-20 
-	~<afxcmn.h
->
-
-	@System.h
-
-7 #ià!
-defšed
-(
-_SYSTEM_H_INCLUDED_
-)
-
-8 
-	#_SYSTEM_H_INCLUDED_
-
-
-	)
-
-20 
-	#MAX_MEAS_COUNT
- 10
-
-	)
-
-21 
-	#MAX_AD_COUNT
- 100
-
-	)
-
-23 
-	#CAL_AD_COUNT
- (
-MAX_AD_COUNT
-*2)
-
-	)
-
-24 
-	#CAL_AD_BUF_SIZE
- 
-CAL_AD_COUNT
-
-
-	)
-
-27 
-	#MAX_CAL_DATA_Üg
- 128
-
-	)
-
-28 
-	#MAX_CAL_DATA
- 
-MAX_2W_RJIG
-
-
-	)
-
-29 
-	#NUM_CAL_RESULT_COL
- (22 + 60)
-
-30 
-
-	)
-
-31 
-	ssMEAS_DATA
-
-
-34 
-	mdR
-;
-
-35 
-	mdVc
-;
-
-36 
-	mdI
-;
-
-37 
-	mdAdVc
-;
-
-38 
-	mdAdI
-;
-
-39 } 
-	tsMEAS_DATA
-;
-
-43 
-	ssCAL_DATA
-
-
-45 
-	mnU£
-;
-
-46 
-	mnV®id
-;
-
-48 
-	mdOrgR
-;
-
-49 
-	mdRefR_Avg
-;
-
-50 
-	mdRefVcV®
-;
-
-51 
-	mdRefIV®
-;
-
-54 
-	mdM—sR_Avg
-;
-
-55 
-	mdM—sVc_Avg
-;
-
-56 
-	mdM—sI_Avg
-;
-
-57 
-	mdM—sAdVc_Avg
-;
-
-58 
-	mdM—sAdI_Avg
-;
-
-60 
-	mdM—sR_Max
-;
-
-61 
-	mdM—sR_MaxDiffR©e
-;
-
-62 
-	mdM—sR_Mš
-;
-
-63 
-	mdM—sR_MšDiffR©e
-;
-
-66 
-sMEAS_DATA
- 
-	m§_M—sD©a
-[
-MAX_MEAS_COUNT
-];
-
-68 } 
-	tsCAL_DATA
-;
-
-94 þas 
-	cCSy¡em
-
-
-96 
-	mpublic
-:
-
-98 
-m_nBlockNumb”
-[
-MAX_BOX
-];
-
-99 
-	mm_nBlockTy³
-[
-MAX_BOX
-];
-
-101 
-	mpublic
-:
-
-102 
-	$CSy¡em
-()
-
-104 ::
-	`Z”oMemÜy
-(
-m_nBlockNumb”
-, (m_nBlockNumber));
-
-105 ::
-	`Z”oMemÜy
-(
-m_nBlockTy³
-, (m_nBlockType));
-
-111 
-vœtu®
- ~
-	`CSy¡em
-();
-
-112 
-	`In™Memb”
-();
-
-113 
-BOOL
- 
-	`Lßd_4wRawD©a
-();
-
-114 
-	}
-};
-
-117 
-CSy¡em
- 
-g_sSy¡em
-;
-
-	@bchartdir.h
+	@ChartDirector/bchartdir.h
 
 12 #iâdeà
 BCHARTDIR_HDR
@@ -30103,7 +26131,7 @@ V›wPÜtCÚŒÞBa£IÁ”Çl
 v®ue
 );
 
-	@chartdir.h
+	@ChartDirector/chartdir.h
 
 12 #iâdeà
 CCHARTDIR_HDR
@@ -56099,6 +52127,4102 @@ usšg
 	gCD_NAMESPACE
 ;
 
+	@ChartViewer.h
+
+9 #´agm¨
+Úû
+
+
+11 
+	~"ch¬tdœ.h
+"
+
+12 
+	~<afxmt.h
+>
+
+17 #ifdeà
+CD_NAMESPACE
+
+
+18 
+Çme¥aû
+ 
+	gCD_NAMESPACE
+
+
+22 
+Çme¥aû
+ 
+	gCh¬t
+
+
+29 
+	gMou£U§geDeçuÉ
+ = 0,
+
+30 
+	gMou£U§geSüÞl
+ = 1,
+
+31 
+	gMou£U§geZoomIn
+ = 3,
+
+32 
+	gMou£U§geZoomOut
+ = 4,
+
+36 #ifdeà
+CD_NAMESPACE
+
+
+43 
+þass
+ 
+	gCV›wPÜtCÚŒÞ
+;
+
+48 þas 
+	cUTF8toTCHAR
+
+
+50 
+	mpublic
+ :
+
+51 
+	$UTF8toTCHAR
+(cÚ¡ *
+utf8_¡ršg
+è: 
+	`t_¡ršg
+(0), 
+	$ÃedF»e
+(
+çl£
+)
+
+53 ià(0 =ð
+utf8_¡ršg
+)
+
+54 
+t_¡ršg
+ = 0;
+
+55 ià(0 =ð*
+utf8_¡ršg
+)
+
+56 
+t_¡ršg
+ = 
+	`_T
+("");
+
+57 ià(((
+TCHAR
+è=ð()è&& 
+	`isPu»Ascii
+(
+utf8_¡ršg
+))
+
+59 
+t_¡ršg
+ = (
+TCHAR
+ *)
+utf8_¡ršg
+;
+
+64 
+ÃedF»e
+ = 
+Œue
+;
+
+67 
+¡ršg_Ën
+ = ()
+	`¡¾’
+(
+utf8_¡ršg
+);
+
+68 
+wch¬_t
+ *
+bufãr
+ = 
+Ãw
+ wch¬_t[
+¡ršg_Ën
+ + 1];
+
+69 
+	`MuÉiBy‹ToWideCh¬
+(
+CP_UTF8
+, 0, 
+utf8_¡ršg
+, -1, 
+bufãr
+, 
+¡ršg_Ën
+ + 1);
+
+70 
+bufãr
+[
+¡ršg_Ën
+] = 0;
+
+72 #ifdeà
+_UNICODE
+
+
+73 
+t_¡ršg
+ = 
+bufãr
+;
+
+76 
+t_¡ršg
+ = 
+Ãw
+ [
+¡ršg_Ën
+ * 2 + 2];
+
+77 
+	`WideCh¬ToMuÉiBy‹
+(
+CP_ACP
+, 0, 
+bufãr
+, -1, 
+t_¡ršg
+, 
+¡ršg_Ën
+ * 2 + 1, 0, 0);
+
+78 
+t_¡ršg
+[
+¡ršg_Ën
+ * 2 + 1] = 0;
+
+79 
+d–‘e
+[] 
+bufãr
+;
+
+85 
+Ý”©Ü
+ cÚ¡ 
+TCHAR
+*()
+
+87  
+t_¡ršg
+;
+
+88 
+	}
+}
+
+90 ~
+	$UTF8toTCHAR
+()
+
+92 ià(
+ÃedF»e
+)
+
+93 
+d–‘e
+[] 
+t_¡ršg
+;
+
+94 
+	}
+}
+
+96 
+	g´iv©e
+ :
+
+97 
+TCHAR
+ *
+t_¡ršg
+;
+
+98 
+boÞ
+ 
+	gÃedF»e
+;
+
+103 
+boÞ
+ 
+	$isPu»Ascii
+(cÚ¡ *
+s
+)
+
+105 *
+s
+ !ð0è{ ià(*(s++è& 0x80è 
+çl£
+; }
+
+106  
+Œue
+;
+
+107 
+	}
+}
+
+110 
+UTF8toTCHAR
+(cÚ¡ UTF8toTCHAR &
+rhs
+);
+
+111 
+	gUTF8toTCHAR
+ &
+	gÝ”©Ü
+=(cÚ¡ 
+UTF8toTCHAR
+ &
+rhs
+);
+
+117 þas 
+	cTCHARtoUTF8
+
+
+119 
+	mpublic
+ :
+
+120 
+	$TCHARtoUTF8
+(cÚ¡ 
+TCHAR
+ *
+t_¡ršg
+è: 
+	`utf8_¡ršg
+(0), 
+	$ÃedF»e
+(
+çl£
+)
+
+122 ià(0 =ð
+t_¡ršg
+)
+
+123 
+utf8_¡ršg
+ = 0;
+
+124 ià(0 =ð*
+t_¡ršg
+)
+
+125 
+utf8_¡ršg
+ = "";
+
+126 ià(((
+TCHAR
+è=ð()è&& 
+	`isPu»Ascii
+((*)
+t_¡ršg
+))
+
+128 
+utf8_¡ršg
+ = (*)
+t_¡ršg
+;
+
+133 
+ÃedF»e
+ = 
+Œue
+;
+
+134 
+¡ršg_Ën
+ = ()
+	`_tc¦’
+(
+t_¡ršg
+);
+
+136 #iâdeà
+_UNICODE
+
+
+138 
+wch¬_t
+ *
+w_¡ršg
+ = 
+Ãw
+ wch¬_t[
+¡ršg_Ën
+ + 1];
+
+139 
+	`MuÉiBy‹ToWideCh¬
+(
+CP_ACP
+, 0, 
+t_¡ršg
+, -1, 
+w_¡ršg
+, 
+¡ršg_Ën
+ + 1);
+
+140 
+w_¡ršg
+[
+¡ršg_Ën
+] = 0;
+
+142 
+wch¬_t
+ *
+w_¡ršg
+ = (wch¬_t*)
+t_¡ršg
+;
+
+146 
+utf8_¡ršg
+ = 
+Ãw
+ [
+¡ršg_Ën
+ * 3 + 1];
+
+147 
+	`WideCh¬ToMuÉiBy‹
+(
+CP_UTF8
+, 0, 
+w_¡ršg
+, -1, 
+utf8_¡ršg
+, 
+¡ršg_Ën
+ * 3 + 1, 0, 0);
+
+148 
+utf8_¡ršg
+[
+¡ršg_Ën
+ * 3] = 0;
+
+150 ià(
+w_¡ršg
+ !ð(
+wch¬_t
+ *)
+t_¡ršg
+)
+
+151 
+d–‘e
+[] 
+w_¡ršg
+;
+
+156 
+Ý”©Ü
+ const *()
+
+158  
+utf8_¡ršg
+;
+
+159 
+	}
+}
+
+161 ~
+	$TCHARtoUTF8
+()
+
+163 ià(
+ÃedF»e
+)
+
+164 
+d–‘e
+[] 
+utf8_¡ršg
+;
+
+165 
+	}
+}
+
+167 
+	g´iv©e
+ :
+
+168 *
+utf8_¡ršg
+;
+
+169 
+boÞ
+ 
+	gÃedF»e
+;
+
+174 
+boÞ
+ 
+	$isPu»Ascii
+(cÚ¡ *
+s
+)
+
+176 *
+s
+ !ð0è{ ià(*(s++è& 0x80è 
+çl£
+; }
+
+177  
+Œue
+;
+
+178 
+	}
+}
+
+181 
+TCHARtoUTF8
+(cÚ¡ TCHARtoUTF8 &
+rhs
+);
+
+182 
+	gTCHARtoUTF8
+ &
+	gÝ”©Ü
+=(cÚ¡ 
+TCHARtoUTF8
+ &
+rhs
+);
+
+193 þas 
+	cCReùCŒl
+ : 
+public
+ 
+CStic
+
+
+195 
+public
+:
+
+197 
+BOOL
+ 
+C»©e
+(
+CWnd
+* 
+pP¬’tWnd
+, 
+COLORREF
+ 
+c
+);
+
+198 
+S‘CÞÜ
+(
+COLORREF
+ 
+c
+);
+
+204 
+	m´Ùeùed
+:
+
+207 
+afx_msg
+ 
+HBRUSH
+ 
+CŽCÞÜ
+(
+CDC
+* 
+pDC
+, 
+UINT
+ 
+nCŽCÞÜ
+);
+
+210 
+	$DECLARE_MESSAGE_MAP
+()
+
+212 
+´iv©e
+ :
+
+213 
+CBrush
+ 
+m_CÞÜ
+;
+
+220 þas 
+	cCSticH–³r
+
+
+222 
+´iv©e
+:
+
+223 
+HBITMAP
+ 
+m_cu¼’tHBITMAP
+;
+
+224 
+m_WCCisV6
+;
+
+225 
+boÞ
+ 
+m_‹¡Mode
+;
+
+227 
+	`£tHBITMAP
+(
+CStic
+ *
+£lf
+, 
+HBITMAP
+ 
+ÃwB™M­
+);
+
+228 
+HBITMAP
+ 
+	`bmpToHBITMAP
+(
+CStic
+ *
+£lf
+, cÚ¡ *
+d©a
+);
+
+230 
+public
+:
+
+231 
+	`CSticH–³r
+();
+
+233 
+	`ÚPašt
+(
+CStic
+ *
+£lf
+);
+
+234 
+	`di¥ÏyCh¬t
+(
+CStic
+ *
+£lf
+, 
+Ba£Ch¬t
+ *
+c
+);
+
+244 
+	#CVN_V›wPÜtChªged
+ 1000
+
+245 
+	#CVN_Mou£MoveCh¬t
+ 1001
+
+246 
+	#CVN_Mou£L—veCh¬t
+ 1002
+
+247 
+	#CVN_Mou£MovePlÙA»a
+ 1003
+
+248 
+	#CVN_Mou£L—vePlÙA»a
+ 1004
+
+249 
+
+	)
+
+251 
+þass
+ 
+CCh¬tV›w”
+ : 
+public
+ 
+CStic
+,…ubliø
+V›wPÜtMªag”
+, 
+´iv©e
+ 
+CSticH–³r
+
+
+253 
+public
+:
+
+254 
+	`CCh¬tV›w”
+();
+
+260 
+vœtu®
+ 
+	`£tCh¬t
+(
+Ba£Ch¬t
+ *
+c
+);
+
+261 
+vœtu®
+ 
+Ba£Ch¬t
+ *
+	`g‘Ch¬t
+();
+
+263 
+vœtu®
+ 
+	`£tV›wPÜtCÚŒÞ
+(
+CV›wPÜtCÚŒÞ
+ *
+vpc
+);
+
+264 
+vœtu®
+ 
+CV›wPÜtCÚŒÞ
+ *
+	`g‘V›wPÜtCÚŒÞ
+();
+
+266 
+vœtu®
+ 
+	`£tImageM­
+(cÚ¡ *
+imageM­
+);
+
+267 
+vœtu®
+ 
+ImageM­HªdËr
+ *
+	`g‘ImageM­HªdËr
+();
+
+269 
+vœtu®
+ 
+	`£tDeçuÉToÞT
+(
+LPCTSTR
+ 
+‹xt
+);
+
+270 
+vœtu®
+ 
+CToÞTCŒl
+ *
+	`g‘ToÞTCŒl
+();
+
+272 
+vœtu®
+ 
+	`£tS–eùiÚBÜd”Width
+(
+width
+);
+
+273 
+vœtu®
+ 
+	`g‘S–eùiÚBÜd”Width
+();
+
+275 
+vœtu®
+ 
+	`£tS–eùiÚBÜd”CÞÜ
+(
+COLORREF
+ 
+c
+);
+
+276 
+vœtu®
+ 
+COLORREF
+ 
+	`g‘S–eùiÚBÜd”CÞÜ
+();
+
+278 
+vœtu®
+ 
+	`£tMou£U§ge
+(
+mou£U§ge
+);
+
+279 
+vœtu®
+ 
+	`g‘Mou£U§ge
+();
+
+281 
+vœtu®
+ 
+	`£tZoomDœeùiÚ
+(
+dœeùiÚ
+);
+
+282 
+vœtu®
+ 
+	`g‘ZoomDœeùiÚ
+();
+
+284 
+vœtu®
+ 
+	`£tSüÞlDœeùiÚ
+(
+dœeùiÚ
+);
+
+285 
+vœtu®
+ 
+	`g‘SüÞlDœeùiÚ
+();
+
+287 
+vœtu®
+ 
+	`£tZoomInR©io
+(
+¿tio
+);
+
+288 
+vœtu®
+ 
+	`g‘ZoomInR©io
+();
+
+290 
+vœtu®
+ 
+	`£tZoomOutR©io
+(
+¿tio
+);
+
+291 
+vœtu®
+ 
+	`g‘ZoomOutR©io
+();
+
+293 
+vœtu®
+ 
+	`£tMou£Wh“lZoomR©io
+(
+¿tio
+);
+
+294 
+vœtu®
+ 
+	`g‘Mou£Wh“lZoomR©io
+();
+
+296 
+vœtu®
+ 
+	`£tMšimumD¿g
+(
+off£t
+);
+
+297 
+vœtu®
+ 
+	`g‘MšimumD¿g
+();
+
+299 
+vœtu®
+ 
+	`£tUpd©eIÁ”v®
+(
+š‹rv®
+);
+
+300 
+vœtu®
+ 
+	`g‘Upd©eIÁ”v®
+();
+
+302 
+vœtu®
+ 
+boÞ
+ 
+	`ÃedUpd©eCh¬t
+();
+
+303 
+vœtu®
+ 
+boÞ
+ 
+	`ÃedUpd©eImageM­
+();
+
+305 
+vœtu®
+ 
+boÞ
+ 
+	`isMou£OnPlÙA»a
+();
+
+306 
+vœtu®
+ 
+boÞ
+ 
+	`isInMou£MoveEv’t
+();
+
+307 
+vœtu®
+ 
+boÞ
+ 
+	`isMou£D¿ggšg
+();
+
+314 
+vœtu®
+ 
+	`upd©eV›wPÜt
+(
+boÞ
+ 
+ÃedUpd©eCh¬t
+, boÞ 
+ÃedUpd©eImageM­
+);
+
+317 
+vœtu®
+ 
+	`upd©eDi¥Ïy
+();
+
+320 
+vœtu®
+ 
+BOOL
+ 
+	`ÚMou£Wh“lZoom
+(
+x
+, 
+y
+, 
+zD–
+);
+
+323 
+vœtu®
+ 
+	`»moveDyÇmicLay”
+(
+msg
+);
+
+326 
+vœtu®
+ 
+	`g‘Ch¬tMou£X
+();
+
+327 
+vœtu®
+ 
+	`g‘Ch¬tMou£Y
+();
+
+330 
+vœtu®
+ 
+	`g‘PlÙA»aMou£X
+();
+
+331 
+vœtu®
+ 
+	`g‘PlÙA»aMou£Y
+();
+
+335 
+public
+:
+
+336 
+vœtu®
+ 
+BOOL
+ 
+	`P»T¿n¦©eMes§ge
+(
+MSG
+* 
+pMsg
+);
+
+339 
+´Ùeùed
+:
+
+342 
+afx_msg
+ 
+	`OnPašt
+();
+
+343 
+afx_msg
+ 
+	`OnMou£Move
+(
+UINT
+ 
+nFÏgs
+, 
+CPošt
+ 
+pošt
+);
+
+344 
+afx_msg
+ 
+	`OnD–ayedMou£Move
+();
+
+345 
+afx_msg
+ 
+LRESULT
+ 
+	`OnMou£L—ve
+(
+WPARAM
+ 
+wP¬am
+, 
+LPARAM
+ 
+lP¬am
+);
+
+346 
+afx_msg
+ 
+BOOL
+ 
+	`OnS‘CursÜ
+(
+CWnd
+* 
+pWnd
+, 
+UINT
+ 
+nH™Te¡
+, UINT 
+mes§ge
+);
+
+347 
+afx_msg
+ 
+	`OnDe¡roy
+();
+
+348 
+afx_msg
+ 
+	`OnLBu‰ÚDown
+(
+UINT
+ 
+nFÏgs
+, 
+CPošt
+ 
+pošt
+);
+
+349 
+afx_msg
+ 
+	`OnLBu‰ÚUp
+(
+UINT
+ 
+nFÏgs
+, 
+CPošt
+ 
+pošt
+);
+
+350 
+afx_msg
+ 
+BOOL
+ 
+	`OnMou£Wh“l
+(
+UINT
+ 
+nFÏgs
+, 
+zD–
+, 
+CPošt
+ 
+±
+);
+
+351 
+afx_msg
+ 
+	`OnTim”
+(
+UINT_PTR
+ 
+nIDEv’t
+);
+
+352 
+	`DECLARE_MESSAGE_MAP
+()
+
+354 
+´iv©e
+:
+
+360 
+Ba£Ch¬t
+ *
+m_cu¼’tCh¬t
+;
+
+361 
+ImageM­HªdËr
+ *
+m_hÙSpÙTe¡”
+;
+
+362 
+CSŒšg
+ 
+m_deçuÉToÞT
+;
+
+363 
+CToÞTCŒl
+ 
+m_ToÞT
+;
+
+364 
+boÞ
+ 
+m_toÞTHasA‰ached
+;
+
+365 
+COLORREF
+ 
+m_£ËùBoxLšeCÞÜ
+;
+
+366 
+m_£ËùBoxLšeWidth
+;
+
+367 
+m_mou£U§ge
+;
+
+368 
+m_zoomDœeùiÚ
+;
+
+369 
+m_süÞlDœeùiÚ
+;
+
+370 
+m_zoomInR©io
+;
+
+371 
+m_zoomOutR©io
+;
+
+372 
+m_mou£Wh“lZoomR©io
+;
+
+373 
+m_mšD¿gAmouÁ
+;
+
+374 
+m_upd©eIÁ”v®
+;
+
+375 
+boÞ
+ 
+m_ÃedUpd©eCh¬t
+;
+
+376 
+boÞ
+ 
+m_ÃedUpd©eImageM­
+;
+
+382 
+m_cu¼’tHÙSpÙ
+;
+
+383 
+boÞ
+ 
+m_isClickabË
+;
+
+384 
+boÞ
+ 
+m_isOnPlÙA»a
+;
+
+385 
+boÞ
+ 
+m_isPlÙA»aMou£Down
+;
+
+386 
+boÞ
+ 
+m_isD¿gSüÞlšg
+;
+
+387 
+boÞ
+ 
+m_isMou£T¿ckšg
+;
+
+388 
+boÞ
+ 
+m_isInMou£Move
+;
+
+394 
+m_¶ÙA»aMou£DownXPos
+;
+
+395 
+m_¶ÙA»aMou£DownYPos
+;
+
+396 
+boÞ
+ 
+	`isD¿g
+(
+dœeùiÚ
+, 
+CPošt
+ 
+pošt
+);
+
+397 
+	`OnPlÙA»aMou£D¿g
+(
+UINT
+ 
+nFÏgs
+, 
+CPošt
+ 
+pošt
+);
+
+403 
+CReùCŒl
+ 
+m_LeáLše
+;
+
+404 
+CReùCŒl
+ 
+m_RightLše
+;
+
+405 
+CReùCŒl
+ 
+m_TÝLše
+;
+
+406 
+CReùCŒl
+ 
+m_BÙtomLše
+;
+
+408 
+	`š™Reù
+();
+
+409 
+	`d¿wReù
+(
+x
+, 
+y
+, 
+width
+, 
+height
+);
+
+410 
+	`£tReùVisibË
+(
+boÞ
+ 
+b
+);
+
+416 
+boÞ
+ 
+m_hÞdTim”Aùive
+;
+
+418 
+m_d–ayUpd©eCh¬t
+;
+
+419 
+Ba£Ch¬t
+ *
+m_d–ayedCh¬t
+;
+
+420 
+	`comm™Upd©eCh¬t
+();
+
+422 
+m_Ï¡Mou£Move
+;
+
+423 
+boÞ
+ 
+m_hasD–ayedMou£Move
+;
+
+424 
+UINT
+ 
+m_d–ayedMou£MoveFÏg
+;
+
+425 
+CPošt
+ 
+m_d–ayedMou£MovePošt
+;
+
+426 
+	`comm™Mou£Move
+(
+UINT
+ 
+nFÏgs
+, 
+CPošt
+ 
+pošt
+);
+
+428 
+boÞ
+ 
+m_d–ayImageM­Upd©e
+;
+
+434 
+m_cu¼’tMou£X
+;
+
+435 
+m_cu¼’tMou£Y
+;
+
+436 
+m_isInMou£MovePlÙA»a
+;
+
+442 
+m_autoHideMsg
+;
+
+443 
+	`­¶yAutoHide
+(
+msg
+);
+
+449 
+CV›wPÜtCÚŒÞ
+ *
+m_vpCÚŒÞ
+;
+
+450 
+boÞ
+ 
+m_R“Á¿ÁGu¬d
+;
+
+451 
+	}
+};
+
+456 
+þass
+ 
+	gCV›wPÜtCÚŒÞ
+ : 
+public
+ 
+CStic
+,…ubliø
+	gV›wPÜtCÚŒÞBa£
+, 
+´iv©e
+ 
+	gCSticH–³r
+
+
+458 
+	gpublic
+:
+
+459 
+CV›wPÜtCÚŒÞ
+();
+
+462 
+vœtu®
+ 
+£tCh¬t
+(
+Ba£Ch¬t
+ *
+c
+);
+
+463 
+vœtu®
+ 
+Ba£Ch¬t
+ *
+g‘Ch¬t
+();
+
+466 
+vœtu®
+ 
+£tV›w”
+(
+CCh¬tV›w”
+ *
+v›w”
+);
+
+467 
+vœtu®
+ 
+CCh¬tV›w”
+ *
+g‘V›w”
+();
+
+470 
+vœtu®
+ 
+upd©eDi¥Ïy
+();
+
+472 
+	g´Ùeùed
+:
+
+475 
+afx_msg
+ 
+OnDe¡roy
+();
+
+476 
+afx_msg
+ 
+OnPašt
+();
+
+477 
+afx_msg
+ 
+OnMou£Move
+(
+UINT
+ 
+nFÏgs
+, 
+CPošt
+ 
+pošt
+);
+
+478 
+afx_msg
+ 
+BOOL
+ 
+OnMou£Wh“l
+(
+UINT
+ 
+nFÏgs
+, 
+zD–
+, 
+CPošt
+ 
+±
+);
+
+479 
+afx_msg
+ 
+OnLBu‰ÚDown
+(
+UINT
+ 
+nFÏgs
+, 
+CPošt
+ 
+pošt
+);
+
+480 
+afx_msg
+ 
+OnLBu‰ÚUp
+(
+UINT
+ 
+nFÏgs
+, 
+CPošt
+ 
+pošt
+);
+
+481 
+afx_msg
+ 
+BOOL
+ 
+OnS‘CursÜ
+(
+CWnd
+* 
+pWnd
+, 
+UINT
+ 
+nH™Te¡
+, UINT 
+mes§ge
+);
+
+482 
+DECLARE_MESSAGE_MAP
+()
+
+484 
+	g´iv©e
+:
+
+486 
+CCh¬tV›w”
+ *
+m_Ch¬tV›w”
+;
+
+487 
+Ba£Ch¬t
+ *
+	gm_Ch¬t
+;
+
+488 
+boÞ
+ 
+	gm_R“Á¿ÁGu¬d
+;
+
+490 
+	gm_mou£DownX
+;
+
+491 
+	gm_mou£DownY
+;
+
+492 
+boÞ
+ 
+isD¿g
+(
+CPošt
+ 
+pošt
+);
+
+494 
+HCURSOR
+ 
+g‘HCursÜ
+(
+pos™iÚ
+);
+
+495 
+·štDi¥Ïy
+();
+
+496 
+syncS‹
+();
+
+497 
+upd©eCh¬tV›w”IfNeûs§ry
+();
+
+499 
+toImageX
+(
+x
+);
+
+500 
+toImageY
+(
+y
+);
+
+	@ConfigDialog.h
+
+1 #ià!
+defšed
+(
+AFX_CONFIGDIALOG_H__5E887A2B_8CCA_4DDD_B20A_14333A1EA84C__INCLUDED_
+)
+
+2 
+	#AFX_CONFIGDIALOG_H__5E887A2B_8CCA_4DDD_B20A_14333A1EA84C__INCLUDED_
+
+
+	)
+
+4 #ià
+_MSC_VER
+ > 1000
+
+5 #´agm¨
+Úû
+
+
+13 þas 
+	cCCÚfigDŸlog
+ : 
+public
+ 
+CDŸlog
+
+
+16 
+public
+:
+
+17 
+CCÚfigDŸlog
+(
+CWnd
+* 
+pP¬’t
+ = 
+NULL
+);
+
+21 ’um { 
+	mIDD
+ = 
+IDD_CONFIG_DIALOG
+ };
+
+29 
+	g´Ùeùed
+:
+
+30 
+vœtu®
+ 
+DoD©aExchªge
+(
+CD©aExchªge
+* 
+pDX
+);
+
+34 
+	g´Ùeùed
+:
+
+40 
+DECLARE_MESSAGE_MAP
+()
+
+	@Error.h
+
+5 #ià!
+defšed
+(
+AFX_ERROR_H__8D3D34FA_3024_4D5F_81B6_D01841D85268__INCLUDED_
+)
+
+6 
+	#AFX_ERROR_H__8D3D34FA_3024_4D5F_81B6_D01841D85268__INCLUDED_
+
+
+	)
+
+8 #ià
+_MSC_VER
+ > 1000
+
+9 #´agm¨
+Úû
+
+
+14 
+	eE¼ID
+ {
+
+16 
+	mNO_ERR
+=0,
+
+17 
+	mTEST_ERR
+=1,
+
+18 
+	mTEST_TRACE
+=2,
+
+21 
+	mESTOP
+=10,
+
+25 
+	mSENSOR
+=100,
+
+26 
+	mSS_DT5V_LOW
+,
+
+27 
+	mSS_DT12V_LOW
+,
+
+28 
+	mSS_DT24V_LOW
+,
+
+29 
+	mSS_DTHV_LOW
+,
+
+30 
+	mSS_DT5VB_A_LOW
+,
+
+31 
+	mSS_DT5VC_A_LOW
+,
+
+32 
+	mSS_DT5VB_B_LOW
+,
+
+33 
+	mSS_DT5VC_B_LOW
+,
+
+34 
+	mSS_DT5VB_C_LOW
+,
+
+35 
+	mSS_DT5VC_C_LOW
+,
+
+36 
+	mSS_DT5VB_D_LOW
+,
+
+37 
+	mSS_DT5VC_D_LOW
+,
+
+38 
+	mSS_DT5VB_E_LOW
+,
+
+39 
+	mSS_DT5VC_E_LOW
+,
+
+40 
+	mSS_DT5VB_F_LOW
+,
+
+41 
+	mSS_DT5VC_F_LOW
+,
+
+42 
+	mSS_DT5VB_G_LOW
+,
+
+43 
+	mSS_DT5VC_G_LOW
+,
+
+44 
+	mSS_DT5VB_H_LOW
+,
+
+45 
+	mSS_DT5VC_H_LOW
+,
+
+48 
+	mSGNI
+=400,
+
+51 
+	mFLAG
+=500,
+
+52 
+	mFLAG_SOURCE_OR_SINK_CANNOT_ON
+,
+
+53 
+	mFLAG_SOURCE_CANNOT_OFF
+,
+
+54 
+	mFLAG_SINK_CANNOT_OFF
+,
+
+55 
+	mFLAG_SOURCE_LEAK
+,
+
+56 
+	mFLAG_SINK_LEAK
+,
+
+57 
+	mFLAG_ODD_SOURCE_LEAK
+,
+
+58 
+	mFLAG_EVEN_SOURCE_LEAK
+,
+
+60 
+	mFLAG_FILE_NOT_FOUND
+,
+
+61 
+	mFLAG_FILE_CANNOT_OPEN
+,
+
+62 
+	mFLAG_FILE_UNPROPER_PARAMETER
+,
+
+63 
+	mFLAG_FILE_CHECK_SUM
+,
+
+68 
+	mINVALID_RETURN
+=600,
+
+71 
+	mINVALID_INPUT
+=601,
+
+74 
+	mUSER_ERR
+=650,
+
+77 
+	mRANGE_OVER
+=700,
+
+78 
+	mOL_REF_CURRENT_IS_OVER_INPUT_VOLT_N_RGST
+,
+
+79 
+	mOL_I_RANGE_OVER
+,
+
+80 
+	mOL_I_RANGE_UNDER
+,
+
+81 
+	mCAL_CHECK_TEST_CONDITION
+,
+
+82 
+	mCAL_CHECK_HW
+,
+
+84 
+	mSW_LOGIC_ERR
+ = 750,
+
+85 
+	mSW_NO_INIT_VAR
+,
+
+86 
+	mMAN_ERR_TEST_CONDEITION
+,
+
+89 
+	mOVERTIME
+=800,
+
+90 
+	mOT_SETNCHK
+,
+
+91 
+	mOT_VB_OUTCHECK_ERR
+,
+
+94 
+	mDEVICE
+=1000,
+
+96 
+	mMOTION
+=
+DEVICE
++100,
+
+97 
+	mDIO_INIT_ERR
+,
+
+98 
+	mDIO_EXIT_ERR
+,
+
+99 
+	mINVALID_RETURN_DIOINPBIT
+,
+
+100 
+	mINVALID_RETURN_DIOOUTBIT
+,
+
+101 
+	mINVALID_RETURN_DIOINPBYTE
+,
+
+102 
+	mINVALID_RETURN_DIOOUTBYTE
+,
+
+103 
+	mINVALID_RETURN_DIOINP_MBIT
+,
+
+104 
+	mINVALID_RETURN_DIOOUT_MBIT
+,
+
+109 
+	m”rÜ_no
+;
+
+110 cÚ¡ * 
+	mt™Ë
+;
+
+111 cÚ¡ * 
+	m¡©e
+;
+
+112 cÚ¡ * 
+	msÞ
+;
+
+113 } 
+	tsE¼Msg
+;
+
+115 
+sE¼Msg
+ 
+	gE¼MsgTabË
+[] =
+
+117 { 
+NO_ERR
+, "Normal", "", "" },
+
+118 { 
+TEST_ERR
+, "Test", "", "" },
+
+119 { 
+TEST_TRACE
+, "Test Trace", "", "" },
+
+121 { 
+ESTOP
+, "E-Stop", "", "" },
+
+123 { 
+SENSOR
+, "Sensor", "", "" },
+
+124 { 
+SS_DT5V_LOW
+ , "5V Àü¿ø ÀÌ»ó", "", "" },
+
+125 { 
+SS_DT12V_LOW
+, "12V Àü¿ø ÀÌ»ó", "", "" },
+
+126 { 
+SS_DT24V_LOW
+, "24V Àü¿ø ÀÌ»ó", "", "" },
+
+127 { 
+SS_DTHV_LOW
+ , "HV Àü¿ø ÀÌ»ó", "", "" },
+
+129 { 
+SS_DT5VB_A_LOW
+, "BOX A 5VB Àü¿ø ÀÌ»ó", "" , "" },
+
+130 { 
+SS_DT5VC_A_LOW
+, "BOX A 5VC Àü¿ø ÀÌ»ó", "" , "" },
+
+131 { 
+SS_DT5VB_B_LOW
+, "BOX B 5VB Àü¿ø ÀÌ»ó", "" , "" },
+
+132 { 
+SS_DT5VC_B_LOW
+, "BOX B 5VC Àü¿ø ÀÌ»ó", "" , "" },
+
+133 { 
+SS_DT5VB_C_LOW
+, "BOX C 5VB Àü¿ø ÀÌ»ó", "" , "" },
+
+134 { 
+SS_DT5VC_C_LOW
+, "BOX C 5VC Àü¿ø ÀÌ»ó", "" , "" },
+
+135 { 
+SS_DT5VB_D_LOW
+, "BOX D 5VB Àü¿ø ÀÌ»ó", "" , "" },
+
+136 { 
+SS_DT5VC_D_LOW
+, "BOX D 5VC Àü¿ø ÀÌ»ó", "" , "" },
+
+137 { 
+SS_DT5VB_E_LOW
+, "BOX E 5VB Àü¿ø ÀÌ»ó", "" , "" },
+
+138 { 
+SS_DT5VC_E_LOW
+, "BOX E 5VC Àü¿ø ÀÌ»ó", "" , "" },
+
+139 { 
+SS_DT5VB_F_LOW
+, "BOX F 5VB Àü¿ø ÀÌ»ó", "" , "" },
+
+140 { 
+SS_DT5VC_F_LOW
+, "BOX F 5VC Àü¿ø ÀÌ»ó", "" , "" },
+
+141 { 
+SS_DT5VB_G_LOW
+, "BOX G 5VB Àü¿ø ÀÌ»ó", "" , "" },
+
+142 { 
+SS_DT5VC_G_LOW
+, "BOX G 5VC Àü¿ø ÀÌ»ó", "" , "" },
+
+143 { 
+SS_DT5VB_H_LOW
+, "BOX H 5VB Àü¿ø ÀÌ»ó", "" , "" },
+
+144 { 
+SS_DT5VC_H_LOW
+, "BOX H 5VC Àü¿ø ÀÌ»ó", "" , "" },
+
+146 { 
+SGNI
+, "Signal", "", "" },
+
+148 { 
+FLAG
+, "Flag", "", "" },
+
+150 { 
+FLAG_SOURCE_OR_SINK_CANNOT_ON
+, "Source/Sink ON ÀÌ»ó", "", "" },
+
+151 { 
+FLAG_SOURCE_CANNOT_OFF
+, "Source OFF ÀÌ»ó", "", "" },
+
+152 { 
+FLAG_SINK_CANNOT_OFF
+, "Sink OFF ÀÌ»ó", "", "" },
+
+153 { 
+FLAG_SOURCE_LEAK
+, "Source Leak ÀÌ»ó", "", "" },
+
+154 { 
+FLAG_SINK_LEAK
+, "Sink Leak ÀÌ»ó", "", "" },
+
+155 { 
+FLAG_ODD_SOURCE_LEAK
+, "Odd Source Leak ÀÌ»ó", "", "" },
+
+156 { 
+FLAG_EVEN_SOURCE_LEAK
+, "Even Source Leak ÀÌ»ó", "", "" },
+
+158 { 
+FLAG_FILE_NOT_FOUND
+, "ÆÄÀÏ Ã£À» ¼ö ¾øÀ½", "", "" },
+
+159 { 
+FLAG_FILE_CANNOT_OPEN
+, "ÆÄÀÏ ¿­±â ÀÌ»ó", "", "" },
+
+160 { 
+FLAG_FILE_UNPROPER_PARAMETER
+, "ÆÄÀÏ ³»¿ë ÀÌ»ó", "", "" },
+
+161 { 
+FLAG_FILE_CHECK_SUM
+, "ÆÄÀÏ CheckSum ÀÌ»ó", "", "" },
+
+165 { 
+INVALID_RETURN
+, "Invalid„eturn", "", "" },
+
+166 { 
+INVALID_INPUT
+, "Invalid Input Parameter", "", "" },
+
+168 { 
+USER_ERR
+, "»ç¿ëÀÚ À¯¹ß ¿¡·¯", "", "" },
+
+170 { 
+RANGE_OVER
+, "Range Over", "", "" },
+
+171 { 
+OL_REF_CURRENT_IS_OVER_INPUT_VOLT_N_RGST
+, "¼³Á¤ Àü·ù °ª ÀÌ»ó", "", "" },
+
+172 { 
+OL_I_RANGE_OVER
+, "ÃÖ´ë Àü·ù ¼³Á¤ ¹üÀ§ ÃÊ°ú", "", "" },
+
+173 { 
+OL_I_RANGE_UNDER
+, "ÃÖ¼Ò Àü·ù ¼³Á¤ ¹üÀ§ ÃÊ°ú", "", "" },
+
+174 { 
+CAL_CHECK_TEST_CONDITION
+, "Calibration Test Condtion ÆÄÀÏ ¼³Á¤ Ã¼Å© ÇÊ¿ä", "", "" },
+
+175 { 
+CAL_CHECK_HW
+, "Calibration Hw Read °ª ÀÌ»ó. H/W Ã¼Å© ÇÊ¿ä", "", "" },
+
+177 { 
+SW_LOGIC_ERR
+, "SW ³í¸® ¿À·ù ÀÖÀ½. S/WÃ¼Å© ÇÊ¿ä", "", "" },
+
+178 { 
+SW_NO_INIT_VAR
+, "ÃÊ±âÈ­µÇÁö ¾ÊÀº º¯¼ö »ç¿ë. S/W Ã¼Å© ÇÊ¿ä", "", "" },
+
+179 { 
+MAN_ERR_TEST_CONDEITION
+, "ManulTest ¼³Á¤ Á¶°Ç ÀÌ»ó", "", "" },
+
+181 { 
+OVERTIME
+, "Overime", "", "" },
+
+182 { 
+OT_SETNCHK
+, "Souce Àü¾Ð¼³Á¤ ÀÌ»ó", "", "" },
+
+183 { 
+OT_VB_OUTCHECK_ERR
+, "VB OUT CHECK ERROR. OverTime", "", "" },
+
+186 { 
+DEVICE
+, "Device", "", "" },
+
+187 { 
+MOTION
+, "Motion", "", "" },
+
+188 { 
+DIO_INIT_ERR
+, "DIO_INIT_ERR", "", "" },
+
+189 { 
+DIO_EXIT_ERR
+, "DIO_EXIT_ERR", "", "" },
+
+190 { 
+INVALID_RETURN_DIOINPBIT
+, "Invalid„eturn from DioInpBit()", "", "" },
+
+191 { 
+INVALID_RETURN_DIOOUTBIT
+, "Invalid„eturn from DioOutBit()", "", "" },
+
+192 { 
+INVALID_RETURN_DIOINPBYTE
+, "Invalid„eturn from DioInpByte()", "", "" },
+
+193 { 
+INVALID_RETURN_DIOOUTBYTE
+, "Invalid„eturn from DioOutByte()", "", "" },
+
+194 { 
+INVALID_RETURN_DIOINP_MBIT
+, "Invalid„eturn from DioInpMultiBit()", "", "" },
+
+195 { 
+INVALID_RETURN_DIOOUT_MBIT
+, "Invalid„eturn from DioOutMultiBit()", "", "" },
+
+199 
+	#ERRMSG_TABLE_LEN
+ (
+E¼MsgTabË
+)/(E¼MsgTabË[0])
+
+	)
+
+202 þas 
+	cCE¼Ü
+
+
+204 
+	m´iv©e
+:
+
+205 
+m_”rÜ_no
+;
+
+207 
+	mpublic
+:
+
+208 
+CSŒšg
+ 
+m_¡rS‹
+;
+
+210 
+S‘
+(
+”rcode
+, 
+CSŒšg
+ 
+¡rS‹
+="");
+
+211 
+	$G‘
+()
+
+214  
+m_”rÜ_no
+;
+
+216 
+	`Re£t
+();
+
+217 
+BOOL
+ 
+	`G‘Msg
+(
+”rÜ_no
+, 
+CSŒšg
+ &
+t™Ë
+, CSŒšg &
+¡©e
+, CSŒšg &
+sÞ
+);
+
+219 
+public
+:
+
+220 
+	`CE¼Ü
+();
+
+221 
+vœtu®
+ ~
+	`CE¼Ü
+();
+
+222 
+	}
+};
+
+225 
+CE¼Ü
+ 
+ERR
+;
+
+227 
+E¼Msg
+(
+nMboxTy³
+=
+MB_OK
+, 
+BOOL
+ 
+bT¿ûOn
+=
+TRUE
+);
+
+	@FileSysInfo.h
+
+6 #ià!
+defšed
+(
+AFX_FILESYSINFO_H__B85E18EA_5A5B_4129_A54C_D02D75AE6A24__INCLUDED_
+)
+
+7 
+	#AFX_FILESYSINFO_H__B85E18EA_5A5B_4129_A54C_D02D75AE6A24__INCLUDED_
+
+
+	)
+
+9 #ià
+_MSC_VER
+ > 1000
+
+10 #´agm¨
+Úû
+
+
+13 
+	~"¡dafx.h
+"
+
+14 
+	~<¡d¬g.h
+>
+
+17 
+	#Def_MaxBlock1
+ 501
+
+	)
+
+18 
+	#Def_MaxP›û1
+ 301
+
+	)
+
+21 
+	eDATA_LOAD_SAVE_TYPE
+ { 
+	mDATA_NO_SAVE_LOAD
+,
+
+22 
+	mDATA_SAVE
+,
+
+23 
+	mDATA_LOAD
+
+
+28 þas 
+	cCFžeSysInfo
+
+
+31 
+	mpublic
+:
+
+33 
+	$CFžeSysInfo
+()
+
+37 
+CFžeSysInfo
+::
+	`LßdSaveV›w01
+(
+ty³
+);
+
+38 
+	`LßdSaveSub13
+(
+ty³
+);
+
+39 
+	`LßdSaveSub25
+(
+ty³
+);
+
+40 
+	`LßdSaveSub19
+(
+ty³
+, 
+nFžeTy³
+);
+
+44 
+	}
+};
+
+48 
+	sCSysInfoV›w01
+
+
+51 
+	mm_pSŒFžeDri1
+[200];
+
+52 
+	mm_pSŒFžeP©h1
+[200];
+
+53 
+	mm_pSŒFžeP©hJig1
+[200];
+
+54 
+	mm_pSŒFžeP©hJig2
+[200];
+
+55 
+	mm_pSŒFžeP©hBDL
+[200];
+
+56 
+	mm_pSŒFžeBDLName
+[200];
+
+61 
+	sCSysInfo03
+
+
+63 
+	mm_nBlock
+;
+
+64 
+	mm_nRow
+;
+
+65 
+	mm_nCÞ
+;
+
+66 
+	mm_nD©a
+[
+Def_MaxBlock1
+][Def_MaxBlock1];
+
+69 
+	mm_nTy³
+;
+
+80 
+	sCSysInfo25
+
+
+82 
+	mm_nBlock
+;
+
+83 
+	mm_nRow
+;
+
+84 
+	mm_nCÞ
+;
+
+85 
+	mm_nD©a
+[
+Def_MaxP›û1
+][Def_MaxPiece1];
+
+88 
+	mm_nTy³
+;
+
+96 
+	mm_nRowD–
+;
+
+97 
+	mm_nCÞD–
+;
+
+101 
+	sCSysInfo19
+
+
+103 
+	mm_nBlockTÙ
+;
+
+104 
+	mm_nP›ûTÙ
+;
+
+105 
+	mm_nC–lTÙ®
+;
+
+106 
+	mm_nTy³
+;
+
+107 
+	mm_nU£
+;
+
+109 
+	mm_nD©a
+[
+Def_MaxBlock1
+][
+Def_MaxP›û1
+];
+
+112 
+	mm_nCheck
+;
+
+119 
+CFžeSysInfo
+ 
+FžeSysInfo01
+;
+
+120 
+CSysInfoV›w01
+ 
+SysInfoV›w01
+;
+
+121 
+CSysInfo03
+ 
+SysInfo03
+;
+
+122 
+CSysInfo25
+ 
+SysInfo25
+;
+
+123 
+CSysInfo19
+ 
+SysInfo19
+;
+
+	@GageDialog.h
+
+1 #ià!
+defšed
+(
+AFX_GAGEDIALOG_H__2ECC17B6_A785_4CA6_B46A_85C1648A9469__INCLUDED_
+)
+
+2 
+	#AFX_GAGEDIALOG_H__2ECC17B6_A785_4CA6_B46A_85C1648A9469__INCLUDED_
+
+
+	)
+
+4 #ià
+_MSC_VER
+ > 1000
+
+5 #´agm¨
+Úû
+
+
+13 
+	~"GridCŒl.h
+"
+
+14 
+	~"Glob®s.h
+"
+
+15 
+	~"E¼Ü.h
+"
+
+16 
+	~"Ch¬tV›w”.h
+"
+
+19 
+	#MAX_MEAS_COUNT
+ 90
+
+	)
+
+21 
+	eMEAS_TYPE
+ { 
+	mmohm_1
+ = 0,
+
+22 
+	mmohm_2
+ = 1,
+
+23 
+	mmohm_3
+ = 2,
+
+24 
+	mmohm_4
+ = 3,
+
+25 
+	mmohm_5
+ = 4,
+
+27 
+	mmohm_10
+ = 5,
+
+28 
+	mmohm_20
+ = 6,
+
+29 
+	mmohm_30
+ = 7,
+
+30 
+	mmohm_40
+ = 8,
+
+31 
+	mmohm_50
+ = 9,
+
+33 
+	mmohm_100
+ = 10,
+
+34 
+	mmohm_200
+ = 11,
+
+35 
+	mmohm_500
+ = 12,
+
+36 
+	mmohm_750
+ = 13,
+
+37 
+	mmohm_1000
+ = 14,
+
+39 
+	mmohm_2000
+ = 15,
+
+40 
+	mmohm_3000
+ = 16,
+
+41 
+	mmohm_5000
+ = 17,
+
+42 
+	mmohm_7500
+ = 18,
+
+43 
+	mmohm_10000
+ = 19,
+
+45 
+	mmohm_20000
+ = 20,
+
+46 
+	mmohm_30000
+ = 21,
+
+47 
+	mmohm_50000
+ = 22,
+
+48 
+	mmohm_75000
+ = 23,
+
+49 
+	mmohm_999999
+ = 24,
+
+51 
+	mMAX_MEAS_TYPE
+ = 25
+
+55 
+	mnM—sYy³
+;
+
+56 cÚ¡ * 
+	m¡rM—s
+;
+
+57 
+	mnM—sRef
+;
+
+58 } 
+	tsM—sInfo
+;
+
+60 
+sM—sInfo
+ 
+	gg_M—sInfoTabË
+[] = {
+
+61 { 
+mohm_1
+ , "1mohm " , 1 },
+
+62 { 
+mohm_2
+ , "2mohm " , 2 },
+
+63 { 
+mohm_3
+ , "3mohm " , 3 },
+
+64 { 
+mohm_4
+ , "4mohm " , 4 },
+
+65 { 
+mohm_5
+ , "5mohm " , 5 },
+
+67 { 
+mohm_10
+ , "10mohm " , 10 },
+
+68 { 
+mohm_20
+ , "20mohm " , 20 },
+
+69 { 
+mohm_30
+ , "30mohm " , 30 },
+
+70 { 
+mohm_40
+ , "40mohm " , 40 },
+
+71 { 
+mohm_50
+ , "50mohm" , 50 },
+
+73 { 
+mohm_100
+ , "100mohm" , 100 },
+
+74 { 
+mohm_200
+ , "200mohm" , 200 },
+
+75 { 
+mohm_500
+ , "500mohm" , 500 },
+
+76 { 
+mohm_750
+ , "750mohm" , 750 },
+
+77 { 
+mohm_1000
+ , "1000mohm" , 1000 },
+
+79 { 
+mohm_2000
+ , "2000mohm" , 2000 },
+
+80 { 
+mohm_3000
+ , "3000mohm" , 3000 },
+
+81 { 
+mohm_5000
+ , "5000mohm" , 5000 },
+
+82 { 
+mohm_7500
+ , "7500mohm" , 7500 },
+
+83 { 
+mohm_10000
+ , "10000mohm" , 10000 },
+
+85 { 
+mohm_20000
+ , "20000mohm" , 20000 },
+
+86 { 
+mohm_30000
+ , "30000mohm" , 30000 },
+
+87 { 
+mohm_50000
+ , "50000mohm" , 50000 },
+
+88 { 
+mohm_75000
+ , "75000mohm" , 75000 },
+
+89 { 
+MAX_MEAS_TYPE
+ , "999999mohm", 999999 }
+
+93 þas 
+	cCGageDŸlog
+ : 
+public
+ 
+CDŸlog
+
+
+96 
+public
+:
+
+97 
+CGageDŸlog
+(
+CWnd
+* 
+pP¬’t
+ = 
+NULL
+);
+
+101 ’um { 
+	mIDD
+ = 
+IDD_GAGE_DIALOG
+ };
+
+102 
+CComboBox
+ 
+	gm_comboM—sTy³
+;
+
+103 
+CGridCŒl
+ 
+	gm_gridCŒl
+;
+
+104 
+CSŒšg
+ 
+	gm_ed™M—sD©aP©h
+;
+
+105 
+CCh¬tV›w”
+ 
+	gm_Ch¬tV›w”
+;
+
+106 
+	gm_ed™_nRefIÅut
+;
+
+107 
+	gm_ed™_nTÞIÅut
+;
+
+108 
+	gm_ed™_nRef
+;
+
+109 
+	gm_ed™_nTÞ
+;
+
+111 
+CSŒšg
+ 
+	gm_ed™SŒAvg
+;
+
+112 
+CSŒšg
+ 
+	gm_ed™SŒStDev
+;
+
+113 
+CSŒšg
+ 
+	gm_ed™SŒ6StDev
+;
+
+114 
+CSŒšg
+ 
+	gm_ed™SŒBŸs
+;
+
+115 
+CSŒšg
+ 
+	gm_ed™SŒT
+;
+
+116 
+CSŒšg
+ 
+	gm_ed™SŒPV®ue
+;
+
+117 
+CSŒšg
+ 
+	gm_ed™SŒCg
+;
+
+118 
+CSŒšg
+ 
+	gm_ed™SŒCgk
+;
+
+119 
+CSŒšg
+ 
+	gm_ed™SŒV¬R•t
+;
+
+120 
+CSŒšg
+ 
+	gm_ed™SŒV¬R•tBŸs
+;
+
+127 
+	gpublic
+:
+
+128 
+vœtu®
+ 
+BOOL
+ 
+De¡royWšdow
+();
+
+129 
+	g´Ùeùed
+:
+
+130 
+vœtu®
+ 
+DoD©aExchªge
+(
+CD©aExchªge
+* 
+pDX
+);
+
+134 
+	g´Ùeùed
+:
+
+138 
+vœtu®
+ 
+BOOL
+ 
+OnIn™DŸlog
+();
+
+139 
+afx_msg
+ 
+OnShowWšdow
+(
+BOOL
+ 
+bShow
+, 
+UINT
+ 
+nStus
+);
+
+140 
+afx_msg
+ 
+OnS–chªgeComboM—sTy³
+();
+
+141 
+afx_msg
+ 
+OnChªgeEd™TÞIÅut
+();
+
+142 
+afx_msg
+ 
+OnBu‰ÚDoStudy
+();
+
+145 
+	$DECLARE_MESSAGE_MAP
+()
+
+148 
+public
+:
+
+151 
+m_nTy³CouÁ
+;
+
+152 
+m_nM—sCouÁ
+;
+
+153 
+m_daM—sD©a
+[
+MAX_MEAS_TYPE
+][
+MAX_MEAS_COUNT
+];
+
+156 
+m_nCombo_Cu¼Ty³
+;
+
+158 
+m_dAvg
+;
+
+159 
+m_d6StDev
+;
+
+160 
+m_dStDev
+;
+
+161 
+m_dBŸs
+;
+
+162 
+m_dT
+;
+
+163 
+m_dPV®ue
+;
+
+164 
+m_dCg
+;
+
+165 
+m_dCgk
+;
+
+166 
+m_dV¬R•t
+;
+
+167 
+m_dV¬R•tBŸs
+;
+
+170 
+m_nFixCÞs
+;
+
+171 
+m_nFixRows
+;
+
+172 
+m_nCÞs
+;
+
+173 
+m_nRows
+;
+
+174 
+BOOL
+ 
+m_bEd™abË
+;
+
+188 
+BOOL
+ 
+	`In™Memb”
+();
+
+189 
+BOOL
+ 
+	`In™V›w
+();
+
+190 
+	`Di¥Ïy_mohmGridH—d”
+();
+
+191 
+	`Di¥Ïy_mohmGridD©a
+();
+
+192 
+	`S‘GridBkBuË
+(
+ty³
+);
+
+193 
+	`CË¬Grid_BackGround
+();
+
+194 
+	`CË¬Grid_D©a
+();
+
+196 
+	`Lßd_4W_M—sD©a
+();
+
+197 
+	`g‘M—sD©aLoc
+(*
+pSŒ
+, 
+¡rMax
+, &
+rLoc
+);
+
+198 
+	`g‘M—sD©a
+(*
+pSŒ
+, 
+¡rMax
+, &
+rdM—sD©a
+);
+
+200 
+	`Di¥ÏyGageStudyCh¬t
+(
+ty³
+);
+
+201 
+	`C®cGageStudyOuut
+(
+ty³
+);
+
+202 
+	`Di¥ÏyGageStudyOuut
+(
+ty³
+);
+
+203 
+	}
+};
+
+	@Globals.h
+
+5 #ià!
+defšed
+(
+AFX_GLOBALS_H__FDA16379_4221_4970_8471_B8FBD39D2C1E__INCLUDED_
+)
+
+6 
+	#AFX_GLOBALS_H__FDA16379_4221_4970_8471_B8FBD39D2C1E__INCLUDED_
+
+
+	)
+
+8 #ià
+_MSC_VER
+ > 1000
+
+9 #´agm¨
+Úû
+
+
+12 
+	~<dœeù.h
+>
+
+13 
+	~<io.h
+>
+
+14 
+	~"¡dafx.h
+"
+
+15 
+	~<¡d¬g.h
+>
+
+23 
+	#FUNC
+(
+â
+è#â
+
+	)
+
+28 þas 
+	cCGlob®s
+
+
+30 
+	mpublic
+:
+
+31 
+CGlob®s
+();
+
+32 
+	mvœtu®
+ ~
+CGlob®s
+();
+
+43 
+	ssFILE_DATA
+
+
+45 
+CSŒšg
+ 
+	mSy¡emDœ
+;
+
+46 
+CSŒšg
+ 
+	mP¬am‘”Dœ
+;
+
+47 
+CSŒšg
+ 
+	mD©aDœ
+;
+
+50 
+CSŒšg
+ 
+	mACE400_4WD©aDœ
+;
+
+52 
+CSŒšg
+ 
+	mSy¡emFžeName
+;
+
+53 
+CSŒšg
+ 
+	mSy¡emFže
+;
+
+55 
+sFILE_DATA
+()
+
+57 
+	mSy¡emFžeName
+ = "System.";
+
+59 
+	mACE400_4WD©aDœ
+ = "D:\\log4w";
+
+62 
+In™
+()
+
+65 
+	mbufãr
+[
+_MAX_PATH
+];
+
+66 if(
+_g‘cwd
+Ð
+bufãr
+, 
+_MAX_PATH
+ ) =ð
+NULL
+)
+
+68 
+AfxMes§geBox
+("Root directory‚ot found.");
+
+72 
+	mSy¡emDœ
+.
+FÜm©
+("%s", 
+bufãr
+);
+
+74 
+	mD©aDœ
+ = 
+Sy¡emDœ
+ + "\\" + "Data";
+
+77 ifÐ(
+_acûss
+(
+D©aDœ
+, 0 )) == -1 )
+
+78 
+_mkdœ
+(
+D©aDœ
+);
+
+80 
+	mSy¡emFže
+ = 
+P¬am‘”Dœ
+ + "\\" + 
+Sy¡emFžeName
+;
+
+83 } 
+	tsFILE_DATA
+;
+
+91 
+	eUNIT
+ { 
+	m£c
+=0, 
+	mm£c
+=1, 
+	mu£c
+=2, 
+	mmA
+, 
+	muA
+, 
+	mMohm
+, 
+	mKohm
+, 
+	mohm
+, 
+	mmohm
+, 
+	muohm
+ };
+
+92 
+	eUNIT_CONVERT_TYPE
+ {
+
+93 
+	mMM_TO_UM
+, 
+	mUM_TO_MM
+, 
+	mSEC_TO_MSEC
+, 
+	mMSEC_TO_SEC
+
+
+96 
+	ePRT_TYPE
+ { 
+	mPRT_BASIC
+, 
+	mPRT_LEVEL1
+, 
+	mPRT_LEVEL2
+, 
+	mPRT_LEVEL3
+, 
+	mPRT_DEVICE
+, 
+	mPRT_DEV_D64
+ };
+
+98 
+WORD
+ 
+g_wPrštS‹
+;
+
+99 
+sFILE_DATA
+ 
+g_sFže
+;
+
+108 
+DoEv’ts
+(
+DWORD
+ 
+dwMžli£cÚds
+=0);
+
+109 
+D–ay
+(
+UINT
+ 
+d–aytime
+=0, UINT 
+un™
+=
+u£c
+);
+
+110 
+__št64
+ 
+G‘MiüoSecÚd
+();
+
+111 
+BOOL
+ 
+FžeExi¡s
+(
+CSŒšg
+ 
+¡rFžeP©h
+);
+
+112 
+G‘D©eAndTime
+(*
+d©‘ime
+);
+
+113 
+SIZE_T
+ 
+G‘ProûssWÜkšgS‘Size
+();
+
+114 
+__PrštMemSize
+(* 
+¡rFunc
+, 
+lše
+);
+
+116 
+AFX_CDECL
+ 
+MyT¿û
+(
+PRT_TYPE
+ 
+´tTy³
+, 
+LPCTSTR
+ 
+ÍszFÜm©
+, ...);
+
+	@MainDialog.h
+
+4 #ià!
+defšed
+(
+AFX_ACE400GageDLG_H__A60D6315_99C4_46C0_A323_42C7B357B0A2__INCLUDED_
+)
+
+5 
+	#AFX_ACE400GageDLG_H__A60D6315_99C4_46C0_A323_42C7B357B0A2__INCLUDED_
+
+
+	)
+
+7 
+	~"GageDŸlog.h
+"
+
+8 
+	~"CÚfigDŸlog.h
+"
+
+10 #ià
+_MSC_VER
+ > 1000
+
+11 #´agm¨
+Úû
+
+
+17 þas 
+	cCMašDŸlog
+ : 
+public
+ 
+CDŸlog
+
+
+20 
+public
+:
+
+21 
+CGageDŸlog
+ 
+m_GageDlg
+;
+
+22 
+CCÚfigDŸlog
+ 
+	mm_CÚfigDlg
+;
+
+24 
+CMašDŸlog
+(
+CWnd
+* 
+pP¬’t
+ = 
+NULL
+);
+
+28 ’um { 
+	mIDD
+ = 
+IDD_MAIN_DIALOG
+ };
+
+34 
+	gpublic
+:
+
+35 
+vœtu®
+ 
+BOOL
+ 
+De¡royWšdow
+();
+
+36 
+	g´Ùeùed
+:
+
+37 
+vœtu®
+ 
+DoD©aExchªge
+(
+CD©aExchªge
+* 
+pDX
+);
+
+41 
+	g´Ùeùed
+:
+
+42 
+HICON
+ 
+m_hIcÚ
+;
+
+46 
+vœtu®
+ 
+BOOL
+ 
+OnIn™DŸlog
+();
+
+47 
+afx_msg
+ 
+OnSysCommªd
+(
+UINT
+ 
+nID
+, 
+LPARAM
+ 
+lP¬am
+);
+
+48 
+afx_msg
+ 
+OnPašt
+();
+
+49 
+afx_msg
+ 
+HCURSOR
+ 
+OnQu”yD¿gIcÚ
+();
+
+50 
+afx_msg
+ 
+OnCheckGage
+();
+
+51 
+afx_msg
+ 
+OnCheckCÚfig
+();
+
+53 
+DECLARE_MESSAGE_MAP
+()
+
+	@StdAfx.h
+
+6 #ià!
+defšed
+(
+AFX_STDAFX_H__162EFA7F_2283_401E_A2DD_16AA1B7EE8C3__INCLUDED_
+)
+
+7 
+	#AFX_STDAFX_H__162EFA7F_2283_401E_A2DD_16AA1B7EE8C3__INCLUDED_
+
+
+	)
+
+9 #ià
+_MSC_VER
+ > 1000
+
+10 #´agm¨
+Úû
+
+
+13 
+	#VC_EXTRALEAN
+
+
+14 
+
+	)
+
+15 
+	~<afxwš.h
+>
+
+16 
+	~<afxext.h
+>
+
+17 
+	~<afxdi¥.h
+>
+
+18 
+	~<afxdtùl.h
+>
+
+19 #iâdeà
+_AFX_NO_AFXCMN_SUPPORT
+
+
+20 
+	~<afxcmn.h
+>
+
+	@System.h
+
+7 #ià!
+defšed
+(
+_SYSTEM_H_INCLUDED_
+)
+
+8 
+	#_SYSTEM_H_INCLUDED_
+
+
+	)
+
+20 
+	#MAX_MEAS_COUNT
+ 10
+
+	)
+
+21 
+	#MAX_AD_COUNT
+ 100
+
+	)
+
+23 
+	#CAL_AD_COUNT
+ (
+MAX_AD_COUNT
+*2)
+
+	)
+
+24 
+	#CAL_AD_BUF_SIZE
+ 
+CAL_AD_COUNT
+
+
+	)
+
+27 
+	#MAX_CAL_DATA_Üg
+ 128
+
+	)
+
+28 
+	#MAX_CAL_DATA
+ 
+MAX_2W_RJIG
+
+
+	)
+
+29 
+	#NUM_CAL_RESULT_COL
+ (22 + 60)
+
+30 
+
+	)
+
+31 
+	ssMEAS_DATA
+
+
+34 
+	mdR
+;
+
+35 
+	mdVc
+;
+
+36 
+	mdI
+;
+
+37 
+	mdAdVc
+;
+
+38 
+	mdAdI
+;
+
+39 } 
+	tsMEAS_DATA
+;
+
+43 
+	ssCAL_DATA
+
+
+45 
+	mnU£
+;
+
+46 
+	mnV®id
+;
+
+48 
+	mdOrgR
+;
+
+49 
+	mdRefR_Avg
+;
+
+50 
+	mdRefVcV®
+;
+
+51 
+	mdRefIV®
+;
+
+54 
+	mdM—sR_Avg
+;
+
+55 
+	mdM—sVc_Avg
+;
+
+56 
+	mdM—sI_Avg
+;
+
+57 
+	mdM—sAdVc_Avg
+;
+
+58 
+	mdM—sAdI_Avg
+;
+
+60 
+	mdM—sR_Max
+;
+
+61 
+	mdM—sR_MaxDiffR©e
+;
+
+62 
+	mdM—sR_Mš
+;
+
+63 
+	mdM—sR_MšDiffR©e
+;
+
+66 
+sMEAS_DATA
+ 
+	m§_M—sD©a
+[
+MAX_MEAS_COUNT
+];
+
+68 } 
+	tsCAL_DATA
+;
+
+94 þas 
+	cCSy¡em
+
+
+96 
+	mpublic
+:
+
+98 
+m_nBlockNumb”
+[
+MAX_BOX
+];
+
+99 
+	mm_nBlockTy³
+[
+MAX_BOX
+];
+
+101 
+	mpublic
+:
+
+102 
+	$CSy¡em
+()
+
+104 ::
+	`Z”oMemÜy
+(
+m_nBlockNumb”
+, (m_nBlockNumber));
+
+105 ::
+	`Z”oMemÜy
+(
+m_nBlockTy³
+, (m_nBlockType));
+
+111 
+vœtu®
+ ~
+	`CSy¡em
+();
+
+112 
+	`In™Memb”
+();
+
+113 
+BOOL
+ 
+	`Lßd_4wRawD©a
+();
+
+114 
+	}
+};
+
+117 
+CSy¡em
+ 
+g_sSy¡em
+;
+
 	@gridctrl_src/CellRange.h
 
 5 #ià!
@@ -61894,80 +62018,86 @@ i
 	)
 
 39 
+	#IDC_CHART
+ 1025
+
+	)
+
+40 
 	#IDC_CHECK_PRT_BASIC
  1085
 
 	)
 
-40 
+41 
 	#IDC_CHECK_PRT_LEVEL1
  1086
 
 	)
 
-41 
+42 
 	#IDC_CHECK_PRT_Lev–2
  1087
 
 	)
 
-42 
+43 
 	#IDC_CHECK_PRT_LEVEL3
  1088
 
 	)
 
-43 
+44 
 	#IDC_CHECK_PRT_DEVICE
  1089
 
 	)
 
-44 
+45 
 	#IDC_CHECK_PRT_DEV_D64
  1090
 
 	)
 
-45 
+46 
 	#IDC_STATIC_PRINT_STATE
  1091
 
 	)
 
-46 
+47 
 	#IDC_STATIC_USED_MEM
  1092
 
 	)
 
-50 #ifdeà
+51 #ifdeà
 APSTUDIO_INVOKED
 
 
-51 #iâdeà
+52 #iâdeà
 APSTUDIO_READONLY_SYMBOLS
 
 
-52 
+53 
 	#_APS_NEXT_RESOURCE_VALUE
  131
 
 	)
 
-53 
+54 
 	#_APS_NEXT_COMMAND_VALUE
  32771
 
 	)
 
-54 
+55 
 	#_APS_NEXT_CONTROL_VALUE
- 1022
+ 1026
 
 	)
 
-55 
+56 
 	#_APS_NEXT_SYMED_VALUE
  101
 
@@ -62032,20 +62162,20 @@ _AFX_NO_AFXCMN_SUPPORT
 .
 0
 23
-365
+407
 ACE400Gage.h
+ChartDirector/FinanceChart.h
+ChartDirector/bchartdir.h
+ChartDirector/chartdir.h
 ChartViewer.h
 ConfigDialog.h
 Error.h
 FileSysInfo.h
-FinanceChart.h
 GageDialog.h
 Globals.h
 MainDialog.h
 StdAfx.h
 System.h
-bchartdir.h
-chartdir.h
 gridctrl_src/CellRange.h
 gridctrl_src/GridCtrl.h
 gridctrl_src/GridDropTarget.h
