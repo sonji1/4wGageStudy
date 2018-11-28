@@ -189,7 +189,7 @@ public:
 	BOOL 	InitView();
 	void 	Display_mohmGridHeader();
 	void 	Display_mohmGridData();
-	void 	SetGridBkBule(int type);
+	void 	SetGridBkBlue(int type);
 	void 	ClearGrid_BackGround();
 	void 	ClearGrid_Data();
 

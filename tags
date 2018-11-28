@@ -69,6 +69,16 @@ AutoSizeRow	.\\gridctrl_src\\GridCtrl.cpp	/^BOOL CGridCtrl::AutoSizeRow(int nRow
 AutoSizeRows	.\\gridctrl_src\\GridCtrl.cpp	/^void CGridCtrl::AutoSizeRows()$/;"	f	class:CGridCtrl	typeref:typename:void
 Axis	.\\ChartDirector\\chartdir.h	/^	Axis(AxisInternal *_ptr) : ptr(_ptr) {}$/;"	f	class:CD_NAMESPACE::Axis
 Axis	.\\ChartDirector\\chartdir.h	/^class Axis : public AutoDestroy, protected GarbageContainer$/;"	c	namespace:CD_NAMESPACE
+B0	.\\TDist.cpp	/^#define B0 /;"	d	file:
+B1	.\\TDist.cpp	/^#define B1 /;"	d	file:
+B10	.\\TDist.cpp	/^#define B10 /;"	d	file:
+B12	.\\TDist.cpp	/^#define B12 /;"	d	file:
+B14	.\\TDist.cpp	/^#define B14 /;"	d	file:
+B16	.\\TDist.cpp	/^#define B16 /;"	d	file:
+B2	.\\TDist.cpp	/^#define B2 /;"	d	file:
+B4	.\\TDist.cpp	/^#define B4 /;"	d	file:
+B6	.\\TDist.cpp	/^#define B6 /;"	d	file:
+B8	.\\TDist.cpp	/^#define B8 /;"	d	file:
 BCHARTDIR_HDR	.\\ChartDirector\\bchartdir.h	/^#define BCHARTDIR_HDR$/;"	d
 BEGIN_MESSAGE_MAP	.\\ACE400Gage.cpp	/^BEGIN_MESSAGE_MAP(CACE400GageApp, CWinApp)$/;"	f
 BEGIN_MESSAGE_MAP	.\\ChartViewer.cpp	/^BEGIN_MESSAGE_MAP(CChartViewer,	CStatic)$/;"	f
@@ -630,6 +640,7 @@ JPG	.\\ChartDirector\\chartdir.h	/^enum ImgFormat {PNG, GIF, JPG, WMP, BMP};$/;"
 KeepVisibleRange	.\\ChartDirector\\chartdir.h	/^	    KeepVisibleRange = 1,$/;"	e	enum:CD_NAMESPACE::Chart::__anone890a0201403
 Kohm	.\\Globals.h	/^enum UNIT			{ sec=0, msec=1, usec=2, mA, uA, Mohm, Kohm, ohm, mohm, uohm };\/\/ sec=0, msec=1, u/;"	e	enum:UNIT
 LEFT_MARGIN	.\\gridctrl_src\\GridCtrl.cpp	/^#define LEFT_MARGIN /;"	d	file:
+LOG_2PI	.\\TDist.cpp	/^#define LOG_2PI /;"	d	file:
 LanczosFilter	.\\ChartDirector\\chartdir.h	/^		CatromFilter, MitchellFilter, SincFilter, LanczosFilter, GaussianFilter, HanningFilter,$/;"	e	enum:CD_NAMESPACE::Chart::CDFilterType
 LanczosFilter	.\\ChartDirector\\chartdir.h	/^	CatromFilter, MitchellFilter, SincFilter, LanczosFilter, GaussianFilter, HanningFilter,$/;"	e	enum:CD_NAMESPACE::CDFilterType
 Layer	.\\ChartDirector\\chartdir.h	/^	Layer(LayerInternal *_ptr) : ptr(_ptr), dataSetCache(0), dataSetCacheCount(0), maxDataSetCacheC/;"	f	class:CD_NAMESPACE::Layer
@@ -721,6 +732,7 @@ MultiChart	.\\ChartDirector\\chartdir.h	/^	MultiChart(int width, int height, int
 MultiChart	.\\ChartDirector\\chartdir.h	/^class MultiChart : public BaseChart$/;"	c	namespace:CD_NAMESPACE
 MyGetMemInfo	.\\Globals.cpp	/^PROCESS_MEMORY_COUNTERS MyGetMemInfo()$/;"	f	typeref:typename:PROCESS_MEMORY_COUNTERS
 MyTrace	.\\Globals.cpp	/^void AFX_CDECL MyTrace(PRT_TYPE prtType, LPCTSTR lpszFormat, ...)$/;"	f	typeref:typename:void AFX_CDECL
+N	.\\TDist.cpp	/^#define N /;"	d	file:
 NEED_DELAY	.\\ChartViewer.cpp	/^enum { NO_DELAY, NEED_DELAY, NEED_UPDATE };$/;"	e	enum:__anon6d4e3f840103	file:
 NEED_UPDATE	.\\ChartViewer.cpp	/^enum { NO_DELAY, NEED_DELAY, NEED_UPDATE };$/;"	e	enum:__anon6d4e3f840103	file:
 NM_GRIDVIEW	.\\gridctrl_src\\GridCtrl.h	/^} NM_GRIDVIEW;$/;"	t	typeref:struct:tagNM_GRIDVIEW
@@ -844,6 +856,7 @@ Overlay	.\\ChartDirector\\chartdir.h	/^	enum DataCombineMethod { Overlay, Stack,
 Overlay	.\\ChartDirector\\chartdir.h	/^	enum DataCombineMethod { Overlay, Stack, Depth, Side, Percentage };$/;"	e	enum:CD_NAMESPACE::Chart::DataCombineMethod
 Overlay	.\\ChartDirector\\chartdir.h	/^enum DataCombineMethod { Overlay, Stack, Depth, Side, Percentage };$/;"	e	enum:CD_NAMESPACE::DataCombineMethod
 PDF	.\\ChartDirector\\chartdir.h	/^	enum ImgFormat { PNG, GIF, JPG, WMP, BMP, SVG, SVGZ, PDF, AGF, QTIMG };$/;"	e	enum:CD_NAMESPACE::Chart::ImgFormat
+PI	.\\TDist.cpp	/^#define PI /;"	d	file:
 PNG	.\\ChartDirector\\chartdir.h	/^	enum ImgFormat { PNG, GIF, JPG, WMP, BMP, SVG, SVGZ, PDF, AGF, QTIMG };$/;"	e	enum:CD_NAMESPACE::Chart::ImgFormat
 PNG	.\\ChartDirector\\chartdir.h	/^	enum ImgFormat {PNG, GIF, JPG, WMP};$/;"	e	enum:CD_NAMESPACE::BaseChart::ImgFormat
 PNG	.\\ChartDirector\\chartdir.h	/^enum ImgFormat {PNG, GIF, JPG, WMP, BMP};$/;"	e	enum:CD_NAMESPACE::ImgFormat
@@ -1847,6 +1860,7 @@ loadGIF	.\\ChartDirector\\chartdir.h	/^	bool loadGIF(const char *filename) { ret
 loadJPG	.\\ChartDirector\\chartdir.h	/^	bool loadJPG(const char *filename) { return CDrawArea_loadJPG(ptr, filename); }$/;"	f	class:CD_NAMESPACE::DrawArea	typeref:typename:bool
 loadPNG	.\\ChartDirector\\chartdir.h	/^	bool loadPNG(const char *filename) { return CDrawArea_loadPNG(ptr, filename); }$/;"	f	class:CD_NAMESPACE::DrawArea	typeref:typename:bool
 loadWMP	.\\ChartDirector\\chartdir.h	/^	bool loadWMP(const char *filename) { return CDrawArea_loadWMP(ptr, filename); }$/;"	f	class:CD_NAMESPACE::DrawArea	typeref:typename:bool
+loggamma	.\\TDist.cpp	/^double loggamma(double x)  \/* «¬«ó«Þ??ªÎ?? *\/$/;"	f	typeref:typename:double
 lowess	.\\ChartDirector\\chartdir.h	/^	ArrayMath& lowess(DoubleArray b, double smoothness = 0.25, int iteration = 0)$/;"	f	class:CD_NAMESPACE::ArrayMath	typeref:typename:ArrayMath &
 lowess	.\\ChartDirector\\chartdir.h	/^	ArrayMath& lowess(double smoothness = 0.25, int iteration = 0)$/;"	f	class:CD_NAMESPACE::ArrayMath	typeref:typename:ArrayMath &
 mA	.\\Globals.h	/^enum UNIT			{ sec=0, msec=1, usec=2, mA, uA, Mohm, Kohm, ohm, mohm, uohm };\/\/ sec=0, msec=1, u/;"	e	enum:UNIT
@@ -2251,6 +2265,8 @@ outWMP	.\\ChartDirector\\chartdir.h	/^	MemBlock outWMP() { const char *data; int
 outWMP	.\\ChartDirector\\chartdir.h	/^	bool outWMP(const char **data, int *len) { return CDrawArea_outWMP2(ptr, data, len); }$/;"	f	class:CD_NAMESPACE::DrawArea	typeref:typename:bool
 outWMP	.\\ChartDirector\\chartdir.h	/^	bool outWMP(const char *filename) { return CDrawArea_outWMP(ptr, filename); }$/;"	f	class:CD_NAMESPACE::DrawArea	typeref:typename:bool
 own_this	.\\ChartDirector\\chartdir.h	/^	bool own_this;$/;"	m	class:CD_NAMESPACE::DrawArea	typeref:typename:bool
+p_beta	.\\TDist.cpp	/^double p_beta(double x, double a, double b)$/;"	f	typeref:typename:double
+p_tdist	.\\TDist.cpp	/^double p_tdist(double t, int df)  \/* t ÝÂøÖªÎù»ö°ü¬áã *\/$/;"	f	typeref:typename:double
 packPlotArea	.\\ChartDirector\\chartdir.h	/^	void packPlotArea(int leftX, int topY, int rightX, int bottomY, int minWidth = 0, int minHeight/;"	f	class:CD_NAMESPACE::XYChart	typeref:typename:void
 paint	.\\ChartDirector\\chartdir.h	/^	void paint(DrawArea *d) { CDrawObj_paint(ptr, d->getInternalPtr()); }$/;"	f	class:CD_NAMESPACE::DrawObj	typeref:typename:void
 paintDisplay	.\\ChartViewer.cpp	/^void CViewPortControl::paintDisplay()$/;"	f	class:CViewPortControl	typeref:typename:void

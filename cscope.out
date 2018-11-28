@@ -1,4 +1,4 @@
-cscope 16 C:\sonji\Bioptro\ACE400Gage\ACE400Gage"               0000363111
+cscope 16 C:\sonji\Bioptro\ACE400Gage\ACE400Gage"               0000363141
 	@ACE400Gage.h
 
 4 #ià!
@@ -55776,6 +55776,14 @@ LPCTSTR
  
 ÍszFÜm©
 , ...);
+
+118 
+p_tdi¡
+(
+t
+, 
+df
+);
 
 	@MainDialog.h
 

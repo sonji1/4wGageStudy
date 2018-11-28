@@ -461,6 +461,7 @@ protected:
     void ResetSelectedRange();
     void ResetScrollBars();
     int  GetScrollPos32(int nBar, BOOL bGetTrackPos = FALSE);
+	//BOOL SetScrollPos32(int nBar, int nPos, BOOL bRedraw = TRUE);
 
 
     

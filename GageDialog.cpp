@@ -99,6 +99,8 @@ BOOL CGageDialog::OnInitDialog()
 	
 	// TODO: Add extra initialization here
 	
+	g_sFile.Init();
+
 	if (InitMember() == FALSE)
 		return FALSE;
 
@@ -106,7 +108,6 @@ BOOL CGageDialog::OnInitDialog()
 		return FALSE;
 
 	
-	g_sFile.Init();
 
 	MyTrace(PRT_BASIC, "\"4W GageStudy SW\" Started...\n" );
 	
@@ -215,11 +216,13 @@ BOOL CGageDialog::InitView()
 	m_nCombo_CurrType = mohm_1;			// 0
 	m_comboMeasType.SetCurSel(mohm_1);	// 0 = mohm_1
 
-	SetGridBkBule(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
+	SetGridBkBlue(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
 
 	m_edit_nRefInput = g_MeasInfoTable[m_nCombo_CurrType].nMeasRef;
 	m_edit_nRef = m_edit_nRefInput;
 
+	// 선택된 type에 대한 'type1 gage study' 결과를 출력 
+	OnButtonDoStudy();
 
 	UpdateData(FALSE);
 	Invalidate(TRUE);		// 화면 강제 갱신. UpdateData(False)만으로 Grid 화면 갱신이 되지 않아서 추가함.
@@ -501,16 +504,18 @@ void CGageDialog::OnSelchangeComboMeasType()
 		return;
 	}	
 
-	// 선택된 type에 대한 'type1 gage study' 결과를 출력? 
-	// => 여기 말고  'OK' 버튼을 눌렀을 때 수행하기로 한다.  추후 여기서 하게 될 수도 있음.
-	
 
-	SetGridBkBule(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
+	SetGridBkBlue(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
 
 	
 	// 대화상자의 Edit컨트롤에 m_edit_nRefInput 를 출력.
 	m_edit_nRefInput = g_MeasInfoTable[m_nCombo_CurrType].nMeasRef;
 	m_edit_nRef = m_edit_nRefInput;
+
+
+	// 선택된 type에 대한 'type1 gage study' 결과를 출력 
+	OnButtonDoStudy();
+	
 	UpdateData(FALSE); 
 	Invalidate(TRUE);		// 화면 강제 갱신. UpdateData(False)만으로 Grid 화면 갱신이 되지 않아서 추가함.
 
@@ -518,7 +523,7 @@ void CGageDialog::OnSelchangeComboMeasType()
 
 
 // 현재 선택된 type의 배경을 푸른색으로 설정.
-void CGageDialog::SetGridBkBule(int type)
+void CGageDialog::SetGridBkBlue(int type)
 {
 	// 먼저 배경을 모두 노랑색으로 원상복구
 	ClearGrid_BackGround();			
@@ -527,6 +532,14 @@ void CGageDialog::SetGridBkBule(int type)
 	for (int meas=0; meas < m_nMeasCount; meas++)
 		m_gridCtrl.SetItemBkColour(meas+1, (GRID_COL_MOHM_BASE + type), 	// row, col
 									RGB(0x00, 0xbf, 0xff));					// deep skyblue : 짙은 하늘파랑 
+
+	// type이 mhom_750이상이면 선택된 mohm가 보이도록, Grid의 가로 스크롤 위치를 바꾼다.
+	if (type >= mohm_750)
+		m_gridCtrl.SetScrollPos32(SB_HORZ, (mohm_750 * 82));
+
+	// mohm_750이하이면 가로 스크롤 원상복구
+	else
+		m_gridCtrl.SetScrollPos32(SB_HORZ, 0);	
 
 }
 
@@ -581,6 +594,11 @@ void CGageDialog::OnChangeEditTolInput()
 	UpdateData(TRUE);
 
 	m_edit_nTol = m_edit_nTolInput;
+
+
+
+	// 수정된 Tol 에 대한 'type1 gage study' 결과를 출력 
+	OnButtonDoStudy();
 	
 	UpdateData(FALSE);
 }
