@@ -25,21 +25,11 @@ CGageDialog::CGageDialog(CWnd* pParent /*=NULL*/)
 	m_editMeasDataPath = _T("");
 	m_edit_nRefInput = 0;
 	m_edit_nTolInput = 1;
-	m_edit_nRef = m_edit_nRefInput;
-	m_edit_nTol = m_edit_nTolInput;
 
-	m_editStrAvg = _T("");
-	m_editStrStDev = _T("");
-	m_editStr6StDev = _T("");
-	m_editStrBias = _T("");
-	m_editStrT = _T("");
-	m_editStrPValue = _T("");
-	m_editStrCg = _T("");
-	m_editStrCgk = _T("");
-	m_editStrVarRept = _T("");
-	m_editStrVarReptBias = _T("");
 	//}}AFX_DATA_INIT
 	
+	m_nRef = m_edit_nRefInput;
+	m_nTol = m_edit_nTolInput;
 	m_dAvg = 0.0;
 	m_d6StDev = 0.0;
 	m_dStDev = 0.0;
@@ -59,24 +49,17 @@ void CGageDialog::DoDataExchange(CDataExchange* pDX)
 	//{{AFX_DATA_MAP(CGageDialog)
 	DDX_Control(pDX, IDC_COMBO_MEAS_TYPE, 	m_comboMeasType);
 	DDX_Control(pDX, IDC_GRID, 				m_gridCtrl);
+
 	DDX_Text   (pDX, IDC_EDIT_4W_FILE_PATH, m_editMeasDataPath);
 	DDX_Control(pDX, IDC_CHART, 			m_ChartViewer);
 	DDX_Text   (pDX, IDC_EDIT_REF_INPUT, 	m_edit_nRefInput);
 	DDX_Text   (pDX, IDC_EDIT_TOL_INPUT, 	m_edit_nTolInput);
 	DDV_MinMaxInt(pDX, m_edit_nTolInput, 1, 3);
 
-	DDX_Text   (pDX, IDC_EDIT_REF, 			m_edit_nRef);
-	DDX_Text   (pDX, IDC_EDIT_TOL, 			m_edit_nTol);
-	DDX_Text   (pDX, IDC_EDIT_MEAN, 		m_editStrAvg);
-	DDX_Text   (pDX, IDC_EDIT_STDEV, 		m_editStrStDev);
-	DDX_Text   (pDX, IDC_EDIT_6X_STDEV, 	m_editStr6StDev);
-	DDX_Text   (pDX, IDC_EDIT_BIAS, 		m_editStrBias);
-	DDX_Text   (pDX, IDC_EDIT_T, 			m_editStrT);
-	DDX_Text   (pDX, IDC_EDIT_PVALUE, 		m_editStrPValue);
-	DDX_Text   (pDX, IDC_EDIT_CG, 			m_editStrCg);
-	DDX_Text   (pDX, IDC_EDIT_CGK, 			m_editStrCgk);
-	DDX_Text   (pDX, IDC_EDIT_VAR_REPT, 	m_editStrVarRept);
-	DDX_Text   (pDX, IDC_EDIT_VAR_REPT_BIAS, m_editStrVarReptBias);
+	DDX_Control(pDX, IDC_GRID_STAT, 		m_gridStat);
+	DDX_Control(pDX, IDC_GRID_BIAS, 		m_gridBias);
+	DDX_Control(pDX, IDC_GRID_CAPABILITY, 	m_gridCapability);
+
 	//}}AFX_DATA_MAP
 }
 
@@ -131,6 +114,11 @@ BOOL CGageDialog::InitMember()
 	m_nCols = (MAX_MEAS_TYPE + 1);
 	m_nRows = (MAX_MEAS_COUNT + 1);
 	m_bEditable = TRUE;
+
+	m_nFixCols_Out = 1;
+	m_nFixRows_Out = 0;
+	m_nCols_Out = 2;
+	m_nRows_Out = MAX_STAT_ENUM;
 /*
 	m_bHorzLines = TRUE;
 	m_bListMode = FALSE;
@@ -177,7 +165,7 @@ BOOL CGageDialog::InitView()
 
 
 	//----------------------------
-	// mohm grid 초기화 
+	// Grid 초기화 
 	//  : SetGridBkBlue()를 combo초기화할 때 해야하므로 Grid를 Combo보다 먼저 초기화한다.
 
 	m_gridCtrl.SetEditable(m_bEditable);
@@ -185,12 +173,35 @@ BOOL CGageDialog::InitView()
 	//m_gridCtrl.EnableDragAndDrop(TRUE);
 	m_gridCtrl.SetTextBkColor(RGB(0xFF, 0xFF, 0xE0));		// 연노랑색 back ground
 
+	m_gridStat.SetEditable(m_bEditable);
+	m_gridStat.SetTextBkColor(RGB(0xFF, 0xFF, 0xE0));		// 연노랑색 back ground
+
+	m_gridBias.SetEditable(m_bEditable);
+	m_gridBias.SetTextBkColor(RGB(0xFF, 0xFF, 0xE0));		// 연노랑색 back ground
+
+	m_gridCapability.SetEditable(m_bEditable);
+	m_gridCapability.SetTextBkColor(RGB(0xFF, 0xFF, 0xE0));		// 연노랑색 back ground
 
 	TRY {
 		m_gridCtrl.SetRowCount(m_nRows);
 		m_gridCtrl.SetColumnCount(m_nCols);
 		m_gridCtrl.SetFixedRowCount(m_nFixRows);
 		m_gridCtrl.SetFixedColumnCount(m_nFixCols);
+
+		m_gridStat.SetRowCount(MAX_STAT_ENUM);
+		m_gridStat.SetColumnCount(m_nCols_Out);
+		m_gridStat.SetFixedRowCount(m_nFixRows_Out);
+		m_gridStat.SetFixedColumnCount(m_nFixCols_Out);
+
+		m_gridBias.SetRowCount(MAX_BIAS_ENUM);
+		m_gridBias.SetColumnCount(m_nCols_Out);
+		m_gridBias.SetFixedRowCount(m_nFixRows_Out);
+		m_gridBias.SetFixedColumnCount(m_nFixCols_Out);
+
+		m_gridCapability.SetRowCount(MAX_CAPABILITY_ENUM);
+		m_gridCapability.SetColumnCount(m_nCols_Out);
+		m_gridCapability.SetFixedRowCount(m_nFixRows_Out);
+		m_gridCapability.SetFixedColumnCount(m_nFixCols_Out);
 	}
 	CATCH (CMemoryException, e)
 	{
@@ -203,6 +214,7 @@ BOOL CGageDialog::InitView()
 	Display_mohmGridHeader();		// Grid Header 설정.
 	Display_mohmGridData();			// Grid Data  출력
 
+	Display_OutputGridFixCol();		// Output Grid Fixed Col (name) 출력
 
 
 	//--------------------------
@@ -219,7 +231,8 @@ BOOL CGageDialog::InitView()
 	SetGridBkBlue(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
 
 	m_edit_nRefInput = g_MeasInfoTable[m_nCombo_CurrType].nMeasRef;
-	m_edit_nRef = m_edit_nRefInput;
+	m_nRef = m_edit_nRefInput;
+	
 
 	// 선택된 type에 대한 'type1 gage study' 결과를 출력 
 	OnButtonDoStudy();
@@ -280,8 +293,48 @@ void CGageDialog::Display_mohmGridData()
 
 }
 
+
+void CGageDialog::Display_OutputGridFixCol()
+{
+
+	int row;
+
+	m_gridStat.SetColumnWidth(0, 100);
+	m_gridStat.SetColumnWidth(1, 80);
+	for (row = 0; row < MAX_STAT_ENUM; row++)
+		m_gridStat.SetRowHeight(row, 25);
+
+    m_gridStat.SetItemText(STAT_REF, 		0, "Reference");
+    m_gridStat.SetItemText(STAT_MEAN, 		0, "Mean");
+    m_gridStat.SetItemText(STAT_STDEV, 		0, "StDev");
+    m_gridStat.SetItemText(STAT_6xSTDEV, 	0, "6 x StDev (SV)");
+    m_gridStat.SetItemText(STAT_TOL, 		0, "Tolerance (TOL)");
+
+	m_gridBias.SetColumnWidth(0, 100);
+	m_gridBias.SetColumnWidth(1, 80);
+	for (row = 0; row < MAX_BIAS_ENUM; row++)
+		m_gridBias.SetRowHeight(row, 25);
+    m_gridBias.SetItemText(BIAS_BIAS, 		0, "Bias");
+    m_gridBias.SetItemText(BIAS_T, 			0, "T");
+    m_gridBias.SetItemText(BIAS_PVALUE, 	0, "PValue");
+
+
+	m_gridCapability.SetColumnWidth(0, 170);
+	m_gridCapability.SetColumnWidth(1, 80);
+	for (row = 0; row < MAX_CAPABILITY_ENUM; row++)
+		m_gridCapability.SetRowHeight(row, 25);
+    m_gridCapability.SetItemText(CAPABILITY_CG, 			0, "Cg");
+    m_gridCapability.SetItemText(CAPABILITY_CGK, 			0, "Cgk");
+    m_gridCapability.SetItemText(CAPABILITY_VAR_REPT, 		0, "%Var (Repeatablility)");
+    m_gridCapability.SetItemText(CAPABILITY_VAR_REPT_BIAS, 	0, "%Var (Repeatability and Bias)");
+
+	
+	//m_gridCtrl.SetRowHeight(0, 40);	// 헤더에 글자 두줄 표시를 위해 높이 조정
+}
+
+
 // 창이 새로 보일때 때마다 초기화해야 하는 멤버들은 다음의 
-// OnShowWindow()의 TOTO 밑에 초기화한다. 
+// OnShowWindow()의 TODO 밑에 초기화한다. 
 void CGageDialog::OnShowWindow(BOOL bShow, UINT nStatus) 
 {
 	CDialog::OnShowWindow(bShow, nStatus);
@@ -510,7 +563,7 @@ void CGageDialog::OnSelchangeComboMeasType()
 	
 	// 대화상자의 Edit컨트롤에 m_edit_nRefInput 를 출력.
 	m_edit_nRefInput = g_MeasInfoTable[m_nCombo_CurrType].nMeasRef;
-	m_edit_nRef = m_edit_nRefInput;
+	m_nRef = m_edit_nRefInput;
 
 
 	// 선택된 type에 대한 'type1 gage study' 결과를 출력 
@@ -577,6 +630,36 @@ void CGageDialog::ClearGrid_Data()
 	
 
 //	m_gridCtrl.AutoSize(); -> 이것 넣으면 속도 느려짐.
+
+}
+void CGageDialog::ClearGrid_Output()
+{
+	int row;
+
+	// fill rows/cols with text :  두번째 컬럼만 초기화.
+	for (row = 0; row < m_gridStat.GetRowCount(); row++)		// 헤더는 제외하고 클리어한다.
+	{
+		m_gridStat.SetItemText(row, 1, "                 ");
+
+		// 혹시 배경을 fault처리한 cell이 있다면 다음번 display를 위해 원상복구 한다.
+		m_gridStat.SetItemBkColour(row, 1, RGB(0xFF, 0xFF, 0xE0));	// 연노랑색 
+	}
+
+	for (row = 0; row < m_gridBias.GetRowCount(); row++)		
+	{
+		m_gridBias.SetItemText(row, 1, "                 ");
+
+		// 혹시 배경을 fault처리한 cell이 있다면 다음번 display를 위해 원상복구 한다.
+		m_gridBias.SetItemBkColour(row, 1, RGB(0xFF, 0xFF, 0xE0));	// 연노랑색 
+	}
+
+	for (row = 0; row < m_gridCapability.GetRowCount(); row++)		
+	{
+		m_gridCapability.SetItemText(row, 1, "                 ");
+
+		// 혹시 배경을 fault처리한 cell이 있다면 다음번 display를 위해 원상복구 한다.
+		m_gridCapability.SetItemBkColour(row, 1, RGB(0xFF, 0xFF, 0xE0));	// 연노랑색 
+	}
 }
 
 void CGageDialog::OnChangeEditTolInput() 
@@ -593,7 +676,7 @@ void CGageDialog::OnChangeEditTolInput()
 	
 	UpdateData(TRUE);
 
-	m_edit_nTol = m_edit_nTolInput;
+	m_nTol = m_edit_nTolInput;
 
 
 
@@ -638,21 +721,21 @@ void CGageDialog::DisplayGageStudyChart(int type)
 	for (int meas =0; meas < m_nMeasCount; meas++)
 	{
 		ref[meas] = nRef;
-		ref_minus[meas] = nRef - (0.1 *m_edit_nTol);
-		ref_plus[meas]  = nRef + (0.1 *m_edit_nTol);
+		ref_minus[meas] = nRef - (0.1 * m_nTol);
+		ref_plus[meas]  = nRef + (0.1 * m_nTol);
 		dataX0[meas] = meas;
 	}
 
 
 	// 차트 생성 ------
-    // Create an XYChart object of size 670 x 260 pixels, with a light blue (EEEEFF) background,
+    // Create an XYChart object of size 660 x 280 pixels, with a light blue (EEEEFF) background,
     // black border, 1 pxiel 3D border effect and rounded corners
-    XYChart *c = new XYChart(670, 260, 0xeeeeff, 0x000000, 1);
+    XYChart *c = new XYChart(660, 280, 0xeeeeff, 0x000000, 1);
     //c->setRoundedFrame();
 
-    // Set the plotarea at (55:x, 58:y) and of size 590 x 155 pixels, with white background. Turn on
+    // Set the plotarea at (55:x, 58:y) and of size 580 x 175 pixels, with white background. Turn on
     // both horizontal and vertical grid lines with light grey color (0xcccccc)
-    c->setPlotArea(55, 58, 590, 155, 0xffffff, -1, -1, 0xcccccc, 0xcccccc);
+    c->setPlotArea(55, 58, 580, 175, 0xffffff, -1, -1, 0xcccccc, 0xcccccc);
 
 
 	// 범례형식 지정  ------- 
@@ -826,7 +909,7 @@ void CGageDialog::CalcGageStudyOutput(int type)
 	// Calc Cg	
 	m_dCg = 0.0;
 	if (m_d6StDev)	// check devide by zero
-		m_dCg = (20/(double)100 * m_edit_nTol) / (double)m_d6StDev;
+		m_dCg = (20/(double)100 * m_nTol) / (double)m_d6StDev;
 
 
 	//--------------
@@ -835,7 +918,7 @@ void CGageDialog::CalcGageStudyOutput(int type)
 	if (m_dStDev)	// check devide by zero
 	{
 		double absBias = (m_dBias < 0) ? (-m_dBias) : m_dBias;		// 절대값
-		m_dCgk = (20/(double)200 * m_edit_nTol - absBias) / (double)(3 * m_dStDev);
+		m_dCgk = (20/(double)200 * m_nTol - absBias) / (double)(3 * m_dStDev);
 	}
 
 	
@@ -860,18 +943,54 @@ void CGageDialog::DisplayGageStudyOutput(int type)
 	UpdateData(TRUE);
 	CString strTemp;
 
-	strTemp.Format("%.2f", m_dAvg); 			m_editStrAvg = strTemp;
-	strTemp.Format("%.3f", m_dStDev); 			m_editStrStDev = strTemp;
-	strTemp.Format("%.3f", m_d6StDev); 			m_editStr6StDev = strTemp;
+	ClearGrid_Output();
 
-	strTemp.Format("%.2f", m_dBias); 			m_editStrBias = strTemp;
-	strTemp.Format("%.3f", m_dT); 				m_editStrT = strTemp;
-	strTemp.Format("%.3f", m_dPValue); 			m_editStrPValue = strTemp;
+	// Stat Grid
+	strTemp.Format("%d", m_nRef);
+	m_gridStat.SetItemText(STAT_REF, 		1,	strTemp);
 
-	strTemp.Format("%.2f", m_dCg);				m_editStrCg = strTemp;
-	strTemp.Format("%.2f", m_dCgk);				m_editStrCgk = strTemp;
-	strTemp.Format("%.2f %%", m_dVarRept);		m_editStrVarRept = strTemp;
-	strTemp.Format("%.2f %%", m_dVarReptBias);	m_editStrVarReptBias = strTemp;
+	strTemp.Format("%.2f", m_dAvg); 			
+	m_gridStat.SetItemText(STAT_MEAN, 		1,	strTemp);
+
+	strTemp.Format("%.3f", m_dStDev);
+	m_gridStat.SetItemText(STAT_STDEV, 		1,	strTemp);
+
+	strTemp.Format("%.3f", m_d6StDev); 
+	m_gridStat.SetItemText(STAT_6xSTDEV, 	1,	strTemp);
+
+	strTemp.Format("%d", m_nTol);
+	m_gridStat.SetItemText(STAT_TOL, 		1,	strTemp);
+
+
+	// Bias Grid
+	strTemp.Format("%.2f", m_dBias);
+	m_gridBias.SetItemText(BIAS_BIAS, 		1, strTemp);
+
+	strTemp.Format("%.3f", m_dT);
+	m_gridBias.SetItemText(BIAS_T, 			1, strTemp);
+
+	strTemp.Format("%.3f", m_dPValue); 
+	m_gridBias.SetItemText(BIAS_PVALUE, 	1, strTemp);
+
+	// Capability Grid
+	strTemp.Format("%.2f", m_dCg);
+	m_gridCapability.SetItemText(CAPABILITY_CG, 			1, strTemp);
+
+	strTemp.Format("%.2f", m_dCgk);
+	m_gridCapability.SetItemText(CAPABILITY_CGK, 			1, strTemp);
+
+	strTemp.Format("%.2f %%", m_dVarRept);
+	m_gridCapability.SetItemText(CAPABILITY_VAR_REPT, 		1, strTemp);
+	if (m_dVarRept >= VAR_REPT_LIMIT_MAJ)
+		m_gridCapability.SetItemBkColour(CAPABILITY_VAR_REPT, 1,	// row, col
+										RGB(0xff, 0x63, 0x47));		// tomato : 진한 주황
+	if (m_dVarRept >= VAR_REPT_LIMIT_CRI)
+		m_gridCapability.SetItemBkColour(CAPABILITY_VAR_REPT, 1,	// row, col
+										RGB(0xdc, 0x24, 0x4c));		// crimson(0xdc143c)보다 약간 연한 빨강
+
+	strTemp.Format("%.2f %%", m_dVarReptBias);
+	m_gridCapability.SetItemText(CAPABILITY_VAR_REPT_BIAS, 	1, strTemp);
 
 	UpdateData(FALSE);
+	Invalidate(TRUE);		// 화면 강제 갱신. UpdateData(False)만으로 Grid 화면 갱신이 되지 않아서 추가함.
 }

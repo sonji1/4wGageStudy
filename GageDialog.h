@@ -51,6 +51,30 @@ enum	MEAS_TYPE	{ 	mohm_1 = 0,			// 0
 						MAX_MEAS_TYPE = 25	// 25
 };
 
+
+
+enum GRID_STAT_ENUM {	STAT_REF     = 0,
+						STAT_MEAN    = 1,
+						STAT_STDEV   = 2,
+						STAT_6xSTDEV = 3,	
+						STAT_TOL     = 4, 
+						MAX_STAT_ENUM 
+};
+
+enum GRID_BIAS_ENUM {	BIAS_BIAS    = 0,
+						BIAS_T    	 = 1,
+						BIAS_PVALUE  = 2,
+						MAX_BIAS_ENUM
+};
+
+enum GRID_CAPABILITY_ENUM {	
+						CAPABILITY_CG            = 0,
+						CAPABILITY_CGK    	     = 1,
+						CAPABILITY_VAR_REPT      = 2,
+						CAPABILITY_VAR_REPT_BIAS = 3,
+						MAX_CAPABILITY_ENUM
+};
+
 typedef struct {
 	int	 		nMeasYype;
 	const char* strMeas;
@@ -89,6 +113,8 @@ static sMeasInfo	g_MeasInfoTable[] = {
 	{	MAX_MEAS_TYPE ,  "999999mohm",  999999 }	
 };
 
+#define		VAR_REPT_LIMIT_MAJ		10	
+#define		VAR_REPT_LIMIT_CRI		15	
 
 class CGageDialog : public CDialog
 {
@@ -101,23 +127,16 @@ public:
 	enum { IDD = IDD_GAGE_DIALOG };
 	CComboBox		m_comboMeasType;		// for mohm type combo box, Input
 	CGridCtrl		m_gridCtrl;				// for Grid  (Input data list per type)
+
+	CGridCtrl		m_gridStat;				// for Grid  (Output Stat data )
+	CGridCtrl		m_gridBias;				// for Grid  (Output Bias data)
+	CGridCtrl		m_gridCapability;		// for Grid  (Output Capa data)
+
 	CString			m_editMeasDataPath;		// for 4w Data file path
 	CChartViewer	m_ChartViewer;			// for Chart,	 선택된 Lot, Date의 그래프 출력
 	int				m_edit_nRefInput;		// Input
 	int				m_edit_nTolInput;		// Input
-	int				m_edit_nRef;			// Output
-	int				m_edit_nTol;			// Output
 
-	CString			m_editStrAvg;			// Output
-	CString			m_editStrStDev;			// Output
-	CString			m_editStr6StDev;		// Output
-	CString			m_editStrBias;			// Output
-	CString			m_editStrT;				// Output
-	CString			m_editStrPValue;		// Output
-	CString			m_editStrCg;			// Output
-	CString			m_editStrCgk;			// Output
-	CString			m_editStrVarRept;		// Output
-	CString			m_editStrVarReptBias;	// Output
 	//}}AFX_DATA
 	
 
@@ -155,16 +174,19 @@ public:
 	
 	int			m_nCombo_CurrType;	// 현재 combo에서 선택된 type#. enum값으로 access 가능함 (ex: mohm_1, mohm_2..)
 
-	double		m_dAvg;				// Output
-	double		m_d6StDev;			// Output
-	double		m_dStDev;			// Output
-	double		m_dBias;			// Output
-	double		m_dT;				// Output
-	double		m_dPValue;			// Output
-	double		m_dCg;				// Output
-	double		m_dCgk;				// Output
-	double		m_dVarRept;			// Output
-	double		m_dVarReptBias;		// Output
+	// member for Output Grid Val
+	int			m_nRef;				
+	int			m_nTol;				
+	double		m_dAvg;				
+	double		m_d6StDev;			
+	double		m_dStDev;			
+	double		m_dBias;			
+	double		m_dT;				
+	double		m_dPValue;			
+	double		m_dCg;				
+	double		m_dCgk;				
+	double		m_dVarRept;			
+	double		m_dVarReptBias;		
 
 	// member for grid control
 	int		m_nFixCols;
@@ -172,6 +194,11 @@ public:
 	int		m_nCols;
 	int		m_nRows;
 	BOOL	m_bEditable;
+
+	int		m_nFixCols_Out;
+	int		m_nFixRows_Out;
+	int		m_nCols_Out;
+	int		m_nRows_Out;
 /*
 	BOOL	m_bHorzLines;
 	BOOL	m_bListMode;
@@ -192,6 +219,8 @@ public:
 	void 	SetGridBkBlue(int type);
 	void 	ClearGrid_BackGround();
 	void 	ClearGrid_Data();
+	void 	Display_OutputGridFixCol();
+	void 	ClearGrid_Output();
 
 	void 	Load_4W_MeasData();
 	int 	getMeasDataLoc(char *pStr, int strMax, int &rLoc);

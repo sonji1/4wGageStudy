@@ -21,22 +21,14 @@
 #define IDC_EDIT_REF_INPUT              1010
 #define IDC_EDIT2                       1011
 #define IDC_EDIT_TOL_INPUT              1011
-#define IDC_EDIT_REF                    1012
-#define IDC_EDIT_MEAN                   1013
-#define IDC_EDIT_6X_STDEV               1014
-#define IDC_EDIT_TOL                    1015
-#define IDC_EDIT_BIAS                   1016
-#define IDC_EDIT_T                      1017
-#define IDC_EDIT_PVALUE                 1018
 #define IDC_BUTTON_DO_STUDY             1019
-#define IDC_EDIT_CG                     1020
 #define IDC_CHECK_GAGE                  1020
-#define IDC_EDIT_CGK                    1021
 #define IDC_CHECK_CONFIG                1021
-#define IDC_EDIT_VAR_REPT               1022
 #define IDC_EDIT_VAR_REPT_BIAS          1023
-#define IDC_EDIT_STDEV                  1024
 #define IDC_CHART                       1025
+#define IDC_GRID_STAT                   1026
+#define IDC_GRID_BIAS                   1027
+#define IDC_GRID_CAPABILITY             1028
 #define IDC_CHECK_PRT_BASIC             1085
 #define IDC_CHECK_PRT_LEVEL1            1086
 #define IDC_CHECK_PRT_Level2            1087
@@ -52,7 +44,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        131
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1026
+#define _APS_NEXT_CONTROL_VALUE         1029
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
