@@ -47,19 +47,17 @@ void CGageDialog::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CGageDialog)
+	DDX_Control(pDX, IDC_LIST_MSG, 			m_listMsg);
 	DDX_Control(pDX, IDC_COMBO_MEAS_TYPE, 	m_comboMeasType);
 	DDX_Control(pDX, IDC_GRID, 				m_gridCtrl);
-
+	DDX_Control(pDX, IDC_GRID_STAT, 		m_gridStat);
+	DDX_Control(pDX, IDC_GRID_BIAS, 		m_gridBias);
+	DDX_Control(pDX, IDC_GRID_CAPABILITY, 	m_gridCapability);
 	DDX_Text   (pDX, IDC_EDIT_4W_FILE_PATH, m_editMeasDataPath);
 	DDX_Control(pDX, IDC_CHART, 			m_ChartViewer);
 	DDX_Text   (pDX, IDC_EDIT_REF_INPUT, 	m_edit_nRefInput);
 	DDX_Text   (pDX, IDC_EDIT_TOL_INPUT, 	m_edit_nTolInput);
 	DDV_MinMaxInt(pDX, m_edit_nTolInput, 1, 3);
-
-	DDX_Control(pDX, IDC_GRID_STAT, 		m_gridStat);
-	DDX_Control(pDX, IDC_GRID_BIAS, 		m_gridBias);
-	DDX_Control(pDX, IDC_GRID_CAPABILITY, 	m_gridCapability);
-
 	//}}AFX_DATA_MAP
 }
 
@@ -68,8 +66,9 @@ BEGIN_MESSAGE_MAP(CGageDialog, CDialog)
 	//{{AFX_MSG_MAP(CGageDialog)
 	ON_WM_SHOWWINDOW()
 	ON_CBN_SELCHANGE(IDC_COMBO_MEAS_TYPE, OnSelchangeComboMeasType)
-	ON_BN_CLICKED(	 IDC_BUTTON_DO_STUDY, OnButtonDoStudy)
 	ON_EN_CHANGE(IDC_EDIT_TOL_INPUT, OnChangeEditTolInput)
+	ON_BN_CLICKED(	 IDC_BUTTON_DO_STUDY, OnButtonDoStudy)
+	ON_BN_CLICKED(IDC_BUTTON_LOAD_MEASDATA, OnButtonLoadMeasdata)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -144,6 +143,7 @@ BOOL CGageDialog::InitMember()
 	m_dVarRept = 0.0;
 	m_dVarReptBias = 0.0;
 
+	m_listMsg.ResetContent();
 	
 	return TRUE;
 }
@@ -314,9 +314,10 @@ void CGageDialog::Display_OutputGridFixCol()
 	m_gridBias.SetColumnWidth(1, 80);
 	for (row = 0; row < MAX_BIAS_ENUM; row++)
 		m_gridBias.SetRowHeight(row, 25);
+	m_gridBias.SetRowHeight(BIAS_PVALUE, 40);		// 2줄 공간 확보
     m_gridBias.SetItemText(BIAS_BIAS, 		0, "Bias");
     m_gridBias.SetItemText(BIAS_T, 			0, "T");
-    m_gridBias.SetItemText(BIAS_PVALUE, 	0, "PValue");
+    m_gridBias.SetItemText(BIAS_PVALUE, 	0, "PValue\n(Test Bias = 0)");
 
 
 	m_gridCapability.SetColumnWidth(0, 170);
@@ -351,6 +352,11 @@ void CGageDialog::OnShowWindow(BOOL bShow, UINT nStatus)
 	
 }
 
+void CGageDialog::OnButtonLoadMeasdata() 
+{
+	// TODO: Add your control notification handler code here
+	
+}
 
 #define		MAX_LINE_STR		2048
 void CGageDialog::Load_4W_MeasData()
@@ -679,7 +685,6 @@ void CGageDialog::OnChangeEditTolInput()
 	m_nTol = m_edit_nTolInput;
 
 
-
 	// 수정된 Tol 에 대한 'type1 gage study' 결과를 출력 
 	OnButtonDoStudy();
 	
@@ -690,12 +695,13 @@ void CGageDialog::OnButtonDoStudy()
 {
 	// TODO: Add your control notification handler code here
 	
-	DisplayGageStudyChart(m_nCombo_CurrType);
-	CalcGageStudyOutput(m_nCombo_CurrType);
-	DisplayGageStudyOutput(m_nCombo_CurrType);
+	DisplayGageStudyChart(m_nCombo_CurrType);		// Run Chart 출력
+	CalcGageStudyOutput(m_nCombo_CurrType);			// Type1 Gage Study Output 값 계산
+	DisplayGageStudyOutput(m_nCombo_CurrType);		// Type1 Gage Study Output Grid 출력
 	
 }
 
+// Type1 Gage Study Run Chart 출력
 void CGageDialog::DisplayGageStudyChart(int type) 
 {
 
@@ -835,12 +841,21 @@ void CGageDialog::DisplayGageStudyChart(int type)
     // Include tool tip for the chart
     m_ChartViewer.setImageMap( c->getHTMLImageMap("", "", "title='{xLabel}: US${value}K'"));
 
+	// Save the Chart to png file
+	char fName[200];
+	::ZeroMemory(&fName, sizeof(fName));
+	strTemp.Format(".\\Data\\ChartView_%s.png", g_MeasInfoTable[type].strMeas);
+	strcat(fName, strTemp);
+	m_ChartViewer.getChart()->makeChart(fName);
+
+
 	// In this sample project, we do not need to chart object any more, so we 
 	// delete it now.
     delete c;
 
 }
 
+// Type1 Gage Study Output 값 계산
 void CGageDialog::CalcGageStudyOutput(int type) 
 {
 
@@ -938,28 +953,30 @@ void CGageDialog::CalcGageStudyOutput(int type)
 	UpdateData(FALSE);
 }
 
+// Type1 Gage Study Output Grid 출력
 void CGageDialog::DisplayGageStudyOutput(int type) 
 {
 	UpdateData(TRUE);
 	CString strTemp;
 
 	ClearGrid_Output();
+	m_listMsg.ResetContent();
 
 	// Stat Grid
 	strTemp.Format("%d", m_nRef);
-	m_gridStat.SetItemText(STAT_REF, 		1,	strTemp);
+	m_gridStat.SetItemText(STAT_REF, 		1, strTemp);
 
 	strTemp.Format("%.2f", m_dAvg); 			
-	m_gridStat.SetItemText(STAT_MEAN, 		1,	strTemp);
+	m_gridStat.SetItemText(STAT_MEAN, 		1, strTemp);
 
 	strTemp.Format("%.3f", m_dStDev);
-	m_gridStat.SetItemText(STAT_STDEV, 		1,	strTemp);
+	m_gridStat.SetItemText(STAT_STDEV, 		1, strTemp);
 
 	strTemp.Format("%.3f", m_d6StDev); 
-	m_gridStat.SetItemText(STAT_6xSTDEV, 	1,	strTemp);
+	m_gridStat.SetItemText(STAT_6xSTDEV, 	1, strTemp);
 
 	strTemp.Format("%d", m_nTol);
-	m_gridStat.SetItemText(STAT_TOL, 		1,	strTemp);
+	m_gridStat.SetItemText(STAT_TOL, 		1, strTemp);
 
 
 	// Bias Grid
@@ -981,12 +998,34 @@ void CGageDialog::DisplayGageStudyOutput(int type)
 
 	strTemp.Format("%.2f %%", m_dVarRept);
 	m_gridCapability.SetItemText(CAPABILITY_VAR_REPT, 		1, strTemp);
-	if (m_dVarRept >= VAR_REPT_LIMIT_MAJ)
-		m_gridCapability.SetItemBkColour(CAPABILITY_VAR_REPT, 1,	// row, col
-										RGB(0xff, 0x63, 0x47));		// tomato : 진한 주황
-	if (m_dVarRept >= VAR_REPT_LIMIT_CRI)
+
+	// 10% 이상이면 MAJ 알람표시(주황색) , 15% 이상이면 CRI 알람표시(빨간색)
+	if (m_dVarRept >= VAR_REPT_LIMIT_CRI)		// Critical Alarm
+	{
 		m_gridCapability.SetItemBkColour(CAPABILITY_VAR_REPT, 1,	// row, col
 										RGB(0xdc, 0x24, 0x4c));		// crimson(0xdc143c)보다 약간 연한 빨강
+		strTemp.Format("'%% Var (Repeatability)' exceeds the critical limit of %d%%.", 
+				VAR_REPT_LIMIT_CRI);
+		m_listMsg.InsertString(0, strTemp);
+	}
+	else if (m_dVarRept >= VAR_REPT_LIMIT_MAJ)	// Major Alarm
+	{
+		m_gridCapability.SetItemBkColour(CAPABILITY_VAR_REPT, 1,	// row, col
+										RGB(0xff, 0x63, 0x47));		// tomato : 진한 주황
+		strTemp.Format("'%% Var (Repeatability)' exceeds the major limit of %d%%.", 
+				VAR_REPT_LIMIT_MAJ);
+		m_listMsg.InsertString(0, strTemp);
+
+	}
+	else	// Normal
+	{
+		m_gridCapability.SetItemBkColour(CAPABILITY_VAR_REPT, 1,	// row, col
+										RGB(0x95, 0xee, 0x95));		// light green : 밝은 초록색 
+		strTemp.Format("'%% Var (Repeatability)' is OK.");
+		m_listMsg.InsertString(0, strTemp);
+
+
+	}
 
 	strTemp.Format("%.2f %%", m_dVarReptBias);
 	m_gridCapability.SetItemText(CAPABILITY_VAR_REPT_BIAS, 	1, strTemp);
@@ -994,3 +1033,4 @@ void CGageDialog::DisplayGageStudyOutput(int type)
 	UpdateData(FALSE);
 	Invalidate(TRUE);		// 화면 강제 갱신. UpdateData(False)만으로 Grid 화면 갱신이 되지 않아서 추가함.
 }
+

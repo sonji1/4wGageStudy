@@ -52,29 +52,6 @@ enum	MEAS_TYPE	{ 	mohm_1 = 0,			// 0
 };
 
 
-
-enum GRID_STAT_ENUM {	STAT_REF     = 0,
-						STAT_MEAN    = 1,
-						STAT_STDEV   = 2,
-						STAT_6xSTDEV = 3,	
-						STAT_TOL     = 4, 
-						MAX_STAT_ENUM 
-};
-
-enum GRID_BIAS_ENUM {	BIAS_BIAS    = 0,
-						BIAS_T    	 = 1,
-						BIAS_PVALUE  = 2,
-						MAX_BIAS_ENUM
-};
-
-enum GRID_CAPABILITY_ENUM {	
-						CAPABILITY_CG            = 0,
-						CAPABILITY_CGK    	     = 1,
-						CAPABILITY_VAR_REPT      = 2,
-						CAPABILITY_VAR_REPT_BIAS = 3,
-						MAX_CAPABILITY_ENUM
-};
-
 typedef struct {
 	int	 		nMeasYype;
 	const char* strMeas;
@@ -82,16 +59,16 @@ typedef struct {
 } sMeasInfo;
 
 static sMeasInfo	g_MeasInfoTable[] = {
-	{	mohm_1        ,  "1mohm  "   ,  1     }, // 0
-	{	mohm_2        ,  "2mohm  "   ,  2     },
-	{	mohm_3        ,  "3mohm  "   ,  3     },
-	{	mohm_4        ,  "4mohm  "   ,  4     },
-	{	mohm_5        ,  "5mohm  "   ,  5     },	
+	{	mohm_1        ,  "1mohm"     ,  1     }, // 0
+	{	mohm_2        ,  "2mohm"     ,  2     },
+	{	mohm_3        ,  "3mohm"     ,  3     },
+	{	mohm_4        ,  "4mohm"     ,  4     },
+	{	mohm_5        ,  "5mohm"     ,  5     },	
 
-	{	mohm_10       ,  "10mohm "   ,  10    },	// 5
-	{	mohm_20       ,  "20mohm "   ,  20    },
-	{	mohm_30       ,  "30mohm "   ,  30    },
-	{	mohm_40       ,  "40mohm "   ,  40    },
+	{	mohm_10       ,  "10mohm"    ,  10    },	// 5
+	{	mohm_20       ,  "20mohm"    ,  20    },
+	{	mohm_30       ,  "30mohm"    ,  30    },
+	{	mohm_40       ,  "40mohm"    ,  40    },
 	{	mohm_50       ,  "50mohm"    ,  50    },	
 
 	{	mohm_100      ,  "100mohm"   ,  100   },	// 10
@@ -116,6 +93,30 @@ static sMeasInfo	g_MeasInfoTable[] = {
 #define		VAR_REPT_LIMIT_MAJ		10	
 #define		VAR_REPT_LIMIT_CRI		15	
 
+
+
+enum GRID_STAT_ENUM {	STAT_REF     = 0,
+						STAT_MEAN    = 1,
+						STAT_STDEV   = 2,
+						STAT_6xSTDEV = 3,	
+						STAT_TOL     = 4, 
+						MAX_STAT_ENUM 
+};
+
+enum GRID_BIAS_ENUM {	BIAS_BIAS    = 0,
+						BIAS_T    	 = 1,
+						BIAS_PVALUE  = 2,
+						MAX_BIAS_ENUM
+};
+
+enum GRID_CAPABILITY_ENUM {	
+						CAPABILITY_CG            = 0,
+						CAPABILITY_CGK    	     = 1,
+						CAPABILITY_VAR_REPT      = 2,
+						CAPABILITY_VAR_REPT_BIAS = 3,
+						MAX_CAPABILITY_ENUM
+};
+
 class CGageDialog : public CDialog
 {
 // Construction
@@ -125,18 +126,16 @@ public:
 // Dialog Data
 	//{{AFX_DATA(CGageDialog)
 	enum { IDD = IDD_GAGE_DIALOG };
+	CListBox		m_listMsg;
 	CComboBox		m_comboMeasType;		// for mohm type combo box, Input
 	CGridCtrl		m_gridCtrl;				// for Grid  (Input data list per type)
-
 	CGridCtrl		m_gridStat;				// for Grid  (Output Stat data )
 	CGridCtrl		m_gridBias;				// for Grid  (Output Bias data)
 	CGridCtrl		m_gridCapability;		// for Grid  (Output Capa data)
-
 	CString			m_editMeasDataPath;		// for 4w Data file path
 	CChartViewer	m_ChartViewer;			// for Chart,	 선택된 Lot, Date의 그래프 출력
 	int				m_edit_nRefInput;		// Input
 	int				m_edit_nTolInput;		// Input
-
 	//}}AFX_DATA
 	
 
@@ -159,7 +158,7 @@ protected:
 	afx_msg void OnSelchangeComboMeasType();
 	afx_msg void OnChangeEditTolInput();
 	afx_msg void OnButtonDoStudy();
-
+	afx_msg void OnButtonLoadMeasdata();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
