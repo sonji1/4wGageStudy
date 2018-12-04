@@ -221,10 +221,11 @@ public:
 	void 	Display_OutputGridFixCol();
 	void 	ClearGrid_Output();
 
-	void 	Load_4W_MeasData();
+	int 	Load_4W_MeasData(CString dataFilePath);
 	int 	getMeasDataLoc(char *pStr, int strMax, int &rLoc);
 	int 	getMeasData(char *pStr, int strMax, double &rdMeasData);
 
+	void 	DoGageStudy(); 
 	void 	DisplayGageStudyChart(int type); 
 	void 	CalcGageStudyOutput(int type); 
 	void 	DisplayGageStudyOutput(int type); 

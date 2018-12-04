@@ -6,16 +6,13 @@
 --------------------Configuration: ACE400Gage - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating command line "rc.exe /l 0x412 /fo"Debug/ACE400Gage.res" /d "_DEBUG" /d "_AFXDLL" "C:\sonji\Bioptro\ACE400Gage\ACE400Gage\ACE400Gage.rc"" 
-Creating temporary file "C:\Users\User\AppData\Local\Temp\RSP7666.tmp" with contents
+Creating temporary file "C:\Users\User\AppData\Local\Temp\RSPFDD8.tmp" with contents
 [
 /nologo /MDd /W3 /Gm /GX /ZI /Od /I "./gridctrl_src/" /I "./ChartDirector/" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/ACE400Gage.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"C:\sonji\Bioptro\ACE400Gage\ACE400Gage\ACE400Gage.cpp"
 "C:\sonji\Bioptro\ACE400Gage\ACE400Gage\GageDialog.cpp"
-"C:\sonji\Bioptro\ACE400Gage\ACE400Gage\MainDialog.cpp"
 ]
-Creating command line "cl.exe @C:\Users\User\AppData\Local\Temp\RSP7666.tmp" 
-Creating temporary file "C:\Users\User\AppData\Local\Temp\RSP7667.tmp" with contents
+Creating command line "cl.exe @C:\Users\User\AppData\Local\Temp\RSPFDD8.tmp" 
+Creating temporary file "C:\Users\User\AppData\Local\Temp\RSPFDD9.tmp" with contents
 [
 ./chartdir60.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/ACE400Gage.pdb" /debug /machine:I386 /out:"Debug/ACE400Gage.exe" /pdbtype:sept 
 .\Debug\ACE400Gage.obj
@@ -35,15 +32,10 @@ Creating temporary file "C:\Users\User\AppData\Local\Temp\RSP7667.tmp" with cont
 .\Debug\TitleTip.obj
 .\Debug\ACE400Gage.res
 ]
-Creating command line "link.exe @C:\Users\User\AppData\Local\Temp\RSP7667.tmp"
+Creating command line "link.exe @C:\Users\User\AppData\Local\Temp\RSPFDD9.tmp"
 <h3>Output Window</h3>
-Compiling resources...
 Compiling...
 GageDialog.cpp
-Generating Code...
-Skipping... (no relevant changes detected)
-ACE400Gage.cpp
-MainDialog.cpp
 Linking...
 
 

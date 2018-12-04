@@ -7,6 +7,7 @@
 #include "chartdir.h"
 #include "FileSysInfo.h"
 #include "math.h"
+#include "cderr.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -65,10 +66,10 @@ void CGageDialog::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CGageDialog, CDialog)
 	//{{AFX_MSG_MAP(CGageDialog)
 	ON_WM_SHOWWINDOW()
-	ON_CBN_SELCHANGE(IDC_COMBO_MEAS_TYPE, OnSelchangeComboMeasType)
-	ON_EN_CHANGE(IDC_EDIT_TOL_INPUT, OnChangeEditTolInput)
-	ON_BN_CLICKED(	 IDC_BUTTON_DO_STUDY, OnButtonDoStudy)
-	ON_BN_CLICKED(IDC_BUTTON_LOAD_MEASDATA, OnButtonLoadMeasdata)
+	ON_CBN_SELCHANGE(IDC_COMBO_MEAS_TYPE,      OnSelchangeComboMeasType)
+	ON_EN_CHANGE    (IDC_EDIT_TOL_INPUT,       OnChangeEditTolInput)
+	ON_BN_CLICKED   (IDC_BUTTON_DO_STUDY,      OnButtonDoStudy)
+	ON_BN_CLICKED   (IDC_BUTTON_LOAD_MEASDATA, OnButtonLoadMeasdata)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -154,15 +155,6 @@ BOOL CGageDialog::InitView()
 	UpdateData(TRUE);
 
 
-	//-------------------------
-	// 4W Meas data 로드
-	
-	// ACE400의 4W_Setup_A.txt 파일 위치를 찾는다.   ex) "C:\ACE400\QC-JIG-S100-BHFlex\4W\"
-	FileSysInfo01.LoadSaveView01(DATA_LOAD);		// Load	SysInfoView01.m_pStrFilePathBDL
-
-	// 4W_Setup_A.txt 파일을 로드한다.  : 4W Meas data
-	Load_4W_MeasData();
-
 
 	//----------------------------
 	// Grid 초기화 
@@ -212,8 +204,6 @@ BOOL CGageDialog::InitView()
     END_CATCH	
 
 	Display_mohmGridHeader();		// Grid Header 설정.
-	Display_mohmGridData();			// Grid Data  출력
-
 	Display_OutputGridFixCol();		// Output Grid Fixed Col (name) 출력
 
 
@@ -228,14 +218,38 @@ BOOL CGageDialog::InitView()
 	m_nCombo_CurrType = mohm_1;			// 0
 	m_comboMeasType.SetCurSel(mohm_1);	// 0 = mohm_1
 
-	SetGridBkBlue(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
 
 	m_edit_nRefInput = g_MeasInfoTable[m_nCombo_CurrType].nMeasRef;
 	m_nRef = m_edit_nRefInput;
 	
 
+	//-------------------------
+	// 4W Meas File data 로드
+	
+	// ACE400의 4W_Setup_A.txt 파일 위치를 찾는다.   ex) "C:\ACE400\QC-JIG-S100-BHFlex\4W\"
+	FileSysInfo01.LoadSaveView01(DATA_LOAD);		// Load	SysInfoView01.m_pStrFilePathBDL
+
+	// 4W_Setup_A.txt 파일을 로드한다.  : 4W Meas data
+	CString dataFilePath, dataFileName;
+	dataFilePath = SysInfoView01.m_pStrFilePathBDL;	// ex) "C:\ACE400\QC-JIG-S100-BHFlex\4W\"
+	dataFileName = "\\4W_Setup_A-H-10.txt";	
+	//dataFileName = "\\4W_Setup_A.txt";	
+	dataFilePath += dataFileName;
+
+	if (Load_4W_MeasData(dataFilePath) < 0)
+	{
+		UpdateData(FALSE);
+		Invalidate(TRUE);		// 화면 강제 갱신. UpdateData(False)만으로 Grid 화면 갱신이 되지 않아서 추가함.
+		return FALSE;
+	}
+
+	// Grid Data  출력
+	Display_mohmGridData();			
+	SetGridBkBlue(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
+										// 블루로 선택할 data가 있어야 하므로 Display_mohmGridData() 다음에 호출해야 함.
+
 	// 선택된 type에 대한 'type1 gage study' 결과를 출력 
-	OnButtonDoStudy();
+	DoGageStudy();
 
 	UpdateData(FALSE);
 	Invalidate(TRUE);		// 화면 강제 갱신. UpdateData(False)만으로 Grid 화면 갱신이 되지 않아서 추가함.
@@ -352,40 +366,116 @@ void CGageDialog::OnShowWindow(BOOL bShow, UINT nStatus)
 	
 }
 
+#define		MAX_4W_MEAS_FILE		5
 void CGageDialog::OnButtonLoadMeasdata() 
 {
 	// TODO: Add your control notification handler code here
 	
+	//-----------------------------
+	// File Open Dialog 생성
+	
+	char szFilter[] = "txt Files(*.TXT)|*.TXT|All Files(*.*)|*.*||";
+	CFileDialog dlg(TRUE, 				// bOpenFileDialg = TRUE: 타이틀바에 '열기' 출력
+					NULL, 				// lpszDefExt           : 기본 확장자
+					"\\4W_Setup_A.txt", // lpszFileName         : "파일 이름" Edit 컨트롤에 처음 출력될 파일명.
+					OFN_HIDEREADONLY |OFN_NOCHANGEDIR |OFN_ALLOWMULTISELECT, 
+										// dwFlags :  속성   (HIDEREADONLY : read only 파일은 출력하지 않음.
+					szFilter);			// 대화상자에 출력될 파일을 확장자로 거르기 위한 필터. 
+
+	// 오픈할때 초기 경로 지정. 
+	dlg.m_ofn.lpstrInitialDir = _T(SysInfoView01.m_pStrFilePathBDL); 	// ex) "C:\ACE400\QC-JIG-S100-BHFlex\4W\"
+	
+	// buffer의 사이즈가 매우 커지면,  stack overflow를 유발할 수 있어 static으로 설정함.
+	static char buffer[60 * MAX_4W_MEAS_FILE] = {0}; 	// 버퍼
+	dlg.m_ofn.lpstrFile = buffer; 						// 버퍼 포인터
+	dlg.m_ofn.nMaxFile = (60 * MAX_4W_MEAS_FILE); 		// 버퍼 크기,  file 5개 처리하려면 이정도 buffer필요함.
+
+	if (IDOK != dlg.DoModal())
+	{
+		int err = CommDlgExtendedError();
+		MyTrace(PRT_BASIC,"FileDialog Open Fail! err=0x%x(%s)\n\n", err,
+				(err == CDERR_DIALOGFAILURE) ? "Invalid Window Handle" :
+				(err == CDERR_FINDRESFAILURE) ? "Find Resource Failure" :
+				(err == CDERR_INITIALIZATION) ? "Memory not Avalible" :
+				(err == CDERR_LOADRESFAILURE) ? "Load Resource Failure" :
+				(err == CDERR_LOADSTRFAILURE) ? "Load String Failure" :
+				(err == CDERR_LOCKRESFAILURE) ? "Lock Resource Failure" :
+				(err == CDERR_MEMALLOCFAILURE) ? "MemAlloc Failure" :
+				(err == CDERR_MEMLOCKFAILURE) ? "MemLock Failure" :
+				(err == CDERR_NOHINSTANCE) ? "Fail to provide hinstance" :
+				(err == CDERR_NOHOOK) ? "Fail to provide hook procedure pointer" :
+
+				(err == CDERR_NOTEMPLATE) ? "Fail to provide template" :
+				(err == CDERR_REGISTERMSGFAIL) ? "RegisterWindowMessage err" :
+				(err == CDERR_STRUCTSIZE) ? "lStructSize member invalid" : "Undefined Err");
+		return;
+	}
+
+	
+	CString dataFilePath;
+	POSITION pos= dlg.GetStartPosition();
+	dataFilePath = dlg.GetNextPathName(pos);
+
+
+	//-----------------------------------
+	// 4w Meas File data load
+	if (Load_4W_MeasData(dataFilePath) < 0 )
+		return;
+
+
+	// MeasurmentData Grid 반영
+	ClearGrid_Data();					// 기존에 출력됐던 measumrent data를 지우고 
+	Display_mohmGridData();				// 새로운 Input Grid Data  출력
+	SetGridBkBlue(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
+
+
+	//-----------------------------------------------
+	// Output Grid 반영 및 Output 출력을 다시 수행
+
+	// 선택된 type에 대한 'type1 gage study' 결과를 출력 
+	DoGageStudy();
+
+	UpdateData(FALSE);
+
 }
 
+
 #define		MAX_LINE_STR		2048
-void CGageDialog::Load_4W_MeasData()
+int CGageDialog::Load_4W_MeasData(CString dataFilePath)
 {
 
 	FILE *fp; 
 	char  fName[200];  
-	CString /*str,*/ strTemp;
 
+	//---------------------------------
 	// Meas Data 관련 멤버 변수 초기화
 	m_nTypeCount = 0;
 	m_nMeasCount = 0;
 	::ZeroMemory(m_daMeasData, sizeof(m_daMeasData));
 
+
+	//----------------
+	// File Open  
     ::ZeroMemory(&fName, sizeof(fName));
- 	//str.Format("%s", SysInfoView01.m_pStrFilePathBDL);//SYLEE121202
-   	strcat( fName ,SysInfoView01.m_pStrFilePathBDL);
- 	//strcat( fName , "\\4W_Setup_A.txt" );
- 	strcat( fName , "\\4W_Setup_A-H-10.txt" );
+ 	strcat(fName, dataFilePath);
 
  	m_editMeasDataPath = fName;
 	UpdateData(FALSE); // 대화상자의 Edit컨트롤에 m_editMeasDataPath 를 출력.
 
+	if(!FileExists(fName)) 
+	{ 	ERR.Set(FLAG_FILE_NOT_FOUND, fName); 
+		ErrMsg();  ERR.Reset(); return -1; }
 
 	fp=fopen(fName,"rt");
 	if(fp==NULL) 
-		return;
+	{ 	ERR.Set(FLAG_FILE_CANNOT_OPEN, fName); 
+		ErrMsg();  ERR.Reset(); return -1; }
 
 
+
+	//-------------------------
+	// File 초기 정보 read
+	CString strTemp;
 	fscanf(fp, "%d, %d,  \n", &m_nMeasCount, &m_nTypeCount);		 
 	if (m_nTypeCount > MAX_MEAS_TYPE)
 	{
@@ -393,7 +483,7 @@ void CGageDialog::Load_4W_MeasData()
 					fName, m_nTypeCount, MAX_MEAS_TYPE);
 		ERR.Set(RANGE_OVER, strTemp); 
 		ErrMsg();  ERR.Reset(); 
-		return;
+		return -1;
 	}
 
 	if (m_nMeasCount > MAX_MEAS_COUNT)
@@ -402,18 +492,30 @@ void CGageDialog::Load_4W_MeasData()
 					fName, m_nMeasCount, MAX_MEAS_COUNT);
 		ERR.Set(RANGE_OVER, strTemp); 
 		ErrMsg();  ERR.Reset(); 
-		return;
+		return -1;
 	}
 
 
 	char str[MAX_LINE_STR];
+	char	strWord[3][200];
 	::ZeroMemory(str, sizeof(str));
 	fgets((char*)str, MAX_LINE_STR, fp);	// 헤더라인은 통째로 읽어서 skip
 
+	// File 형식 체크: 맨 앞이 'NetNo'으로 시작하지 않는다면 Meas data file이 아님 
+	::ZeroMemory(strWord, sizeof(strWord));
+	int ret = sscanf(str, "%s %s ", strWord[0], strWord[1]); // ex) Read " NetNo.,   *,"
+	if (strncmp(strWord[0],"NetNo.", 6) != 0)		
+	{
+		strTemp.Format("Load_4W_MeasData(): %s is not 4w measurement data File!\n", fName );
+		ERR.Set(INVALID_INPUT, strTemp); 
+		ErrMsg();  ERR.Reset(); 
+		return -1;	 
+	}
 
 
-	// Line을 읽는 동작을 반복
-	char	strWord[3][200];
+
+	//-----------------------------------------------------
+	// m_nTypeCount 갯수만큼 data Line을 읽는 동작을 반복
 	int		pin[4];
 	int		nMeasType;
 	int  	row=0;
@@ -466,8 +568,8 @@ void CGageDialog::Load_4W_MeasData()
 			continue;	// line skip
 		}
 
-		//-------------------------------------
-		// m_nMeasCount 갯수만큼 data를 read
+		//------------------------------------------------
+		// m_nMeasCount 갯수만큼 Line 안에서 data read
 		char *pStr = &str[dataLoc];
 		int loc;
 		for (int meas=0; meas < m_nMeasCount; meas++)
@@ -492,6 +594,8 @@ void CGageDialog::Load_4W_MeasData()
 
 	
 	fclose(fp);
+
+	return 0;
 }
 
 int CGageDialog::getMeasDataLoc(char *pStr, int strMax, int &rLoc) 
@@ -573,10 +677,9 @@ void CGageDialog::OnSelchangeComboMeasType()
 
 
 	// 선택된 type에 대한 'type1 gage study' 결과를 출력 
-	OnButtonDoStudy();
+	DoGageStudy();
 	
 	UpdateData(FALSE); 
-	Invalidate(TRUE);		// 화면 강제 갱신. UpdateData(False)만으로 Grid 화면 갱신이 되지 않아서 추가함.
 
 }
 
@@ -686,7 +789,7 @@ void CGageDialog::OnChangeEditTolInput()
 
 
 	// 수정된 Tol 에 대한 'type1 gage study' 결과를 출력 
-	OnButtonDoStudy();
+	DoGageStudy();
 	
 	UpdateData(FALSE);
 }
@@ -694,6 +797,12 @@ void CGageDialog::OnChangeEditTolInput()
 void CGageDialog::OnButtonDoStudy() 
 {
 	// TODO: Add your control notification handler code here
+	DoGageStudy();
+}
+
+
+void CGageDialog::DoGageStudy() 
+{
 	
 	DisplayGageStudyChart(m_nCombo_CurrType);		// Run Chart 출력
 	CalcGageStudyOutput(m_nCombo_CurrType);			// Type1 Gage Study Output 값 계산
@@ -797,17 +906,18 @@ void CGageDialog::DisplayGageStudyChart(int type)
 
     // Add the three data sets to the line layer. 
     									
-    layer->addDataSet( DoubleArray(ref, m_nMeasCount), 
-	   				0x008800, "Ref")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);		// 초록색
-
-    layer->addDataSet( DoubleArray(&m_daMeasData[type][0], m_nMeasCount), 
-	   				0x3333ff, "Data")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);		// 남색
 
     layer->addDataSet( DoubleArray(ref_minus, m_nMeasCount), 
 	   				0xff0000, "Ref - 0.10 x Tol")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);	// 빨간색
 
     layer->addDataSet( DoubleArray(ref_plus, m_nMeasCount), 
 	   				0xff0000, "Ref + 0.10 x Tol")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);	// 빨간색
+
+    layer->addDataSet( DoubleArray(ref, m_nMeasCount), 
+	   				0x008800, "Ref")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);		// 초록색
+
+    layer->addDataSet( DoubleArray(&m_daMeasData[type][0], m_nMeasCount), 
+	   				0x3333ff, "Data")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);		// 남색
 
 
  /*   layer->addDataSet( DoubleArray(&m_daLCL[1], g_sLotNetDate_Info.naLotNetCnt[nLot]), 
@@ -879,7 +989,8 @@ void CGageDialog::CalcGageStudyOutput(int type)
 	m_dStDev = 0.0;
 	m_d6StDev = 0.0;
 	double dDiff = 0, dDiffPowerSum = 0, dVar = 0; 
-	if (m_nMeasCount -1)	// check devide by zero : Variance
+	int degFree = m_nMeasCount -1;		// degree of freedom (자유도) : n - 1 
+	if (degFree)	// check devide by zero : for dVar
 	{
 		// Calc Variance
 		for (meas=0; meas < m_nMeasCount; meas++)
@@ -889,7 +1000,7 @@ void CGageDialog::CalcGageStudyOutput(int type)
 		}
 
 		// 분산     : (val-avg)의 제곱의 총합을 (n - 1)으로 나눈다.
-		dVar = dDiffPowerSum / (double) (m_nMeasCount -1);
+		dVar = dDiffPowerSum / (double)degFree;
 
 		// 표준편차 : 분산의 제곱근
 		m_dStDev = sqrt(dVar);
@@ -908,7 +1019,8 @@ void CGageDialog::CalcGageStudyOutput(int type)
 	if (m_nMeasCount)	// check devide by zero : for stdErr 
 	{
 		double stdErr = m_dStDev / sqrt(m_nMeasCount);
-		m_dT = m_dBias / stdErr;
+		if (stdErr)	// check devide by zero : for m_dT
+			m_dT = m_dBias / stdErr;
 		if (m_dT < 0)
 			m_dT = -m_dT;		// 절대값
 	}
@@ -916,7 +1028,6 @@ void CGageDialog::CalcGageStudyOutput(int type)
 	//-------------
 	// Calc PValue 
 	m_dPValue = 0.0;
-	int degFree = m_nMeasCount -1;		// degree of freedom (자유도) : n - 1 
 	m_dPValue = p_tdist(m_dT, degFree);
 
 
@@ -961,6 +1072,7 @@ void CGageDialog::DisplayGageStudyOutput(int type)
 
 	ClearGrid_Output();
 	m_listMsg.ResetContent();
+	UpdateData(FALSE);
 
 	// Stat Grid
 	strTemp.Format("%d", m_nRef);
