@@ -30,6 +30,8 @@
 #define IDC_GRID_BIAS                   1027
 #define IDC_GRID_CAPABILITY             1028
 #define IDC_LIST_MSG                    1029
+#define IDC_EDIT3                       1030
+#define IDC_GRID_REPT                   1031
 #define IDC_CHECK_PRT_BASIC             1085
 #define IDC_CHECK_PRT_LEVEL1            1086
 #define IDC_CHECK_PRT_Level2            1087
@@ -45,7 +47,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        131
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1030
+#define _APS_NEXT_CONTROL_VALUE         1032
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

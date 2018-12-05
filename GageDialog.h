@@ -112,9 +112,13 @@ enum GRID_BIAS_ENUM {	BIAS_BIAS    = 0,
 enum GRID_CAPABILITY_ENUM {	
 						CAPABILITY_CG            = 0,
 						CAPABILITY_CGK    	     = 1,
-						CAPABILITY_VAR_REPT      = 2,
-						CAPABILITY_VAR_REPT_BIAS = 3,
+						//CAPABILITY_VAR_REPT      = 2,
+						//CAPABILITY_VAR_REPT_BIAS = 3,
 						MAX_CAPABILITY_ENUM
+};
+enum GRID_REPT_ENUM {	REPT_VAR      = 0,
+						REPT_VAR_BIAS = 1,
+						MAX_REPT_ENUM
 };
 
 class CGageDialog : public CDialog
@@ -132,7 +136,9 @@ public:
 	CGridCtrl		m_gridStat;				// for Grid  (Output Stat data )
 	CGridCtrl		m_gridBias;				// for Grid  (Output Bias data)
 	CGridCtrl		m_gridCapability;		// for Grid  (Output Capa data)
+	CGridCtrl		m_gridRept;				// for Grid  (Output Capa data)
 	CString			m_editMeasDataPath;		// for 4w Data file path
+	int				m_edit_nDataCnt;
 	CChartViewer	m_ChartViewer;			// for Chart,	 선택된 Lot, Date의 그래프 출력
 	int				m_edit_nRefInput;		// Input
 	int				m_edit_nTolInput;		// Input

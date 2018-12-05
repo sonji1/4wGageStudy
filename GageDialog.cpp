@@ -24,9 +24,9 @@ CGageDialog::CGageDialog(CWnd* pParent /*=NULL*/)
 {
 	//{{AFX_DATA_INIT(CGageDialog)
 	m_editMeasDataPath = _T("");
+	m_edit_nDataCnt = 0;
 	m_edit_nRefInput = 0;
 	m_edit_nTolInput = 1;
-
 	//}}AFX_DATA_INIT
 	
 	m_nRef = m_edit_nRefInput;
@@ -54,7 +54,9 @@ void CGageDialog::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_GRID_STAT, 		m_gridStat);
 	DDX_Control(pDX, IDC_GRID_BIAS, 		m_gridBias);
 	DDX_Control(pDX, IDC_GRID_CAPABILITY, 	m_gridCapability);
+	DDX_Control(pDX, IDC_GRID_REPT, 		m_gridRept);
 	DDX_Text   (pDX, IDC_EDIT_4W_FILE_PATH, m_editMeasDataPath);
+	DDX_Text   (pDX, IDC_EDIT3, 			m_edit_nDataCnt);
 	DDX_Control(pDX, IDC_CHART, 			m_ChartViewer);
 	DDX_Text   (pDX, IDC_EDIT_REF_INPUT, 	m_edit_nRefInput);
 	DDX_Text   (pDX, IDC_EDIT_TOL_INPUT, 	m_edit_nTolInput);
@@ -194,6 +196,11 @@ BOOL CGageDialog::InitView()
 		m_gridCapability.SetColumnCount(m_nCols_Out);
 		m_gridCapability.SetFixedRowCount(m_nFixRows_Out);
 		m_gridCapability.SetFixedColumnCount(m_nFixCols_Out);
+
+		m_gridRept.SetRowCount(MAX_REPT_ENUM);
+		m_gridRept.SetColumnCount(m_nCols_Out);
+		m_gridRept.SetFixedRowCount(m_nFixRows_Out);
+		m_gridRept.SetFixedColumnCount(m_nFixCols_Out);
 	}
 	CATCH (CMemoryException, e)
 	{
@@ -203,6 +210,9 @@ BOOL CGageDialog::InitView()
 	}
     END_CATCH	
 
+
+	//---------------------------
+	// 고정 데이터 먼저 출력
 	Display_mohmGridHeader();		// Grid Header 설정.
 	Display_OutputGridFixCol();		// Output Grid Fixed Col (name) 출력
 
@@ -334,14 +344,18 @@ void CGageDialog::Display_OutputGridFixCol()
     m_gridBias.SetItemText(BIAS_PVALUE, 	0, "PValue\n(Test Bias = 0)");
 
 
-	m_gridCapability.SetColumnWidth(0, 170);
+	m_gridCapability.SetColumnWidth(0, 100);
 	m_gridCapability.SetColumnWidth(1, 80);
 	for (row = 0; row < MAX_CAPABILITY_ENUM; row++)
 		m_gridCapability.SetRowHeight(row, 25);
     m_gridCapability.SetItemText(CAPABILITY_CG, 			0, "Cg");
     m_gridCapability.SetItemText(CAPABILITY_CGK, 			0, "Cgk");
-    m_gridCapability.SetItemText(CAPABILITY_VAR_REPT, 		0, "%Var (Repeatablility)");
-    m_gridCapability.SetItemText(CAPABILITY_VAR_REPT_BIAS, 	0, "%Var (Repeatability and Bias)");
+
+
+	m_gridRept.SetColumnWidth(0, 170);
+	m_gridRept.SetColumnWidth(1, 80);
+    m_gridRept.SetItemText(REPT_VAR, 		0, "%Var (Repeatablility)");
+    m_gridRept.SetItemText(REPT_VAR_BIAS, 	0, "%Var (Repeatability and Bias)");
 
 	
 	//m_gridCtrl.SetRowHeight(0, 40);	// 헤더에 글자 두줄 표시를 위해 높이 조정
@@ -447,20 +461,12 @@ int CGageDialog::Load_4W_MeasData(CString dataFilePath)
 	FILE *fp; 
 	char  fName[200];  
 
-	//---------------------------------
-	// Meas Data 관련 멤버 변수 초기화
-	m_nTypeCount = 0;
-	m_nMeasCount = 0;
-	::ZeroMemory(m_daMeasData, sizeof(m_daMeasData));
-
 
 	//----------------
 	// File Open  
     ::ZeroMemory(&fName, sizeof(fName));
  	strcat(fName, dataFilePath);
 
- 	m_editMeasDataPath = fName;
-	UpdateData(FALSE); // 대화상자의 Edit컨트롤에 m_editMeasDataPath 를 출력.
 
 	if(!FileExists(fName)) 
 	{ 	ERR.Set(FLAG_FILE_NOT_FOUND, fName); 
@@ -475,24 +481,39 @@ int CGageDialog::Load_4W_MeasData(CString dataFilePath)
 
 	//-------------------------
 	// File 초기 정보 read
+	
+	int nMeasCount;
+	int nTypeCount;
 	CString strTemp;
-	fscanf(fp, "%d, %d,  \n", &m_nMeasCount, &m_nTypeCount);		 
-	if (m_nTypeCount > MAX_MEAS_TYPE)
+	fscanf(fp, "%d, %d,  \n", &nMeasCount, &nTypeCount);		 
+	if (nTypeCount > MAX_MEAS_TYPE)
 	{
-		strTemp.Format("Load_4W_MeasData(): %s m_nTypeCount=%d Range(<%d) Over Error!\n", 
-					fName, m_nTypeCount, MAX_MEAS_TYPE);
+		strTemp.Format("Load_4W_MeasData(): %s nTypeCount=%d Range(<%d) Over Error!\n", 
+					fName, nTypeCount, MAX_MEAS_TYPE);
 		ERR.Set(RANGE_OVER, strTemp); 
 		ErrMsg();  ERR.Reset(); 
 		return -1;
 	}
 
-	if (m_nMeasCount > MAX_MEAS_COUNT)
+	// Meas Count가 10개 이하이면 Gage Study를 중단하고 에러를 출력한다. 
+	if (nMeasCount < 10)
 	{
-		strTemp.Format("Load_4W_MeasData(): %s m_nMeasCount=%d Range(<%d) Over Error!\n", 
-					fName, m_nMeasCount, MAX_MEAS_COUNT);
+		strTemp.Format("%s nMeasCount=%d.\n\nAt least 10 measurement data are required, and the recommended number is 50 or more.", 
+				fName, nMeasCount);
 		ERR.Set(RANGE_OVER, strTemp); 
 		ErrMsg();  ERR.Reset(); 
 		return -1;
+	}
+
+
+	// MeasCount가 90 이상이면 range over이지만, 리턴하지 않고 max값인 90으로 값을 변경해서 계속 진행한다.
+	if (nMeasCount > MAX_MEAS_COUNT)
+	{
+		strTemp.Format("Load_4W_MeasData(): %s nMeasCount=%d Range(<%d) Over Error!\n\nChange the nMeasCount value to the maximum number of 90.", 
+					fName, nMeasCount, MAX_MEAS_COUNT);
+		int ret = AfxMessageBox(strTemp, MB_OKCANCEL|MB_ICONINFORMATION);
+		MyTrace(PRT_BASIC, strTemp);
+		nMeasCount = MAX_MEAS_COUNT;		
 	}
 
 
@@ -512,6 +533,21 @@ int CGageDialog::Load_4W_MeasData(CString dataFilePath)
 		return -1;	 
 	}
 
+
+	//---------------------------------
+	// Meas Data 관련 멤버 변수 초기화
+	
+
+	// 에러로 리턴되는 경우에는 기존값을 보호해야 하므로
+	// 에러체크돼서 리턴되는 경우를 모두 통과해야만 member 변수들을 업데이트할 수 있다.
+	m_nMeasCount = nMeasCount;
+	m_nTypeCount = nTypeCount;
+	::ZeroMemory(m_daMeasData, sizeof(m_daMeasData));
+
+
+ 	m_editMeasDataPath = fName;				// UI에 표시될 file path
+	m_edit_nDataCnt = m_nMeasCount; 		// UI에 표시될 meas Count
+	UpdateData(FALSE); // 대화상자의 Edit컨트롤에 m_editMeasDataPath, m_edit_nDataCnt 를 출력.
 
 
 	//-----------------------------------------------------
@@ -820,13 +856,8 @@ void CGageDialog::DisplayGageStudyChart(int type)
 	// Draw Chart and set to CChartViewer
 	
 
-    // The data for the bar chart
-    //double proportion[] = {0.08, 0.02, 0.06, 0.02, 0.04, 0.12, 0.06, 0.04, 0.06, 0, 0.25, 0.16666667, 0.14893617, 0.127659574, 0.130434783 };
-    //double center[] = { 0.087, 0.087, 0.087, 0.087,0.087, 0.087,0.087, 0.087,0.087, 0.087,0.087, 0.087,0.087, 0.087, 0.087 };
-    //double UCL[] = { 0.207, 0.207, 0.207, 0.207,0.207, 0.207,0.207, 0.207,0.207, 0.207,0.209, 0.209,0.210, 0.210, 0.210 };
-	// The labels for the bar chart
-    //const char *labels[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"};
 
+    // The data for the bar chart
    	double ref[MAX_MEAS_COUNT];			// ref값이 array가 아니므로 출력을 위한 array를 만든다.
    	double ref_minus[MAX_MEAS_COUNT];	// ref - (0.1 * Tol)
    	double ref_plus[MAX_MEAS_COUNT];	// ref + (0.1 * Tol)
@@ -887,6 +918,8 @@ void CGageDialog::DisplayGageStudyChart(int type)
     TextBox *textbox_X = c->xAxis()->setTitle("Measure Count");
     textbox_X->setAlignment(Chart::BottomRight);
 
+	// The labels for the bar chart
+    //const char *labels[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"};
 	// layer.setXData()를 사용하고 아래코드는 코멘트처리
     // Set the labels on the x axis.
     //c->xAxis()->setLabels(StringArray(labels, sizeof(labels)/sizeof(labels[0])));
@@ -1108,13 +1141,15 @@ void CGageDialog::DisplayGageStudyOutput(int type)
 	strTemp.Format("%.2f", m_dCgk);
 	m_gridCapability.SetItemText(CAPABILITY_CGK, 			1, strTemp);
 
+
+	// Repeatability Grid
 	strTemp.Format("%.2f %%", m_dVarRept);
-	m_gridCapability.SetItemText(CAPABILITY_VAR_REPT, 		1, strTemp);
+	m_gridRept.SetItemText(REPT_VAR, 		1, strTemp);
 
 	// 10% 이상이면 MAJ 알람표시(주황색) , 15% 이상이면 CRI 알람표시(빨간색)
 	if (m_dVarRept >= VAR_REPT_LIMIT_CRI)		// Critical Alarm
 	{
-		m_gridCapability.SetItemBkColour(CAPABILITY_VAR_REPT, 1,	// row, col
+		m_gridRept.SetItemBkColour(REPT_VAR, 1,	// row, col
 										RGB(0xdc, 0x24, 0x4c));		// crimson(0xdc143c)보다 약간 연한 빨강
 		strTemp.Format("'%% Var (Repeatability)' exceeds the critical limit of %d%%.", 
 				VAR_REPT_LIMIT_CRI);
@@ -1122,7 +1157,7 @@ void CGageDialog::DisplayGageStudyOutput(int type)
 	}
 	else if (m_dVarRept >= VAR_REPT_LIMIT_MAJ)	// Major Alarm
 	{
-		m_gridCapability.SetItemBkColour(CAPABILITY_VAR_REPT, 1,	// row, col
+		m_gridRept.SetItemBkColour(REPT_VAR, 1,	// row, col
 										RGB(0xff, 0x63, 0x47));		// tomato : 진한 주황
 		strTemp.Format("'%% Var (Repeatability)' exceeds the major limit of %d%%.", 
 				VAR_REPT_LIMIT_MAJ);
@@ -1131,7 +1166,7 @@ void CGageDialog::DisplayGageStudyOutput(int type)
 	}
 	else	// Normal
 	{
-		m_gridCapability.SetItemBkColour(CAPABILITY_VAR_REPT, 1,	// row, col
+		m_gridRept.SetItemBkColour(REPT_VAR, 1,	// row, col
 										RGB(0x95, 0xee, 0x95));		// light green : 밝은 초록색 
 		strTemp.Format("'%% Var (Repeatability)' is OK.");
 		m_listMsg.InsertString(0, strTemp);
@@ -1140,7 +1175,7 @@ void CGageDialog::DisplayGageStudyOutput(int type)
 	}
 
 	strTemp.Format("%.2f %%", m_dVarReptBias);
-	m_gridCapability.SetItemText(CAPABILITY_VAR_REPT_BIAS, 	1, strTemp);
+	m_gridRept.SetItemText(REPT_VAR_BIAS, 	1, strTemp);
 
 	UpdateData(FALSE);
 	Invalidate(TRUE);		// 화면 강제 갱신. UpdateData(False)만으로 Grid 화면 갱신이 되지 않아서 추가함.

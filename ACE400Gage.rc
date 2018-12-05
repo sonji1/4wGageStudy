@@ -102,14 +102,14 @@ IDD_GAGE_DIALOG DIALOG DISCARDABLE  5, 45, 658, 398
 STYLE WS_CHILD | WS_BORDER
 FONT 10, "Calibri"
 BEGIN
-    LTEXT           "File:",IDC_STATIC,410,9,17,8
+    LTEXT           "File:",IDC_STATIC,317,8,17,8
     CONTROL         "Gage Grid",IDC_GRID,"MFCGridCtrl",WS_TABSTOP,6,24,639,
                     96
-    EDITTEXT        IDC_EDIT_4W_FILE_PATH,431,7,193,15,ES_AUTOHSCROLL | 
+    EDITTEXT        IDC_EDIT_4W_FILE_PATH,338,6,193,15,ES_AUTOHSCROLL | 
                     ES_READONLY
     COMBOBOX        IDC_COMBO_MEAS_TYPE,63,149,60,75,CBS_DROPDOWN | CBS_SORT | 
                     WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Measurement\nData",IDC_STATIC,14,148,45,19
+    LTEXT           "Measurement\nData Type",IDC_STATIC,14,148,45,19
     LTEXT           "Reference",IDC_STATIC,14,174,45,13
     EDITTEXT        IDC_EDIT_REF_INPUT,63,170,60,12,ES_AUTOHSCROLL | 
                     ES_READONLY
@@ -121,7 +121,7 @@ BEGIN
     CONTROL         "Type1 Gage Study - Observation",IDC_STATIC,"Static",
                     SS_LEFTNOWORDWRAP | WS_GROUP,147,278,110,12
     GROUPBOX        "Bias",IDC_STATIC,281,291,119,76
-    GROUPBOX        "Capability",IDC_STATIC,415,291,165,76
+    GROUPBOX        "Capability",IDC_STATIC,415,291,123,49
     LTEXT           "Measurement Data ",IDC_STATIC,6,9,110,12
     GROUPBOX        "Type1 Gage Study - Input",IDC_STATIC,6,134,123,119
     PUSHBUTTON      "OK",IDC_BUTTON_DO_STUDY,17,227,96,18,BS_MULTILINE | NOT 
@@ -131,12 +131,16 @@ BEGIN
     CONTROL         "Bias",IDC_GRID_BIAS,"MFCGridCtrl",WS_TABSTOP,290,307,
                     103,48
     CONTROL         "Capability",IDC_GRID_CAPABILITY,"MFCGridCtrl",
-                    WS_TABSTOP,422,307,143,54
-    LISTBOX         IDC_LIST_MSG,279,376,301,15,LBS_SORT | 
+                    WS_TABSTOP,422,307,103,27
+    LISTBOX         IDC_LIST_MSG,415,378,218,15,LBS_SORT | 
                     LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | 
                     WS_TABSTOP
-    PUSHBUTTON      "Load File",IDC_BUTTON_LOAD_MEASDATA,334,7,54,14
+    PUSHBUTTON      "Load File",IDC_BUTTON_LOAD_MEASDATA,241,6,54,14
     LTEXT           "x 0.1",IDC_STATIC,102,195,17,8
+    LTEXT           "Measurement\nCount  :",IDC_STATIC,552,5,46,16
+    EDITTEXT        IDC_EDIT3,603,7,33,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "Repeatability",IDC_GRID_REPT,"MFCGridCtrl",WS_TABSTOP,
+                    415,347,143,25
 END
 
 IDD_CONFIG_DIALOG DIALOGEX 5, 65, 425, 186
