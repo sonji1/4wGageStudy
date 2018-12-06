@@ -16,6 +16,7 @@
 #include "ChartViewer.h"
 
 
+#define 	MIN_MEAS_COUNT		10
 #define 	MAX_MEAS_COUNT		90
 
 enum	MEAS_TYPE	{ 	mohm_1 = 0,			// 0	
@@ -139,9 +140,11 @@ public:
 	CGridCtrl		m_gridRept;				// for Grid  (Output Capa data)
 	CString			m_editMeasDataPath;		// for 4w Data file path
 	int				m_edit_nDataCnt;
-	CChartViewer	m_ChartViewer;			// for Chart,	 선택된 Lot, Date의 그래프 출력
 	int				m_edit_nRefInput;		// Input
 	int				m_edit_nTolInput;		// Input
+	int				m_edit_nStudyCnt;		// Input
+
+	CChartViewer	m_ChartViewer;			// for Chart,	 선택된 Lot, Date의 그래프 출력
 	//}}AFX_DATA
 	
 
@@ -163,8 +166,9 @@ protected:
 	afx_msg void OnShowWindow(BOOL bShow, UINT nStatus);
 	afx_msg void OnSelchangeComboMeasType();
 	afx_msg void OnChangeEditTolInput();
-	afx_msg void OnButtonDoStudy();
 	afx_msg void OnButtonLoadMeasdata();
+	afx_msg void OnChangeEditStudyCnt();
+	afx_msg void OnButtonDoStudy();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
@@ -173,7 +177,9 @@ public:
 
 	// member for 4w Measure Data
 	int			m_nTypeCount;
-	int			m_nMeasCount;
+	int			m_nMeasCount;		// Load한 file의 meas data 갯수
+	int			m_nStudyCount;		// 실제 Gage Study 하라고 입력받은 값. 
+									// m_nMeasCount와 보통 같지만 작게 입력할 수 있다.
 	double		m_daMeasData[MAX_MEAS_TYPE][MAX_MEAS_COUNT];
 	//vector	<double>	m_vdaMeasData[MAX_MEAS_TYPE];
 	

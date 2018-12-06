@@ -27,6 +27,7 @@ CGageDialog::CGageDialog(CWnd* pParent /*=NULL*/)
 	m_edit_nDataCnt = 0;
 	m_edit_nRefInput = 0;
 	m_edit_nTolInput = 1;
+	m_edit_nStudyCnt = 0;
 	//}}AFX_DATA_INIT
 	
 	m_nRef = m_edit_nRefInput;
@@ -56,11 +57,13 @@ void CGageDialog::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_GRID_CAPABILITY, 	m_gridCapability);
 	DDX_Control(pDX, IDC_GRID_REPT, 		m_gridRept);
 	DDX_Text   (pDX, IDC_EDIT_4W_FILE_PATH, m_editMeasDataPath);
-	DDX_Text   (pDX, IDC_EDIT3, 			m_edit_nDataCnt);
-	DDX_Control(pDX, IDC_CHART, 			m_ChartViewer);
+	DDX_Text   (pDX, IDC_EDIT_MEASDATA_CNT, m_edit_nDataCnt);
 	DDX_Text   (pDX, IDC_EDIT_REF_INPUT, 	m_edit_nRefInput);
 	DDX_Text   (pDX, IDC_EDIT_TOL_INPUT, 	m_edit_nTolInput);
-	DDV_MinMaxInt(pDX, m_edit_nTolInput, 1, 3);
+	DDV_MinMaxInt(pDX, m_edit_nTolInput, 	1, 3);
+	DDX_Text   (pDX, IDC_EDIT_STUDY_CNT, 	m_edit_nStudyCnt);
+	DDV_MinMaxInt(pDX, m_edit_nStudyCnt, 0, 90);
+	DDX_Control(pDX, IDC_CHART, 			m_ChartViewer);
 	//}}AFX_DATA_MAP
 }
 
@@ -70,8 +73,9 @@ BEGIN_MESSAGE_MAP(CGageDialog, CDialog)
 	ON_WM_SHOWWINDOW()
 	ON_CBN_SELCHANGE(IDC_COMBO_MEAS_TYPE,      OnSelchangeComboMeasType)
 	ON_EN_CHANGE    (IDC_EDIT_TOL_INPUT,       OnChangeEditTolInput)
-	ON_BN_CLICKED   (IDC_BUTTON_DO_STUDY,      OnButtonDoStudy)
 	ON_BN_CLICKED   (IDC_BUTTON_LOAD_MEASDATA, OnButtonLoadMeasdata)
+	ON_EN_CHANGE    (IDC_EDIT_STUDY_CNT,       OnChangeEditStudyCnt)
+	ON_BN_CLICKED   (IDC_BUTTON_DO_STUDY,      OnButtonDoStudy)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -107,6 +111,7 @@ BOOL CGageDialog::InitMember()
 	// Meas Data 관련 멤버 변수 초기화
 	m_nTypeCount = 0;
 	m_nMeasCount = 0;
+	m_nStudyCount = 0;	
 	::ZeroMemory(m_daMeasData, sizeof(m_daMeasData));
 
 
@@ -488,7 +493,7 @@ int CGageDialog::Load_4W_MeasData(CString dataFilePath)
 	fscanf(fp, "%d, %d,  \n", &nMeasCount, &nTypeCount);		 
 	if (nTypeCount > MAX_MEAS_TYPE)
 	{
-		strTemp.Format("Load_4W_MeasData(): %s nTypeCount=%d Range(<%d) Over Error!\n", 
+		strTemp.Format("Can't load this file!\n: %s\n\n nTypeCount=%d Range(<%d) Out Error!\n", 
 					fName, nTypeCount, MAX_MEAS_TYPE);
 		ERR.Set(RANGE_OVER, strTemp); 
 		ErrMsg();  ERR.Reset(); 
@@ -496,10 +501,10 @@ int CGageDialog::Load_4W_MeasData(CString dataFilePath)
 	}
 
 	// Meas Count가 10개 이하이면 Gage Study를 중단하고 에러를 출력한다. 
-	if (nMeasCount < 10)
+	if (nMeasCount < MIN_MEAS_COUNT)		// MIN_MEAS_COUNT: 10
 	{
-		strTemp.Format("%s nMeasCount=%d.\n\nAt least 10 measurement data are required, and the recommended number is 50 or more.", 
-				fName, nMeasCount);
+		strTemp.Format("Can't load this file!\n: %s\n nMeasCount=%d.\n\nAt least %d measurement data are required, and the recommended number is 50 or more.", 
+				fName, nMeasCount, MIN_MEAS_COUNT);
 		ERR.Set(RANGE_OVER, strTemp); 
 		ErrMsg();  ERR.Reset(); 
 		return -1;
@@ -509,7 +514,7 @@ int CGageDialog::Load_4W_MeasData(CString dataFilePath)
 	// MeasCount가 90 이상이면 range over이지만, 리턴하지 않고 max값인 90으로 값을 변경해서 계속 진행한다.
 	if (nMeasCount > MAX_MEAS_COUNT)
 	{
-		strTemp.Format("Load_4W_MeasData(): %s nMeasCount=%d Range(<%d) Over Error!\n\nChange the nMeasCount value to the maximum number of 90.", 
+		strTemp.Format("Load_4W_MeasData(): %s nMeasCount=%d Range(<%d) Over!\n\n We are changing the nMeasCount value to the maximum number of 90.", 
 					fName, nMeasCount, MAX_MEAS_COUNT);
 		int ret = AfxMessageBox(strTemp, MB_OKCANCEL|MB_ICONINFORMATION);
 		MyTrace(PRT_BASIC, strTemp);
@@ -534,19 +539,32 @@ int CGageDialog::Load_4W_MeasData(CString dataFilePath)
 	}
 
 
-	//---------------------------------
-	// Meas Data 관련 멤버 변수 초기화
+	//-----------------------------------------
+	// Meas Data 관련 멤버 변수 default 초기화
 	
 
 	// 에러로 리턴되는 경우에는 기존값을 보호해야 하므로
 	// 에러체크돼서 리턴되는 경우를 모두 통과해야만 member 변수들을 업데이트할 수 있다.
-	m_nMeasCount = nMeasCount;
-	m_nTypeCount = nTypeCount;
+	m_nMeasCount  = nMeasCount;
+	m_nStudyCount = nMeasCount;
+	m_nTypeCount  = nTypeCount;
 	::ZeroMemory(m_daMeasData, sizeof(m_daMeasData));
 
 
  	m_editMeasDataPath = fName;				// UI에 표시될 file path
-	m_edit_nDataCnt = m_nMeasCount; 		// UI에 표시될 meas Count
+	m_edit_nDataCnt  = m_nMeasCount; 		// UI에 표시될 meas Count
+	m_edit_nStudyCnt = m_nMeasCount; 		// UI에 표시될 Study Count (보통 meas count와 같지만 작게 입력될 수 있다.)
+
+
+	// 새로 load했으므로 type, StudyCount, Ref, Tol을 모두 default로 초기화한다.
+	m_nCombo_CurrType = mohm_1;			// 0 : 현재 combo에서 선택된 type#
+	m_comboMeasType.SetCurSel(mohm_1);	// 0 = mohm_1
+
+	m_edit_nRefInput = g_MeasInfoTable[m_nCombo_CurrType].nMeasRef;
+	m_nRef = m_edit_nRefInput;
+	m_edit_nTolInput = 1;
+	m_nTol = m_edit_nTolInput;
+
 	UpdateData(FALSE); // 대화상자의 Edit컨트롤에 m_editMeasDataPath, m_edit_nDataCnt 를 출력.
 
 
@@ -777,6 +795,9 @@ void CGageDialog::ClearGrid_Data()
 //	m_gridCtrl.AutoSize(); -> 이것 넣으면 속도 느려짐.
 
 }
+
+
+// Output Grid의 값을 모두 지우고 배경색도 노랑색으로 원상복구한다.
 void CGageDialog::ClearGrid_Output()
 {
 	int row;
@@ -805,6 +826,14 @@ void CGageDialog::ClearGrid_Output()
 		// 혹시 배경을 fault처리한 cell이 있다면 다음번 display를 위해 원상복구 한다.
 		m_gridCapability.SetItemBkColour(row, 1, RGB(0xFF, 0xFF, 0xE0));	// 연노랑색 
 	}
+
+	for (row = 0; row < m_gridRept.GetRowCount(); row++)		
+	{
+		m_gridRept.SetItemText(row, 1, "                 ");
+
+		// 혹시 배경을 fault처리한 cell이 있다면 다음번 display를 위해 원상복구 한다.
+		m_gridRept.SetItemBkColour(row, 1, RGB(0xFF, 0xFF, 0xE0));	// 연노랑색 
+	}
 }
 
 void CGageDialog::OnChangeEditTolInput() 
@@ -825,16 +854,11 @@ void CGageDialog::OnChangeEditTolInput()
 
 
 	// 수정된 Tol 에 대한 'type1 gage study' 결과를 출력 
-	DoGageStudy();
+	//DoGageStudy();		=> Tol이나  StudyCount의 경우에는 OK를 클릭해야 변경이 반영되도록 수정함.
 	
 	UpdateData(FALSE);
 }
 
-void CGageDialog::OnButtonDoStudy() 
-{
-	// TODO: Add your control notification handler code here
-	DoGageStudy();
-}
 
 
 void CGageDialog::DoGageStudy() 
@@ -864,7 +888,7 @@ void CGageDialog::DisplayGageStudyChart(int type)
     double dataX0[MAX_MEAS_COUNT];		// X 축 label로 사용할 array 
 
     int nRef = g_MeasInfoTable[type].nMeasRef;
-	for (int meas =0; meas < m_nMeasCount; meas++)
+	for (int meas =0; meas < m_nStudyCount; meas++)
 	{
 		ref[meas] = nRef;
 		ref_minus[meas] = nRef - (0.1 * m_nTol);
@@ -940,16 +964,16 @@ void CGageDialog::DisplayGageStudyChart(int type)
     // Add the three data sets to the line layer. 
     									
 
-    layer->addDataSet( DoubleArray(ref_minus, m_nMeasCount), 
+    layer->addDataSet( DoubleArray(ref_minus, m_nStudyCount), 
 	   				0xff0000, "Ref - 0.10 x Tol")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);	// 빨간색
 
-    layer->addDataSet( DoubleArray(ref_plus, m_nMeasCount), 
+    layer->addDataSet( DoubleArray(ref_plus, m_nStudyCount), 
 	   				0xff0000, "Ref + 0.10 x Tol")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);	// 빨간색
 
-    layer->addDataSet( DoubleArray(ref, m_nMeasCount), 
+    layer->addDataSet( DoubleArray(ref, m_nStudyCount), 
 	   				0x008800, "Ref")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);		// 초록색
 
-    layer->addDataSet( DoubleArray(&m_daMeasData[type][0], m_nMeasCount), 
+    layer->addDataSet( DoubleArray(&m_daMeasData[type][0], m_nStudyCount), 
 	   				0x3333ff, "Data")->setDataSymbol(Chart::DiamondSymbol, 7, -1, 0x008800);		// 남색
 
 
@@ -962,7 +986,7 @@ void CGageDialog::DisplayGageStudyChart(int type)
     //				c->dashLineColor(0x3333ff, Chart::DashLine), "LCL");	// 남색 점선
   */  
     // The x-coordinates for the line layer	 : X 축 data label 설정.
-	layer->setXData(DoubleArray(dataX0, m_nMeasCount ));
+	layer->setXData(DoubleArray(dataX0, m_nStudyCount ));
 
 /*
 	// Track Net이 설정된 경우, Track line도 그려준다.
@@ -1008,11 +1032,11 @@ void CGageDialog::CalcGageStudyOutput(int type)
 
 	int meas;
 	double dSum = 0;
-	for (meas=0; meas < m_nMeasCount; meas++)
+	for (meas=0; meas < m_nStudyCount; meas++)
 		dSum += m_daMeasData[type][meas]; 
 
-	if (m_nMeasCount)		// check devide by zero : Average
-		m_dAvg = dSum / (double) m_nMeasCount;
+	if (m_nStudyCount)		// check devide by zero : Average
+		m_dAvg = dSum / (double) m_nStudyCount;
 
 
 
@@ -1022,11 +1046,11 @@ void CGageDialog::CalcGageStudyOutput(int type)
 	m_dStDev = 0.0;
 	m_d6StDev = 0.0;
 	double dDiff = 0, dDiffPowerSum = 0, dVar = 0; 
-	int degFree = m_nMeasCount -1;		// degree of freedom (자유도) : n - 1 
+	int degFree = m_nStudyCount -1;		// degree of freedom (자유도) : n - 1 
 	if (degFree)	// check devide by zero : for dVar
 	{
 		// Calc Variance
-		for (meas=0; meas < m_nMeasCount; meas++)
+		for (meas=0; meas < m_nStudyCount; meas++)
 		{
 			dDiff = m_daMeasData[type][meas] - m_dAvg;
 			dDiffPowerSum += (dDiff * dDiff);
@@ -1049,9 +1073,9 @@ void CGageDialog::CalcGageStudyOutput(int type)
 	//-------------
 	// Calc T 
 	m_dT = 0.0;
-	if (m_nMeasCount)	// check devide by zero : for stdErr 
+	if (m_nStudyCount)	// check devide by zero : for stdErr 
 	{
-		double stdErr = m_dStDev / sqrt(m_nMeasCount);
+		double stdErr = m_dStDev / sqrt(m_nStudyCount);
 		if (stdErr)	// check devide by zero : for m_dT
 			m_dT = m_dBias / stdErr;
 		if (m_dT < 0)
@@ -1103,8 +1127,8 @@ void CGageDialog::DisplayGageStudyOutput(int type)
 	UpdateData(TRUE);
 	CString strTemp;
 
-	ClearGrid_Output();
-	m_listMsg.ResetContent();
+	ClearGrid_Output();			// Output Grid의 값을 모두 지우고 배경색도 노랑색으로 원상복구한다.
+	m_listMsg.ResetContent();	// listMsg의 내용물도 비운다.
 	UpdateData(FALSE);
 
 	// Stat Grid
@@ -1181,3 +1205,70 @@ void CGageDialog::DisplayGageStudyOutput(int type)
 	Invalidate(TRUE);		// 화면 강제 갱신. UpdateData(False)만으로 Grid 화면 갱신이 되지 않아서 추가함.
 }
 
+
+void CGageDialog::OnChangeEditStudyCnt() 
+{
+	// TODO: If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialog::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+	
+	// TODO: Add your control notification handler code here
+/*
+	UpdateData(TRUE);
+
+	// edit StudyCount값이 range over로 잘못 입력된 경우
+	//if ( m_edit_nStudyCnt < MIN_MEAS_COUNT  || m_edit_nStudyCnt > MAX_MEAS_COUNT)
+	if ( m_edit_nStudyCnt > MAX_MEAS_COUNT)
+	{
+		CString strTemp;
+		strTemp.Format("GageStudy Count=%d. Range(%d<= Count <=%d) Over Error!\nRecover GageStudyCount to default %d", 
+						m_edit_nStudyCnt, MIN_MEAS_COUNT, MAX_MEAS_COUNT, m_nMeasCount);
+		ERR.Set(RANGE_OVER, strTemp); 
+		ErrMsg();  ERR.Reset(); 
+
+		// 잘못 입력된 edit StudyCount를 default 값인 MeasCount값으로 다시 원상복구한다.
+		// 리턴하지는 않고 원상복구된 기준으로 그래프와 Output을 다시 출력한다.
+		m_edit_nStudyCnt = m_nMeasCount;
+	}
+
+	m_nStudyCount = m_edit_nStudyCnt;
+
+
+	// 수정된 Tol 에 대한 'type1 gage study' 결과를 출력 
+	DoGageStudy();
+	
+	UpdateData(FALSE);
+*/
+	
+}
+
+void CGageDialog::OnButtonDoStudy() 
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(TRUE);
+
+	//-----------------------
+	// m_edit_nStudyCnt 처리 
+	//  : 숫자가 여러개 들어올 수 있으므로 EN_CHANGE 이벤트가 아니라 OK 버튼 클릭시에 값을 확인한다.
+
+	// edit StudyCount값이 range over로 잘못 입력된 경우
+	if ( m_edit_nStudyCnt < MIN_MEAS_COUNT  || m_edit_nStudyCnt > MAX_MEAS_COUNT)
+	{
+		CString strTemp;
+		strTemp.Format("GageStudy Count=%d. Range(%d<= Count <=%d) Out Error!\nRecover GageStudyCount to default %d", 
+						m_edit_nStudyCnt, MIN_MEAS_COUNT, MAX_MEAS_COUNT, m_nMeasCount);
+		ERR.Set(RANGE_OVER, strTemp); 
+		ErrMsg();  ERR.Reset(); 
+
+		// 잘못 입력된 edit StudyCount를 default 값인 MeasCount값으로 다시 원상복구한다.
+		// 리턴하지는 않고 원상복구된 기준으로 그래프와 Output을 다시 출력한다.
+		m_edit_nStudyCnt = m_nMeasCount;
+	}
+	m_nStudyCount = m_edit_nStudyCnt;
+
+	
+
+	DoGageStudy();
+	UpdateData(FALSE);
+}
