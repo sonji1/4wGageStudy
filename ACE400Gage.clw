@@ -17,9 +17,9 @@ Class5=CAboutDlg
 Class6=CMainDialog
 
 ResourceCount=4
-Resource1=IDD_MAIN_DIALOG
+Resource1=IDD_GAGE_DIALOG
 Resource2=IDD_ABOUTBOX
-Resource3=IDD_GAGE_DIALOG
+Resource3=IDD_MAIN_DIALOG
 Resource4=IDD_CONFIG_DIALOG
 
 [CLS:CACE400GageApp]
@@ -45,7 +45,7 @@ Type=0
 BaseClass=CDialog
 HeaderFile=GageDialog.h
 ImplementationFile=GageDialog.cpp
-LastObject=IDC_EDIT_TOL_INPUT
+LastObject=CGageDialog
 Filter=D
 VirtualFilter=dWC
 
@@ -84,7 +84,7 @@ Control11=IDC_STATIC_USED_MEM,static,1342308865
 [DLG:IDD_GAGE_DIALOG]
 Type=1
 Class=CGageDialog
-ControlCount=28
+ControlCount=31
 Control1=IDC_STATIC,static,1342308352
 Control2=IDC_GRID,MFCGridCtrl,1342242816
 Control3=IDC_EDIT_4W_FILE_PATH,edit,1350633600
@@ -113,6 +113,9 @@ Control25=IDC_GRID_REPT,MFCGridCtrl,1342242816
 Control26=IDC_STATIC,static,1342308352
 Control27=IDC_EDIT_STUDY_CNT,edit,1350639744
 Control28=IDC_BUTTON_DO_STUDY,button,1342242816
+Control29=IDC_BUTTON_SAVE_FILE,button,1342242816
+Control30=IDC_BUTTON_VIEW_FILE,button,1342242816
+Control31=IDC_BUTTON_GAGE_SAVE_ALL,button,1342251008
 
 [DLG:IDD_ABOUTBOX]
 Type=1

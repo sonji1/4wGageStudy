@@ -122,6 +122,10 @@ enum GRID_REPT_ENUM {	REPT_VAR      = 0,
 						MAX_REPT_ENUM
 };
 
+enum DELETE_ENUM { 	DELETE_NO  = FALSE, 
+					DELETE_YES = TRUE  
+};
+
 class CGageDialog : public CDialog
 {
 // Construction
@@ -169,6 +173,9 @@ protected:
 	afx_msg void OnButtonLoadMeasdata();
 	afx_msg void OnChangeEditStudyCnt();
 	afx_msg void OnButtonDoStudy();
+	afx_msg void OnButtonSaveFile();
+	afx_msg void OnButtonViewFile();
+	afx_msg void OnButtonGageSaveAll();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
@@ -237,10 +244,12 @@ public:
 	int 	getMeasDataLoc(char *pStr, int strMax, int &rLoc);
 	int 	getMeasData(char *pStr, int strMax, double &rdMeasData);
 
-	void 	DoGageStudy(); 
+	void 	DoGageStudy(int type); 
 	void 	DisplayGageStudyChart(int type); 
 	void 	CalcGageStudyOutput(int type); 
 	void 	DisplayGageStudyOutput(int type); 
+	void 	SaveTypeFile(int type, BOOL bDelete = DELETE_NO);
+	void	ChangeCurrType(int type); 
 };
 
 //{{AFX_INSERT_LOCATION}}

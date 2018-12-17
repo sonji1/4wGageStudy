@@ -8,6 +8,7 @@
 #include "FileSysInfo.h"
 #include "math.h"
 #include "cderr.h"
+#include "XLEzAutomation.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -76,6 +77,9 @@ BEGIN_MESSAGE_MAP(CGageDialog, CDialog)
 	ON_BN_CLICKED   (IDC_BUTTON_LOAD_MEASDATA, OnButtonLoadMeasdata)
 	ON_EN_CHANGE    (IDC_EDIT_STUDY_CNT,       OnChangeEditStudyCnt)
 	ON_BN_CLICKED   (IDC_BUTTON_DO_STUDY,      OnButtonDoStudy)
+	ON_BN_CLICKED(IDC_BUTTON_SAVE_FILE, OnButtonSaveFile)
+	ON_BN_CLICKED(IDC_BUTTON_VIEW_FILE, OnButtonViewFile)
+	ON_BN_CLICKED(IDC_BUTTON_GAGE_SAVE_ALL, OnButtonGageSaveAll)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -165,7 +169,7 @@ BOOL CGageDialog::InitView()
 
 	//----------------------------
 	// Grid 초기화 
-	//  : SetGridBkBlue()를 combo초기화할 때 해야하므로 Grid를 Combo보다 먼저 초기화한다.
+	//  : ChangeCurrType()를 combo초기화할 때 해야하므로 Grid를 Combo보다 먼저 초기화한다.
 
 	m_gridCtrl.SetEditable(m_bEditable);
 	//m_gridCtrl.SetListMode(m_bListMode);
@@ -222,22 +226,6 @@ BOOL CGageDialog::InitView()
 	Display_OutputGridFixCol();		// Output Grid Fixed Col (name) 출력
 
 
-	//--------------------------
-	// combo box init
-
-	// mohm_75000 까지만 combo에 입력한다.
-	for (int type = 0; type < (MAX_MEAS_TYPE -1); type++)
-		m_comboMeasType.InsertString( -1, g_MeasInfoTable[type].strMeas);
-
-	// 현재 combo에서 선택된 type#
-	m_nCombo_CurrType = mohm_1;			// 0
-	m_comboMeasType.SetCurSel(mohm_1);	// 0 = mohm_1
-
-
-	m_edit_nRefInput = g_MeasInfoTable[m_nCombo_CurrType].nMeasRef;
-	m_nRef = m_edit_nRefInput;
-	
-
 	//-------------------------
 	// 4W Meas File data 로드
 	
@@ -259,12 +247,21 @@ BOOL CGageDialog::InitView()
 	}
 
 	// Grid Data  출력
+	//  : 블루로 선택할 data가 있어야 하므로 ChangeCurrType(type)은  Display_mohmGridData() 다음에 호출해야 함.
 	Display_mohmGridData();			
-	SetGridBkBlue(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
-										// 블루로 선택할 data가 있어야 하므로 Display_mohmGridData() 다음에 호출해야 함.
+
+	//--------------------------
+	// combo box init
+
+	// mohm_75000 까지만 combo에 입력한다.
+	for (int type = 0; type < (MAX_MEAS_TYPE -1); type++)
+		m_comboMeasType.InsertString( -1, g_MeasInfoTable[type].strMeas);
+
+	// 현재 combo에서 선택된 type#
+	ChangeCurrType(mohm_1); 			// 0 = mohm_1
 
 	// 선택된 type에 대한 'type1 gage study' 결과를 출력 
-	DoGageStudy();
+	DoGageStudy(m_nCombo_CurrType);
 
 	UpdateData(FALSE);
 	Invalidate(TRUE);		// 화면 강제 갱신. UpdateData(False)만으로 Grid 화면 갱신이 되지 않아서 추가함.
@@ -441,18 +438,19 @@ void CGageDialog::OnButtonLoadMeasdata()
 	if (Load_4W_MeasData(dataFilePath) < 0 )
 		return;
 
-
 	// MeasurmentData Grid 반영
 	ClearGrid_Data();					// 기존에 출력됐던 measumrent data를 지우고 
 	Display_mohmGridData();				// 새로운 Input Grid Data  출력
-	SetGridBkBlue(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
 
+	// 새로 load했으므로 type, StudyCount, Ref, Tol을 모두 default로 초기화한다.
+	// : 블루로 선택할 data가 있어야 하므로 ChangeCurrType()는 Display_mohmGridData() 다음에 호출해야 함.
+	ChangeCurrType(mohm_1); 
 
 	//-----------------------------------------------
 	// Output Grid 반영 및 Output 출력을 다시 수행
 
 	// 선택된 type에 대한 'type1 gage study' 결과를 출력 
-	DoGageStudy();
+	DoGageStudy(m_nCombo_CurrType);
 
 	UpdateData(FALSE);
 
@@ -556,12 +554,6 @@ int CGageDialog::Load_4W_MeasData(CString dataFilePath)
 	m_edit_nStudyCnt = m_nMeasCount; 		// UI에 표시될 Study Count (보통 meas count와 같지만 작게 입력될 수 있다.)
 
 
-	// 새로 load했으므로 type, StudyCount, Ref, Tol을 모두 default로 초기화한다.
-	m_nCombo_CurrType = mohm_1;			// 0 : 현재 combo에서 선택된 type#
-	m_comboMeasType.SetCurSel(mohm_1);	// 0 = mohm_1
-
-	m_edit_nRefInput = g_MeasInfoTable[m_nCombo_CurrType].nMeasRef;
-	m_nRef = m_edit_nRefInput;
 	m_edit_nTolInput = 1;
 	m_nTol = m_edit_nTolInput;
 
@@ -705,33 +697,22 @@ void CGageDialog::OnSelchangeComboMeasType()
 	CString strTemp;
 
 	// 현재 combo에서 선택된 type#.  enum값으로 access 가능함 (ex: mohm_1, mohm_2..)	
-	int 	comboPrevType = m_nCombo_CurrType;
-	m_nCombo_CurrType = m_comboMeasType.GetCurSel(); 
-
-	// Range Check
-	if ( m_nCombo_CurrType < 0 || m_nCombo_CurrType >= MAX_MEAS_TYPE )
+	int comboType  = m_comboMeasType.GetCurSel(); 
+	if ( comboType < 0 || comboType >= MAX_MEAS_TYPE ) // Range Check
 	{
-
-		strTemp.Format("OnSelchangeComboMeasType(): m_nCombo_CurrType=%d, Range(0 =< MeasType < %d) Over\n", 
-					m_nCombo_CurrType, MAX_MEAS_TYPE );
+		strTemp.Format("OnSelchangeComboMeasType(): comboType=%d, Range(0 =< MeasType < %d) Over\n", 
+					comboType, MAX_MEAS_TYPE );
 		ERR.Set(RANGE_OVER, strTemp); 
 		ErrMsg();  ERR.Reset(); 
-
-		m_nCombo_CurrType = comboPrevType;
 		return;
 	}	
 
-
-	SetGridBkBlue(m_nCombo_CurrType);	// 현재 선택된 type column의 배경을 푸른색으로 설정.
-
-	
-	// 대화상자의 Edit컨트롤에 m_edit_nRefInput 를 출력.
-	m_edit_nRefInput = g_MeasInfoTable[m_nCombo_CurrType].nMeasRef;
-	m_nRef = m_edit_nRefInput;
+	// 입력받은 combo type으로 m_nCombo_CurrType을 바꾼다.
+	ChangeCurrType(comboType);		
 
 
 	// 선택된 type에 대한 'type1 gage study' 결과를 출력 
-	DoGageStudy();
+	DoGageStudy(m_nCombo_CurrType);
 	
 	UpdateData(FALSE); 
 
@@ -854,19 +835,19 @@ void CGageDialog::OnChangeEditTolInput()
 
 
 	// 수정된 Tol 에 대한 'type1 gage study' 결과를 출력 
-	//DoGageStudy();		=> Tol이나  StudyCount의 경우에는 OK를 클릭해야 변경이 반영되도록 수정함.
+	//DoGageStudy(m_nCombo_CurrType);		=> Tol이나  StudyCount의 경우에는 OK를 클릭해야 변경이 반영되도록 수정함.
 	
 	UpdateData(FALSE);
 }
 
 
 
-void CGageDialog::DoGageStudy() 
+void CGageDialog::DoGageStudy(int type) 
 {
 	
-	DisplayGageStudyChart(m_nCombo_CurrType);		// Run Chart 출력
-	CalcGageStudyOutput(m_nCombo_CurrType);			// Type1 Gage Study Output 값 계산
-	DisplayGageStudyOutput(m_nCombo_CurrType);		// Type1 Gage Study Output Grid 출력
+	DisplayGageStudyChart(type);		// Run Chart 출력
+	CalcGageStudyOutput(type);			// Type1 Gage Study Output 값 계산
+	DisplayGageStudyOutput(type);		// Type1 Gage Study Output Grid 출력
 	
 }
 
@@ -1236,7 +1217,7 @@ void CGageDialog::OnChangeEditStudyCnt()
 
 
 	// 수정된 Tol 에 대한 'type1 gage study' 결과를 출력 
-	DoGageStudy();
+	DoGageStudy(m_nCombo_CurrType);
 	
 	UpdateData(FALSE);
 */
@@ -1269,6 +1250,199 @@ void CGageDialog::OnButtonDoStudy()
 
 	
 
-	DoGageStudy();
+	DoGageStudy(m_nCombo_CurrType);
 	UpdateData(FALSE);
+}
+
+void CGageDialog::OnButtonSaveFile() 
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(TRUE);
+
+	SaveTypeFile(m_nCombo_CurrType);
+}
+	
+
+void CGageDialog::SaveTypeFile(int type, BOOL bDelete) 
+{
+	// 엑셀파일이 있는 경로 지정
+	char chThisPath[256];
+	CString szFileName ;
+	GetCurrentDirectory(256, chThisPath);
+	szFileName.Format(_T("%s\\Data\\Type1GageStudy_%s.xlsx"), 
+						chThisPath, g_MeasInfoTable[type].strMeas );
+//	GetModuleFileName(NULL, chThisPath, 256);
+
+
+	//-----------------------------------------------------
+	// 기존 파일을 지우는 옵션이 켜져 있으면 파일을 지운다.
+	if (bDelete == DELETE_YES)
+	{
+		CFileFind 	finder;
+		BOOL		bRet = finder.FindFile(szFileName);
+		
+		if (bRet == TRUE)	// 파일이 존재한다면
+		{
+			if (DeleteFile(szFileName) == TRUE)
+				MyTrace(PRT_BASIC, """%s"" file deleted for new file save\n", szFileName);
+		}
+	}	
+
+
+	//-----------------------------
+	// Worksheet 생성
+	int ret;
+	CXLEzAutomation XL(FALSE); 				// FALSE: 처리 과정을 화면에 보이지 않는다
+
+	//ret = XL.OpenExcelFile(szFileName);	// overwrite하기 위해 기존파일 open은 막았음. 
+											// 같은 이름의 파일이 있으면 새 파일로 대체해야 한다.
+
+	//------------------------------
+	// Worksheet에 그림파일 Insert
+	CString strChartPath;
+	strChartPath.Format("%s\\Data\\ChartView_%s.png", 
+						chThisPath, g_MeasInfoTable[type].strMeas);
+	ret = XL.InsertPictureFromFile(strChartPath, 10, 3);	// Column, Row
+
+	//------------------------------
+	// WorkSheet에  mohm 값 출력
+	ret = XL.SetCellValue(1, 1,  g_MeasInfoTable[type].strMeas);
+
+	CString	strTemp;
+	for (int meas =0; meas < m_nStudyCount; meas++)		// StudyCount가 바뀌면 파일에도 그만큼만 보여야 한다.
+	{
+		strTemp.Format("%.2f",  m_daMeasData[type][meas]);		
+		ret = XL.SetCellValue(1, 2+ meas, strTemp);					// Column, Row	
+	}
+
+
+	//----------------------------------------------
+	// WorkSheet에  Output Fixed Column 제목 출력
+	ret = XL.SetCellValue(3, 20,  "Reference");
+	ret = XL.SetCellValue(3, 21,  "Mean");
+	ret = XL.SetCellValue(3, 22,  "StDev");
+	ret = XL.SetCellValue(3, 23,  "6 x StDev (SV)");
+	ret = XL.SetCellValue(3, 24,  "Tolerance (TOL)");
+
+	ret = XL.SetCellValue(7, 20,  "Bias");
+	ret = XL.SetCellValue(7, 21,  "T");
+	ret = XL.SetCellValue(7, 22,  "PValue\n(Test Bias = 0)");
+
+	ret = XL.SetCellValue(10, 20,  "Cg");
+	ret = XL.SetCellValue(10, 21,  "Cgk");
+
+	ret = XL.SetCellValue(10, 23,  "%Var (Repeatablility)");
+	ret = XL.SetCellValue(10, 24,  "%Var (Repeatability and Bias");
+
+	//-----------------------------------------------------
+	// WorkSheet에  Output data 출력  (UI와 동일해야 한다)
+	
+	// Stat Grid
+	strTemp.Format("%d", m_nRef);
+	ret = XL.SetCellValue(5, 20,  strTemp);
+
+	strTemp.Format("%.2f", m_dAvg);
+	ret = XL.SetCellValue(5, 21,  strTemp);
+
+	strTemp.Format("%.3f", m_dStDev);
+	ret = XL.SetCellValue(5, 22,  strTemp);
+
+	strTemp.Format("%.3f", m_d6StDev);
+	ret = XL.SetCellValue(5, 23,  strTemp);
+
+	strTemp.Format("%d", m_nTol);
+	ret = XL.SetCellValue(5, 24,  strTemp);
+
+	// Bias Grid
+	strTemp.Format("%.2f", m_dBias);	
+	ret = XL.SetCellValue(8, 20,  strTemp);
+
+	strTemp.Format("%.3f", m_dT);
+	ret = XL.SetCellValue(8, 21,  strTemp);
+
+	strTemp.Format("%.3f", m_dPValue); 
+	ret = XL.SetCellValue(8, 22,  strTemp);
+	
+	// Capability Grid
+	strTemp.Format("%.2f", m_dCg);
+	ret = XL.SetCellValue(11, 20,  strTemp);
+
+	strTemp.Format("%.2f", m_dCgk);
+	ret = XL.SetCellValue(11, 21,  strTemp);
+
+
+	// Repeatability Grid
+	strTemp.Format("%.2f %%", m_dVarRept);
+	ret = XL.SetCellValue(13, 23,  strTemp);
+
+	strTemp.Format("%.2f %%", m_dVarReptBias);
+	ret = XL.SetCellValue(13, 24,  strTemp);
+
+	m_listMsg.GetText(0, strTemp);
+	ret = XL.SetCellValue(10, 25,  strTemp);
+
+
+	//  엑셀 파일 저장 
+	ret = XL.SaveFileAs(szFileName);			
+
+
+	// 엑셀 파일 해제
+	ret = XL.ReleaseExcel();					
+
+	
+}
+
+void CGageDialog::OnButtonViewFile() 
+{
+	// TODO: Add your control notification handler code here
+	
+	// 엑셀파일이 있는 경로 지정
+	char chThisPath[256];
+	CString szFileName ;
+	GetCurrentDirectory(256, chThisPath);
+	szFileName.Format(_T("%s\\Data\\Type1GageStudy_%s.xlsx"), 
+						chThisPath, g_MeasInfoTable[m_nCombo_CurrType].strMeas );
+
+	::ShellExecute(NULL, "open", "EXCEl.EXE", szFileName, "NULL", SW_SHOWNORMAL);	
+}
+
+
+void CGageDialog::OnButtonGageSaveAll() 
+{
+	// TODO: Add your control notification handler code here
+	
+	UpdateData(TRUE);
+	// 각 타입별로 Gage Study를 모두 수행하고 결과를 파일로 저장한다.
+	for (int type = 0; type < (MAX_MEAS_TYPE -1); type++)
+	{
+		// Current Type 변경
+		ChangeCurrType(type);
+
+		// type에 맞는 GageStudy를 수행
+		DoGageStudy(type);
+
+		// type에 맞는 엑셀 파일을 출력 
+		SaveTypeFile(type, DELETE_YES);
+	}
+
+	// CurrentType을  mohm_1로 초기화하고 작업을 완료
+	ChangeCurrType(mohm_1); 
+	DoGageStudy(m_nCombo_CurrType);
+	
+}
+
+void CGageDialog::ChangeCurrType(int type) 
+{
+	// type 변경
+	m_nCombo_CurrType = type;			// 0
+	m_comboMeasType.SetCurSel(type);	// 0 = mohm_1
+
+	// type에 맞게 Ref, RefOutput을 변경
+	m_edit_nRefInput = g_MeasInfoTable[m_nCombo_CurrType].nMeasRef;
+	m_nRef = m_edit_nRefInput;	
+
+	// 현재 선택된 type column의 배경을 푸른색으로 설정.
+	// 블루로 선택할 data가 있어야 하므로 SetGridBkBlue()는 Display_mohmGridData() 다음에 호출해야 함.
+	SetGridBkBlue(m_nCombo_CurrType);	
+
 }
