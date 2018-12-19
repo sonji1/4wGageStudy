@@ -14,6 +14,7 @@
 #define IDC_GRID                        1002
 #define IDC_EDIT_SELECT                 1005
 #define IDC_EDIT_4W_FILE_PATH           1005
+#define IDC_EDIT_SAVED_PATH             1007
 #define IDC_BUTTON1                     1008
 #define IDC_BUTTON_LOAD_MEASDATA        1008
 #define IDC_COMBO1                      1009
@@ -36,6 +37,7 @@
 #define IDC_BUTTON_SAVE_FILE            1033
 #define IDC_BUTTON_VIEW_FILE            1034
 #define IDC_BUTTON_GAGE_SAVE_ALL        1035
+#define IDC_STATIC_SAVED_PATH           1037
 #define IDC_CHECK_PRT_BASIC             1085
 #define IDC_CHECK_PRT_LEVEL1            1086
 #define IDC_CHECK_PRT_Level2            1087
@@ -51,7 +53,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        131
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1034
+#define _APS_NEXT_CONTROL_VALUE         1038
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

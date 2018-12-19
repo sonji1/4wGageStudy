@@ -143,11 +143,11 @@ public:
 	CGridCtrl		m_gridCapability;		// for Grid  (Output Capa data)
 	CGridCtrl		m_gridRept;				// for Grid  (Output Capa data)
 	CString			m_editMeasDataPath;		// for 4w Data file path
+	CString			m_editSavedPath;
 	int				m_edit_nDataCnt;
 	int				m_edit_nRefInput;		// Input
 	int				m_edit_nTolInput;		// Input
 	int				m_edit_nStudyCnt;		// Input
-
 	CChartViewer	m_ChartViewer;			// for Chart,	 선택된 Lot, Date의 그래프 출력
 	//}}AFX_DATA
 	
@@ -157,6 +157,7 @@ public:
 	//{{AFX_VIRTUAL(CGageDialog)
 	public:
 	virtual BOOL DestroyWindow();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	//}}AFX_VIRTUAL

@@ -27,6 +27,7 @@ Type=0
 BaseClass=CWinApp
 HeaderFile=ACE400Gage.h
 ImplementationFile=ACE400Gage.cpp
+LastObject=CACE400GageApp
 
 [CLS:CRectCtrl]
 Type=0
@@ -39,13 +40,14 @@ Type=0
 BaseClass=CDialog
 HeaderFile=ConfigDialog.h
 ImplementationFile=ConfigDialog.cpp
+LastObject=CConfigDialog
 
 [CLS:CGageDialog]
 Type=0
 BaseClass=CDialog
 HeaderFile=GageDialog.h
 ImplementationFile=GageDialog.cpp
-LastObject=CGageDialog
+LastObject=IDC_BUTTON_DO_STUDY
 Filter=D
 VirtualFilter=dWC
 
@@ -84,7 +86,7 @@ Control11=IDC_STATIC_USED_MEM,static,1342308865
 [DLG:IDD_GAGE_DIALOG]
 Type=1
 Class=CGageDialog
-ControlCount=31
+ControlCount=33
 Control1=IDC_STATIC,static,1342308352
 Control2=IDC_GRID,MFCGridCtrl,1342242816
 Control3=IDC_EDIT_4W_FILE_PATH,edit,1350633600
@@ -116,6 +118,8 @@ Control28=IDC_BUTTON_DO_STUDY,button,1342242816
 Control29=IDC_BUTTON_SAVE_FILE,button,1342242816
 Control30=IDC_BUTTON_VIEW_FILE,button,1342242816
 Control31=IDC_BUTTON_GAGE_SAVE_ALL,button,1342251008
+Control32=IDC_STATIC,static,1342308352
+Control33=IDC_EDIT_SAVED_PATH,edit,1350633476
 
 [DLG:IDD_ABOUTBOX]
 Type=1

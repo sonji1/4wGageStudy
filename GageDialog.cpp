@@ -25,6 +25,7 @@ CGageDialog::CGageDialog(CWnd* pParent /*=NULL*/)
 {
 	//{{AFX_DATA_INIT(CGageDialog)
 	m_editMeasDataPath = _T("");
+	m_editSavedPath = _T("");
 	m_edit_nDataCnt = 0;
 	m_edit_nRefInput = 0;
 	m_edit_nTolInput = 1;
@@ -50,21 +51,21 @@ void CGageDialog::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CGageDialog)
-	DDX_Control(pDX, IDC_LIST_MSG, 			m_listMsg);
-	DDX_Control(pDX, IDC_COMBO_MEAS_TYPE, 	m_comboMeasType);
-	DDX_Control(pDX, IDC_GRID, 				m_gridCtrl);
-	DDX_Control(pDX, IDC_GRID_STAT, 		m_gridStat);
-	DDX_Control(pDX, IDC_GRID_BIAS, 		m_gridBias);
-	DDX_Control(pDX, IDC_GRID_CAPABILITY, 	m_gridCapability);
-	DDX_Control(pDX, IDC_GRID_REPT, 		m_gridRept);
-	DDX_Text   (pDX, IDC_EDIT_4W_FILE_PATH, m_editMeasDataPath);
-	DDX_Text   (pDX, IDC_EDIT_MEASDATA_CNT, m_edit_nDataCnt);
-	DDX_Text   (pDX, IDC_EDIT_REF_INPUT, 	m_edit_nRefInput);
-	DDX_Text   (pDX, IDC_EDIT_TOL_INPUT, 	m_edit_nTolInput);
-	DDV_MinMaxInt(pDX, m_edit_nTolInput, 	1, 3);
-	DDX_Text   (pDX, IDC_EDIT_STUDY_CNT, 	m_edit_nStudyCnt);
+	DDX_Control(pDX, IDC_LIST_MSG, 			   m_listMsg);
+	DDX_Control(pDX, IDC_COMBO_MEAS_TYPE, 	   m_comboMeasType);
+	DDX_Control(pDX, IDC_GRID, 				   m_gridCtrl);
+	DDX_Control(pDX, IDC_GRID_STAT, 		   m_gridStat);
+	DDX_Control(pDX, IDC_GRID_BIAS, 		   m_gridBias);
+	DDX_Control(pDX, IDC_GRID_CAPABILITY, 	   m_gridCapability);
+	DDX_Control(pDX, IDC_GRID_REPT, 		   m_gridRept);
+	DDX_Text   (pDX, IDC_EDIT_4W_FILE_PATH,    m_editMeasDataPath);
+	DDX_Text   (pDX, IDC_EDIT_SAVED_PATH,      m_editSavedPath);
+	DDX_Text   (pDX, IDC_EDIT_MEASDATA_CNT,    m_edit_nDataCnt);
+	DDX_Text   (pDX, IDC_EDIT_REF_INPUT, 	   m_edit_nRefInput);
+	DDX_Text   (pDX, IDC_EDIT_TOL_INPUT, 	   m_edit_nTolInput);
+	DDX_Text   (pDX, IDC_EDIT_STUDY_CNT, 	   m_edit_nStudyCnt);
 	DDV_MinMaxInt(pDX, m_edit_nStudyCnt, 0, 90);
-	DDX_Control(pDX, IDC_CHART, 			m_ChartViewer);
+	DDX_Control(pDX, IDC_CHART, 			   m_ChartViewer);
 	//}}AFX_DATA_MAP
 }
 
@@ -77,9 +78,9 @@ BEGIN_MESSAGE_MAP(CGageDialog, CDialog)
 	ON_BN_CLICKED   (IDC_BUTTON_LOAD_MEASDATA, OnButtonLoadMeasdata)
 	ON_EN_CHANGE    (IDC_EDIT_STUDY_CNT,       OnChangeEditStudyCnt)
 	ON_BN_CLICKED   (IDC_BUTTON_DO_STUDY,      OnButtonDoStudy)
-	ON_BN_CLICKED(IDC_BUTTON_SAVE_FILE, OnButtonSaveFile)
-	ON_BN_CLICKED(IDC_BUTTON_VIEW_FILE, OnButtonViewFile)
-	ON_BN_CLICKED(IDC_BUTTON_GAGE_SAVE_ALL, OnButtonGageSaveAll)
+	ON_BN_CLICKED(IDC_BUTTON_SAVE_FILE,        OnButtonSaveFile)
+	ON_BN_CLICKED(IDC_BUTTON_VIEW_FILE,        OnButtonViewFile)
+	ON_BN_CLICKED(IDC_BUTTON_GAGE_SAVE_ALL,    OnButtonGageSaveAll)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -1260,6 +1261,7 @@ void CGageDialog::OnButtonSaveFile()
 	UpdateData(TRUE);
 
 	SaveTypeFile(m_nCombo_CurrType);
+	UpdateData(FALSE);
 }
 	
 
@@ -1271,7 +1273,8 @@ void CGageDialog::SaveTypeFile(int type, BOOL bDelete)
 	GetCurrentDirectory(256, chThisPath);
 	szFileName.Format(_T("%s\\Data\\Type1GageStudy_%s.xlsx"), 
 						chThisPath, g_MeasInfoTable[type].strMeas );
-//	GetModuleFileName(NULL, chThisPath, 256);
+
+	m_editSavedPath.Format("%s\\Data\\", chThisPath);
 
 
 	//-----------------------------------------------------
@@ -1280,11 +1283,10 @@ void CGageDialog::SaveTypeFile(int type, BOOL bDelete)
 	{
 		CFileFind 	finder;
 		BOOL		bRet = finder.FindFile(szFileName);
-		
 		if (bRet == TRUE)	// 파일이 존재한다면
 		{
 			if (DeleteFile(szFileName) == TRUE)
-				MyTrace(PRT_BASIC, """%s"" file deleted for new file save\n", szFileName);
+				MyTrace(PRT_BASIC, "\"%s\" file deleted for saving new file\n", szFileName);
 		}
 	}	
 
@@ -1302,7 +1304,7 @@ void CGageDialog::SaveTypeFile(int type, BOOL bDelete)
 	CString strChartPath;
 	strChartPath.Format("%s\\Data\\ChartView_%s.png", 
 						chThisPath, g_MeasInfoTable[type].strMeas);
-	ret = XL.InsertPictureFromFile(strChartPath, 10, 3);	// Column, Row
+	ret = XL.InsertPictureFromFile(strChartPath, 15, 3);	// Column, Row
 
 	//------------------------------
 	// WorkSheet에  mohm 값 출력
@@ -1421,9 +1423,20 @@ void CGageDialog::OnButtonGageSaveAll()
 		// type에 맞는 GageStudy를 수행
 		DoGageStudy(type);
 
-		// type에 맞는 엑셀 파일을 출력 
+		// type에 맞는 엑셀 파일을 출력  (기존 엑셀 파일이 존재하면 지운다)
 		SaveTypeFile(type, DELETE_YES);
 	}
+	UpdateData(FALSE);
+
+
+	// 수행 종료 표시 및 수행위치 알림을 위한 메시지를 띄운다.
+	CString strTemp;
+	char chThisPath[256];
+	GetCurrentDirectory(256, chThisPath);
+	strTemp.Format("Type1 Gage Study for all mohm Type finished.\nCheck the result files here.\n\n\"%s\\Data\"\n", chThisPath);
+	int ret = AfxMessageBox(strTemp, MB_OKCANCEL|MB_ICONINFORMATION);
+	MyTrace(PRT_BASIC, strTemp);
+						
 
 	// CurrentType을  mohm_1로 초기화하고 작업을 완료
 	ChangeCurrType(mohm_1); 
@@ -1438,11 +1451,37 @@ void CGageDialog::ChangeCurrType(int type)
 	m_comboMeasType.SetCurSel(type);	// 0 = mohm_1
 
 	// type에 맞게 Ref, RefOutput을 변경
-	m_edit_nRefInput = g_MeasInfoTable[m_nCombo_CurrType].nMeasRef;
-	m_nRef = m_edit_nRefInput;	
+	m_nRef = g_MeasInfoTable[type].nMeasRef;
+	m_edit_nRefInput = m_nRef;	
+
+	// type과 Ref에 맞게 Tol을 변경
+	if (type >= mohm_1 && type <= mohm_10)	// 10mohm 이하 Tol은 무조건 1 
+		m_nTol = 1; 						// 오차율은 mohm_1은 10% ~ mohm_10은 1%까지 변동
+	else
+		// 20mohm 이상은 오차율을 1%로 =>  Tol값이 Ref *0.1 이어야 한다. 
+		// Tol은 다시 *0.1해서 사용하므로 오차율 1%가 됨
+		m_nTol =  (int)(m_nRef * 0.1);
+	m_edit_nTolInput = m_nTol;
+
 
 	// 현재 선택된 type column의 배경을 푸른색으로 설정.
 	// 블루로 선택할 data가 있어야 하므로 SetGridBkBlue()는 Display_mohmGridData() 다음에 호출해야 함.
-	SetGridBkBlue(m_nCombo_CurrType);	
+	SetGridBkBlue(type);	
 
+}
+
+
+// 엔터키, ESC키 메시지를 후킹해서 엔터키나 ESC 키가 눌려도 다이얼로그가 종료되지 않도록 한다.
+BOOL CGageDialog::PreTranslateMessage(MSG* pMsg) 
+{
+	if (pMsg->message == WM_KEYDOWN)
+    {
+        if (pMsg->wParam == VK_RETURN || pMsg->wParam == VK_ESCAPE)
+        {
+            return TRUE;
+        }
+    }
+	// TODO: Add your specialized code here and/or call the base class
+	
+	return CDialog::PreTranslateMessage(pMsg);
 }

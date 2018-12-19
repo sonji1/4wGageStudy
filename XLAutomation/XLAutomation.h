@@ -56,15 +56,15 @@ public:
 	CXLAutomation();
 	CXLAutomation::CXLAutomation(BOOL bVisible);
 	virtual ~CXLAutomation();
+	BOOL SetExcelVisible(BOOL bVisible);
 
 protected:
 	void ShowException(LPOLESTR szMember, HRESULT hr, EXCEPINFO *pexcep, unsigned int uiArgErr);
 	void ReleaseDispatch();
-	BOOL SetExcelVisible(BOOL bVisible);
 	void ReleaseVariant(VARIANTARG *pvarg);
 	void ClearAllArgs();
 	void ClearVariant(VARIANTARG *pvarg);
-	 
+
 	int			m_iArgCount;
 	int			m_iNamedArgCount;
 	VARIANTARG	m_aVargs[MAX_DISP_ARGS];
@@ -75,7 +75,7 @@ protected:
 
 
 	BOOL ExlInvoke(IDispatch *pdisp, LPOLESTR szMember, VARIANTARG * pvargReturn,
-			WORD wInvokeAction, WORD wFlags);
+		WORD wInvokeAction, WORD wFlags);
 	IDispatch* m_pdispExcelApp;
 	IDispatch *m_pdispWorkbook;
 	IDispatch *m_pdispWorksheet;

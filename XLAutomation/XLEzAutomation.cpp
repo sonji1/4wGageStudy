@@ -65,7 +65,7 @@ BOOL CXLEzAutomation::ExportCString(CString szDataCollection)
 BOOL CXLEzAutomation::SetCellValue(int nColumn, int nRow, CString szValue)
 {
 	BOOL bResult;
-	
+
 	bResult = m_pXLServer->SetCellsValueToString((double) nColumn, (double)nRow, szValue);
 	return bResult;
 }
@@ -93,7 +93,8 @@ CString CXLEzAutomation::GetCellValue(int nColumn, int nRow)
 //The method resizes the picture to 50% of the original size (see 0.5, 0.5)
 BOOL CXLEzAutomation::InsertPictureFromFile(CString szFileName, int Column, int Row)
 {
-	return m_pXLServer->InsertPictureToWorksheet(szFileName, Column, Row, 0.5, 0.5);
+	//return m_pXLServer->InsertPictureToWorksheet(szFileName, Column, Row, 0.5, 0.5);
+	return m_pXLServer->InsertPictureToWorksheet(szFileName, Column, Row, 0.0, 0.0);
 }
 //Insert picture which was previously placed on clipboard
 //Does not resize picture (see 0.0, 0.0)
@@ -120,3 +121,4 @@ BOOL CXLEzAutomation::InsertPictureFromBuffer(BYTE *pImage, int Column, int Row,
 {
 	return m_pXLServer->InsertPictureToWorksheet(pImage, Column, Row, dXScale, dYScale);
 }
+
