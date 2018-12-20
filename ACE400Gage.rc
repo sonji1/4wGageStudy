@@ -120,7 +120,7 @@ BEGIN
     CONTROL         "",IDC_CHART,"Static",SS_BITMAP,159,125,13,11
     GROUPBOX        "Basic Statistics",IDC_STATIC,160,293,121,89
     CONTROL         "Type1 Gage Study - Observation",IDC_STATIC,"Static",
-                    SS_LEFTNOWORDWRAP | WS_GROUP,139,280,110,12
+                    SS_LEFTNOWORDWRAP | WS_GROUP,148,281,110,12
     GROUPBOX        "Bias",IDC_STATIC,295,293,119,76
     GROUPBOX        "Capability",IDC_STATIC,428,293,123,49
     LTEXT           "Measurement Data ",IDC_STATIC,6,9,110,12
@@ -145,12 +145,12 @@ BEGIN
     EDITTEXT        IDC_EDIT_STUDY_CNT,63,170,60,12,ES_AUTOHSCROLL | 
                     ES_NUMBER
     PUSHBUTTON      "OK",IDC_BUTTON_DO_STUDY,27,246,87,16
-    PUSHBUTTON      "Save to File",IDC_BUTTON_SAVE_FILE,27,284,87,19
-    PUSHBUTTON      "View saved File",IDC_BUTTON_VIEW_FILE,27,308,87,19
+    PUSHBUTTON      "Save to File",IDC_BUTTON_SAVE_FILE,27,281,87,19
+    PUSHBUTTON      "View saved File",IDC_BUTTON_VIEW_FILE,27,305,87,19
     PUSHBUTTON      "GageStudy && Save \nfor ALL mohm Type",
-                    IDC_BUTTON_GAGE_SAVE_ALL,27,333,87,25,BS_MULTILINE
-    LTEXT           "Saved\nLocation :",IDC_STATIC,6,370,32,17
-    EDITTEXT        IDC_EDIT_SAVED_PATH,41,368,105,22,ES_MULTILINE | 
+                    IDC_BUTTON_GAGE_SAVE_ALL,27,330,87,25,BS_MULTILINE
+    LTEXT           "Saved\nLocation :",IDC_STATIC,7,367,32,17
+    EDITTEXT        IDC_EDIT_SAVED_PATH,38,364,105,27,ES_MULTILINE | 
                     ES_READONLY
 END
 

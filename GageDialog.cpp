@@ -26,7 +26,7 @@ CGageDialog::CGageDialog(CWnd* pParent /*=NULL*/)
 	//{{AFX_DATA_INIT(CGageDialog)
 	m_editMeasDataPath = _T("");
 	m_editSavedPath = _T("");
-	m_edit_nDataCnt = 0;
+	m_edit_nMeasCnt = 0;
 	m_edit_nRefInput = 0;
 	m_edit_nTolInput = 1;
 	m_edit_nStudyCnt = 0;
@@ -60,7 +60,7 @@ void CGageDialog::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_GRID_REPT, 		   m_gridRept);
 	DDX_Text   (pDX, IDC_EDIT_4W_FILE_PATH,    m_editMeasDataPath);
 	DDX_Text   (pDX, IDC_EDIT_SAVED_PATH,      m_editSavedPath);
-	DDX_Text   (pDX, IDC_EDIT_MEASDATA_CNT,    m_edit_nDataCnt);
+	DDX_Text   (pDX, IDC_EDIT_MEASDATA_CNT,    m_edit_nMeasCnt);
 	DDX_Text   (pDX, IDC_EDIT_REF_INPUT, 	   m_edit_nRefInput);
 	DDX_Text   (pDX, IDC_EDIT_TOL_INPUT, 	   m_edit_nTolInput);
 	DDX_Text   (pDX, IDC_EDIT_STUDY_CNT, 	   m_edit_nStudyCnt);
@@ -114,11 +114,14 @@ BOOL CGageDialog::InitMember()
 {
 
 	// Meas Data 관련 멤버 변수 초기화
-	m_nTypeCount = 0;
-	m_nMeasCount = 0;
-	m_nStudyCount = 0;	
+	m_nTypeCount = MAX_MEAS_TYPE;
+	m_nMeasCount = MIN_MEAS_COUNT;
+	m_nStudyCount = MIN_MEAS_COUNT;	
 	::ZeroMemory(m_daMeasData, sizeof(m_daMeasData));
 
+	m_edit_nMeasCnt  = m_nMeasCount; 		// UI에 표시될 meas Count
+	m_edit_nStudyCnt = m_nStudyCount; 		// UI에 표시될 Study Count (보통 meas count와 같지만 작게 입력될 수 있다.)
+	m_edit_nTolInput = m_nTol;				// UI에 표시되는 Tolerance
 
 	// Grid 관련 멤버 변수 초기화
 	m_nFixCols = 1;
@@ -157,6 +160,8 @@ BOOL CGageDialog::InitMember()
 	m_dVarReptBias = 0.0;
 
 	m_listMsg.ResetContent();
+
+	UpdateData(FALSE);
 	
 	return TRUE;
 }
@@ -227,6 +232,18 @@ BOOL CGageDialog::InitView()
 	Display_OutputGridFixCol();		// Output Grid Fixed Col (name) 출력
 
 
+	//--------------------------
+	// combo box init
+
+	// ChangeCurrType에서 제대로 초기화하기 전에 임시초기화, Load_4W_MeasData 실패 대비.
+	// LoadData 전이므로 SetGridBlue는 FALSE로 초기화한다.
+	ChangeCurrType(mohm_1, FALSE);		// 0 = mohm_1
+
+	// mohm_75000 까지만 combo에 입력한다.
+	for (int type = 0; type < (MAX_MEAS_TYPE -1); type++)
+		m_comboMeasType.InsertString( -1, g_MeasInfoTable[type].strMeas);
+
+	
 	//-------------------------
 	// 4W Meas File data 로드
 	
@@ -236,8 +253,8 @@ BOOL CGageDialog::InitView()
 	// 4W_Setup_A.txt 파일을 로드한다.  : 4W Meas data
 	CString dataFilePath, dataFileName;
 	dataFilePath = SysInfoView01.m_pStrFilePathBDL;	// ex) "C:\ACE400\QC-JIG-S100-BHFlex\4W\"
-	dataFileName = "\\4W_Setup_A-H-10.txt";	
-	//dataFileName = "\\4W_Setup_A.txt";	
+	//dataFileName = "\\4W_Setup_A-H-10.txt";	
+	dataFileName = "\\4W_Setup_A.txt";	
 	dataFilePath += dataFileName;
 
 	if (Load_4W_MeasData(dataFilePath) < 0)
@@ -251,12 +268,6 @@ BOOL CGageDialog::InitView()
 	//  : 블루로 선택할 data가 있어야 하므로 ChangeCurrType(type)은  Display_mohmGridData() 다음에 호출해야 함.
 	Display_mohmGridData();			
 
-	//--------------------------
-	// combo box init
-
-	// mohm_75000 까지만 combo에 입력한다.
-	for (int type = 0; type < (MAX_MEAS_TYPE -1); type++)
-		m_comboMeasType.InsertString( -1, g_MeasInfoTable[type].strMeas);
 
 	// 현재 combo에서 선택된 type#
 	ChangeCurrType(mohm_1); 			// 0 = mohm_1
@@ -473,14 +484,17 @@ int CGageDialog::Load_4W_MeasData(CString dataFilePath)
 
 
 	if(!FileExists(fName)) 
-	{ 	ERR.Set(FLAG_FILE_NOT_FOUND, fName); 
-		ErrMsg();  ERR.Reset(); return -1; }
+	{ 	
+		ERR.Set(FLAG_FILE_NOT_FOUND, fName); 
+		ErrMsg();  ERR.Reset(); return -1; 
+	}
 
 	fp=fopen(fName,"rt");
 	if(fp==NULL) 
-	{ 	ERR.Set(FLAG_FILE_CANNOT_OPEN, fName); 
-		ErrMsg();  ERR.Reset(); return -1; }
-
+	{ 	
+		ERR.Set(FLAG_FILE_CANNOT_OPEN, fName); 
+		ErrMsg();  ERR.Reset(); return -1; 
+	}
 
 
 	//-------------------------
@@ -490,35 +504,6 @@ int CGageDialog::Load_4W_MeasData(CString dataFilePath)
 	int nTypeCount;
 	CString strTemp;
 	fscanf(fp, "%d, %d,  \n", &nMeasCount, &nTypeCount);		 
-	if (nTypeCount > MAX_MEAS_TYPE)
-	{
-		strTemp.Format("Can't load this file!\n: %s\n\n nTypeCount=%d Range(<%d) Out Error!\n", 
-					fName, nTypeCount, MAX_MEAS_TYPE);
-		ERR.Set(RANGE_OVER, strTemp); 
-		ErrMsg();  ERR.Reset(); 
-		return -1;
-	}
-
-	// Meas Count가 10개 이하이면 Gage Study를 중단하고 에러를 출력한다. 
-	if (nMeasCount < MIN_MEAS_COUNT)		// MIN_MEAS_COUNT: 10
-	{
-		strTemp.Format("Can't load this file!\n: %s\n nMeasCount=%d.\n\nAt least %d measurement data are required, and the recommended number is 50 or more.", 
-				fName, nMeasCount, MIN_MEAS_COUNT);
-		ERR.Set(RANGE_OVER, strTemp); 
-		ErrMsg();  ERR.Reset(); 
-		return -1;
-	}
-
-
-	// MeasCount가 90 이상이면 range over이지만, 리턴하지 않고 max값인 90으로 값을 변경해서 계속 진행한다.
-	if (nMeasCount > MAX_MEAS_COUNT)
-	{
-		strTemp.Format("Load_4W_MeasData(): %s nMeasCount=%d Range(<%d) Over!\n\n We are changing the nMeasCount value to the maximum number of 90.", 
-					fName, nMeasCount, MAX_MEAS_COUNT);
-		int ret = AfxMessageBox(strTemp, MB_OKCANCEL|MB_ICONINFORMATION);
-		MyTrace(PRT_BASIC, strTemp);
-		nMeasCount = MAX_MEAS_COUNT;		
-	}
 
 
 	char str[MAX_LINE_STR];
@@ -537,6 +522,39 @@ int CGageDialog::Load_4W_MeasData(CString dataFilePath)
 		return -1;	 
 	}
 
+	// TypeCount가 25 이상이면 range over이지만, 리턴하지 않고 max값인 25으로 값을 변경해서 계속 진행한다.
+	if (nTypeCount > MAX_MEAS_TYPE)
+	{
+		strTemp.Format("Can't load this file!\n: %s\n\n nTypeCount=%d Range(<%d) Out Error!\n", 
+					fName, nTypeCount, MAX_MEAS_TYPE);
+		ERR.Set(RANGE_OVER, strTemp); 
+		ErrMsg();  ERR.Reset(); 
+		nTypeCount = MAX_MEAS_TYPE;
+
+		//return -1;		// 2018.12.20 Gage Study는 중단하지 않고 진행하기로 한다.
+	}
+
+	// Meas Count가 10개 이하이면 에러를 출력한다.  Gage Study는 계속 진행한다.
+	if (nMeasCount < MIN_MEAS_COUNT)		// MIN_MEAS_COUNT: 10
+	{
+		strTemp.Format("Can't load this file!\n: %s\n nMeasCount=%d.\n\nAt least %d measurement data are required, and the recommended number is 50 or more.", 
+				fName, nMeasCount, MIN_MEAS_COUNT);
+		ERR.Set(RANGE_OVER, strTemp); 
+		ErrMsg();  ERR.Reset(); 
+		//return -1;		// 2018.12.20 Gage Study는 중단하지 않고 진행하기로 한다.
+	}
+
+
+	// MeasCount가 90 이상이면 range over이지만, 리턴하지 않고 max값인 90으로 값을 변경해서 계속 진행한다.
+	if (nMeasCount > MAX_MEAS_COUNT)
+	{
+		strTemp.Format("Load_4W_MeasData(): %s nMeasCount=%d Range(<%d) Over!\n\n We are changing the nMeasCount value to the maximum number of 90.", 
+					fName, nMeasCount, MAX_MEAS_COUNT);
+		int ret = AfxMessageBox(strTemp, MB_OKCANCEL|MB_ICONINFORMATION);
+		MyTrace(PRT_BASIC, strTemp);
+		nMeasCount = MAX_MEAS_COUNT;		
+	}
+
 
 	//-----------------------------------------
 	// Meas Data 관련 멤버 변수 default 초기화
@@ -544,21 +562,19 @@ int CGageDialog::Load_4W_MeasData(CString dataFilePath)
 
 	// 에러로 리턴되는 경우에는 기존값을 보호해야 하므로
 	// 에러체크돼서 리턴되는 경우를 모두 통과해야만 member 변수들을 업데이트할 수 있다.
+	::ZeroMemory(m_daMeasData, sizeof(m_daMeasData));
 	m_nMeasCount  = nMeasCount;
 	m_nStudyCount = nMeasCount;
 	m_nTypeCount  = nTypeCount;
-	::ZeroMemory(m_daMeasData, sizeof(m_daMeasData));
+	m_nTol = 1;
 
+	m_edit_nMeasCnt  = m_nMeasCount; 		// UI의 Meas Count
+	m_edit_nStudyCnt = m_nStudyCount; 		// UI의 Study Count (보통 meas count와 같지만 작게 입력될 수 있다.)
+	m_edit_nTolInput = m_nTol;				// UI의 Tol 
+ 	m_editMeasDataPath = fName;				// UI의 file path
+	m_editSavedPath   = _T("");				// UI의 saved file path 초기화
 
- 	m_editMeasDataPath = fName;				// UI에 표시될 file path
-	m_edit_nDataCnt  = m_nMeasCount; 		// UI에 표시될 meas Count
-	m_edit_nStudyCnt = m_nMeasCount; 		// UI에 표시될 Study Count (보통 meas count와 같지만 작게 입력될 수 있다.)
-
-
-	m_edit_nTolInput = 1;
-	m_nTol = m_edit_nTolInput;
-
-	UpdateData(FALSE); // 대화상자의 Edit컨트롤에 m_editMeasDataPath, m_edit_nDataCnt 를 출력.
+	UpdateData(FALSE); // 대화상자의 Edit컨트롤에 m_editMeasDataPath, m_edit_nMeasCnt 를 출력.
 
 
 	//-----------------------------------------------------
@@ -1274,16 +1290,16 @@ void CGageDialog::SaveTypeFile(int type, BOOL bDelete)
 	szFileName.Format(_T("%s\\Data\\Type1GageStudy_%s.xlsx"), 
 						chThisPath, g_MeasInfoTable[type].strMeas );
 
-	m_editSavedPath.Format("%s\\Data\\", chThisPath);
+	// File 위치를 UI에 표시해 준다.
+	//m_editSavedPath.Format("%s\\Data\\", chThisPath);	
+	m_editSavedPath = szFileName; 		// 1 개 file 저장시에는 파일이름까지 다 표시
 
 
 	//-----------------------------------------------------
 	// 기존 파일을 지우는 옵션이 켜져 있으면 파일을 지운다.
 	if (bDelete == DELETE_YES)
 	{
-		CFileFind 	finder;
-		BOOL		bRet = finder.FindFile(szFileName);
-		if (bRet == TRUE)	// 파일이 존재한다면
+		if (FileExists(szFileName))	// 파일이 존재한다면
 		{
 			if (DeleteFile(szFileName) == TRUE)
 				MyTrace(PRT_BASIC, "\"%s\" file deleted for saving new file\n", szFileName);
@@ -1320,6 +1336,7 @@ void CGageDialog::SaveTypeFile(int type, BOOL bDelete)
 
 	//----------------------------------------------
 	// WorkSheet에  Output Fixed Column 제목 출력
+	ret = XL.SetCellValue(3, 18,  "Type1 Gage Study - Observation");
 	ret = XL.SetCellValue(3, 20,  "Reference");
 	ret = XL.SetCellValue(3, 21,  "Mean");
 	ret = XL.SetCellValue(3, 22,  "StDev");
@@ -1405,6 +1422,12 @@ void CGageDialog::OnButtonViewFile()
 	szFileName.Format(_T("%s\\Data\\Type1GageStudy_%s.xlsx"), 
 						chThisPath, g_MeasInfoTable[m_nCombo_CurrType].strMeas );
 
+	if(!FileExists(szFileName)) // 파일이 존재하지 않으면 에러 출력
+	{ 	
+		ERR.Set(FLAG_FILE_NOT_FOUND, szFileName); 
+		ErrMsg();  ERR.Reset(); return; 
+	}
+
 	::ShellExecute(NULL, "open", "EXCEl.EXE", szFileName, "NULL", SW_SHOWNORMAL);	
 }
 
@@ -1426,14 +1449,18 @@ void CGageDialog::OnButtonGageSaveAll()
 		// type에 맞는 엑셀 파일을 출력  (기존 엑셀 파일이 존재하면 지운다)
 		SaveTypeFile(type, DELETE_YES);
 	}
+
+	// File 위치를 UI에 표시해 준다.  여러개 file 저장시에는 폴더까지만 표시 (file 이름은 뺀다)
+	char chThisPath[256];
+	GetCurrentDirectory(256, chThisPath);
+	m_editSavedPath.Format("%s\\Data\\", chThisPath);	
+
 	UpdateData(FALSE);
 
 
 	// 수행 종료 표시 및 수행위치 알림을 위한 메시지를 띄운다.
 	CString strTemp;
-	char chThisPath[256];
-	GetCurrentDirectory(256, chThisPath);
-	strTemp.Format("Type1 Gage Study for all mohm Type finished.\nCheck the result files here.\n\n\"%s\\Data\"\n", chThisPath);
+	strTemp.Format("Type1 Gage Study for all mohm Type finished.\nCheck the result files here.\n\n\"%s\"\n", m_editSavedPath);
 	int ret = AfxMessageBox(strTemp, MB_OKCANCEL|MB_ICONINFORMATION);
 	MyTrace(PRT_BASIC, strTemp);
 						
@@ -1444,7 +1471,7 @@ void CGageDialog::OnButtonGageSaveAll()
 	
 }
 
-void CGageDialog::ChangeCurrType(int type) 
+void CGageDialog::ChangeCurrType(int type, BOOL	bSetGridBlue) 
 {
 	// type 변경
 	m_nCombo_CurrType = type;			// 0
@@ -1466,7 +1493,8 @@ void CGageDialog::ChangeCurrType(int type)
 
 	// 현재 선택된 type column의 배경을 푸른색으로 설정.
 	// 블루로 선택할 data가 있어야 하므로 SetGridBkBlue()는 Display_mohmGridData() 다음에 호출해야 함.
-	SetGridBkBlue(type);	
+	if (bSetGridBlue == TRUE)
+		SetGridBkBlue(type);	
 
 }
 

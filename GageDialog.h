@@ -144,7 +144,7 @@ public:
 	CGridCtrl		m_gridRept;				// for Grid  (Output Capa data)
 	CString			m_editMeasDataPath;		// for 4w Data file path
 	CString			m_editSavedPath;
-	int				m_edit_nDataCnt;
+	int				m_edit_nMeasCnt;
 	int				m_edit_nRefInput;		// Input
 	int				m_edit_nTolInput;		// Input
 	int				m_edit_nStudyCnt;		// Input
@@ -250,7 +250,7 @@ public:
 	void 	CalcGageStudyOutput(int type); 
 	void 	DisplayGageStudyOutput(int type); 
 	void 	SaveTypeFile(int type, BOOL bDelete = DELETE_NO);
-	void	ChangeCurrType(int type); 
+	void	ChangeCurrType(int type, BOOL bSetGridBlue = TRUE); 
 };
 
 //{{AFX_INSERT_LOCATION}}
