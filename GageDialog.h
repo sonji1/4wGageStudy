@@ -138,10 +138,10 @@ public:
 	CListBox		m_listMsg;
 	CComboBox		m_comboMeasType;		// for mohm type combo box, Input
 	CGridCtrl		m_gridCtrl;				// for Grid  (Input data list per type)
-	CGridCtrl		m_gridStat;				// for Grid  (Output Stat data )
-	CGridCtrl		m_gridBias;				// for Grid  (Output Bias data)
-	CGridCtrl		m_gridCapability;		// for Grid  (Output Capa data)
-	CGridCtrl		m_gridRept;				// for Grid  (Output Capa data)
+	CGridCtrl		m_gridGageStat;			// for Grid  (Output Gage Stat data )
+	CGridCtrl		m_gridBias;				// for Grid  (Output Gage Bias data)
+	CGridCtrl		m_gridCapability;		// for Grid  (Output Gage Capability data)
+	CGridCtrl		m_gridRept;				// for Grid  (Output Gage Repeatability data)
 	CString			m_editMeasDataPath;		// for 4w Data file path
 	CString			m_editSavedPath;
 	int				m_edit_nMeasCnt;

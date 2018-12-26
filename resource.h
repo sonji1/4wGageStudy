@@ -12,6 +12,7 @@
 #define IDC_BUTTON_GAGE                 1000
 #define IDC_BUTTON_CONFIG               1001
 #define IDC_GRID                        1002
+#define IDC_GRID_GAGE                   1002
 #define IDC_EDIT_SELECT                 1005
 #define IDC_EDIT_4W_FILE_PATH           1005
 #define IDC_EDIT_SAVED_PATH             1007
@@ -26,8 +27,8 @@
 #define IDC_EDIT_STUDY_CNT              1012
 #define IDC_CHECK_GAGE                  1020
 #define IDC_CHECK_CONFIG                1021
-#define IDC_CHART                       1025
-#define IDC_GRID_STAT                   1026
+#define IDC_CHART_GAGE                  1025
+#define IDC_GRID_GAGE_STAT              1026
 #define IDC_GRID_BIAS                   1027
 #define IDC_GRID_CAPABILITY             1028
 #define IDC_LIST_MSG                    1029
@@ -37,7 +38,6 @@
 #define IDC_BUTTON_SAVE_FILE            1033
 #define IDC_BUTTON_VIEW_FILE            1034
 #define IDC_BUTTON_GAGE_SAVE_ALL        1035
-#define IDC_STATIC_SAVED_PATH           1037
 #define IDC_CHECK_PRT_BASIC             1085
 #define IDC_CHECK_PRT_LEVEL1            1086
 #define IDC_CHECK_PRT_Level2            1087

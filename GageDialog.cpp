@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+//#include "ACE400Statistics.h"
 #include "ACE400Gage.h"
 #include "GageDialog.h"
 #include "chartdir.h"
@@ -53,8 +54,8 @@ void CGageDialog::DoDataExchange(CDataExchange* pDX)
 	//{{AFX_DATA_MAP(CGageDialog)
 	DDX_Control(pDX, IDC_LIST_MSG, 			   m_listMsg);
 	DDX_Control(pDX, IDC_COMBO_MEAS_TYPE, 	   m_comboMeasType);
-	DDX_Control(pDX, IDC_GRID, 				   m_gridCtrl);
-	DDX_Control(pDX, IDC_GRID_STAT, 		   m_gridStat);
+	DDX_Control(pDX, IDC_GRID_GAGE, 		   m_gridCtrl);
+	DDX_Control(pDX, IDC_GRID_GAGE_STAT, 	   m_gridGageStat);
 	DDX_Control(pDX, IDC_GRID_BIAS, 		   m_gridBias);
 	DDX_Control(pDX, IDC_GRID_CAPABILITY, 	   m_gridCapability);
 	DDX_Control(pDX, IDC_GRID_REPT, 		   m_gridRept);
@@ -65,7 +66,7 @@ void CGageDialog::DoDataExchange(CDataExchange* pDX)
 	DDX_Text   (pDX, IDC_EDIT_TOL_INPUT, 	   m_edit_nTolInput);
 	DDX_Text   (pDX, IDC_EDIT_STUDY_CNT, 	   m_edit_nStudyCnt);
 	DDV_MinMaxInt(pDX, m_edit_nStudyCnt, 0, 90);
-	DDX_Control(pDX, IDC_CHART, 			   m_ChartViewer);
+	DDX_Control(pDX, IDC_CHART_GAGE, 		   m_ChartViewer);
 	//}}AFX_DATA_MAP
 }
 
@@ -103,7 +104,7 @@ BOOL CGageDialog::OnInitDialog()
 
 	
 
-	MyTrace(PRT_BASIC, "\"4W GageStudy SW\" Started...\n" );
+	MyTrace(PRT_BASIC, "\"4W GageStudy Dialog\" Started...\n" );
 	
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
@@ -182,8 +183,8 @@ BOOL CGageDialog::InitView()
 	//m_gridCtrl.EnableDragAndDrop(TRUE);
 	m_gridCtrl.SetTextBkColor(RGB(0xFF, 0xFF, 0xE0));		// 연노랑색 back ground
 
-	m_gridStat.SetEditable(m_bEditable);
-	m_gridStat.SetTextBkColor(RGB(0xFF, 0xFF, 0xE0));		// 연노랑색 back ground
+	m_gridGageStat.SetEditable(m_bEditable);
+	m_gridGageStat.SetTextBkColor(RGB(0xFF, 0xFF, 0xE0));		// 연노랑색 back ground
 
 	m_gridBias.SetEditable(m_bEditable);
 	m_gridBias.SetTextBkColor(RGB(0xFF, 0xFF, 0xE0));		// 연노랑색 back ground
@@ -197,10 +198,10 @@ BOOL CGageDialog::InitView()
 		m_gridCtrl.SetFixedRowCount(m_nFixRows);
 		m_gridCtrl.SetFixedColumnCount(m_nFixCols);
 
-		m_gridStat.SetRowCount(MAX_STAT_ENUM);
-		m_gridStat.SetColumnCount(m_nCols_Out);
-		m_gridStat.SetFixedRowCount(m_nFixRows_Out);
-		m_gridStat.SetFixedColumnCount(m_nFixCols_Out);
+		m_gridGageStat.SetRowCount(MAX_STAT_ENUM);
+		m_gridGageStat.SetColumnCount(m_nCols_Out);
+		m_gridGageStat.SetFixedRowCount(m_nFixRows_Out);
+		m_gridGageStat.SetFixedColumnCount(m_nFixCols_Out);
 
 		m_gridBias.SetRowCount(MAX_BIAS_ENUM);
 		m_gridBias.SetColumnCount(m_nCols_Out);
@@ -337,16 +338,16 @@ void CGageDialog::Display_OutputGridFixCol()
 
 	int row;
 
-	m_gridStat.SetColumnWidth(0, 100);
-	m_gridStat.SetColumnWidth(1, 80);
+	m_gridGageStat.SetColumnWidth(0, 100);
+	m_gridGageStat.SetColumnWidth(1, 80);
 	for (row = 0; row < MAX_STAT_ENUM; row++)
-		m_gridStat.SetRowHeight(row, 25);
+		m_gridGageStat.SetRowHeight(row, 25);
 
-    m_gridStat.SetItemText(STAT_REF, 		0, "Reference");
-    m_gridStat.SetItemText(STAT_MEAN, 		0, "Mean");
-    m_gridStat.SetItemText(STAT_STDEV, 		0, "StDev");
-    m_gridStat.SetItemText(STAT_6xSTDEV, 	0, "6 x StDev (SV)");
-    m_gridStat.SetItemText(STAT_TOL, 		0, "Tolerance (TOL)");
+    m_gridGageStat.SetItemText(STAT_REF, 		0, "Reference");
+    m_gridGageStat.SetItemText(STAT_MEAN, 		0, "Mean");
+    m_gridGageStat.SetItemText(STAT_STDEV, 		0, "StDev");
+    m_gridGageStat.SetItemText(STAT_6xSTDEV, 	0, "6 x StDev (SV)");
+    m_gridGageStat.SetItemText(STAT_TOL, 		0, "Tolerance (TOL)");
 
 	m_gridBias.SetColumnWidth(0, 100);
 	m_gridBias.SetColumnWidth(1, 80);
@@ -801,12 +802,12 @@ void CGageDialog::ClearGrid_Output()
 	int row;
 
 	// fill rows/cols with text :  두번째 컬럼만 초기화.
-	for (row = 0; row < m_gridStat.GetRowCount(); row++)		// 헤더는 제외하고 클리어한다.
+	for (row = 0; row < m_gridGageStat.GetRowCount(); row++)		// 헤더는 제외하고 클리어한다.
 	{
-		m_gridStat.SetItemText(row, 1, "                 ");
+		m_gridGageStat.SetItemText(row, 1, "                 ");
 
 		// 혹시 배경을 fault처리한 cell이 있다면 다음번 display를 위해 원상복구 한다.
-		m_gridStat.SetItemBkColour(row, 1, RGB(0xFF, 0xFF, 0xE0));	// 연노랑색 
+		m_gridGageStat.SetItemBkColour(row, 1, RGB(0xFF, 0xFF, 0xE0));	// 연노랑색 
 	}
 
 	for (row = 0; row < m_gridBias.GetRowCount(); row++)		
@@ -1131,19 +1132,19 @@ void CGageDialog::DisplayGageStudyOutput(int type)
 
 	// Stat Grid
 	strTemp.Format("%d", m_nRef);
-	m_gridStat.SetItemText(STAT_REF, 		1, strTemp);
+	m_gridGageStat.SetItemText(STAT_REF, 		1, strTemp);
 
 	strTemp.Format("%.2f", m_dAvg); 			
-	m_gridStat.SetItemText(STAT_MEAN, 		1, strTemp);
+	m_gridGageStat.SetItemText(STAT_MEAN, 		1, strTemp);
 
 	strTemp.Format("%.3f", m_dStDev);
-	m_gridStat.SetItemText(STAT_STDEV, 		1, strTemp);
+	m_gridGageStat.SetItemText(STAT_STDEV, 		1, strTemp);
 
 	strTemp.Format("%.3f", m_d6StDev); 
-	m_gridStat.SetItemText(STAT_6xSTDEV, 	1, strTemp);
+	m_gridGageStat.SetItemText(STAT_6xSTDEV, 	1, strTemp);
 
 	strTemp.Format("%d", m_nTol);
-	m_gridStat.SetItemText(STAT_TOL, 		1, strTemp);
+	m_gridGageStat.SetItemText(STAT_TOL, 		1, strTemp);
 
 
 	// Bias Grid
