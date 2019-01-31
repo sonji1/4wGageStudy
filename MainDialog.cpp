@@ -127,6 +127,12 @@ BOOL CMainDialog::OnInitDialog()
 	((CButton*)GetDlgItem(IDC_CHECK_GAGE))->SetCheck(1);	// 해당 check 버튼을 눌린 상태로 유지
 	((CButton*)GetDlgItem(IDC_CHECK_CONFIG))->SetCheck(0);
 
+
+	CRect m_rectCurHist;
+	this->GetWindowRect(m_rectCurHist);
+	MyTrace(PRT_BASIC, "4W GageStudy SW Main Dialog:   top=%d, bottom=%d, left=%d, right=%d\n\n", 
+							m_rectCurHist.top, m_rectCurHist.bottom,
+							m_rectCurHist.left, m_rectCurHist.right);
 	
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }

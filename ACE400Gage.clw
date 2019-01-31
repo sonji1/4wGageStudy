@@ -17,9 +17,9 @@ Class5=CAboutDlg
 Class6=CMainDialog
 
 ResourceCount=4
-Resource1=IDD_GAGE_DIALOG
+Resource1=IDD_MAIN_DIALOG
 Resource2=IDD_ABOUTBOX
-Resource3=IDD_MAIN_DIALOG
+Resource3=IDD_GAGE_DIALOG
 Resource4=IDD_CONFIG_DIALOG
 
 [CLS:CACE400GageApp]
