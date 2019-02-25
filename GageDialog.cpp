@@ -710,6 +710,11 @@ int CGageDialog::getMeasData(char *pStr, int strMax, double &rdMeasData)
 BOOL CGageDialog::DestroyWindow() 
 {
 	// TODO: Add your specialized code here and/or call the base class
+	m_gridCtrl.DeleteAllItems();
+	m_gridGageStat.DeleteAllItems();
+	m_gridBias.DeleteAllItems();
+	m_gridCapability.DeleteAllItems();
+	m_gridRept.DeleteAllItems();	
 	
 	return CDialog::DestroyWindow();
 }
